@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/AGuei/BDD/issues"
   },
-  "homepage": "https://github.com/AGuei/BDD#readme"
+  "homepage": "https://github.com/AGuei/BDD#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-livereload": "^3.8.1"
+  }
 }
