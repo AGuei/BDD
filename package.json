@@ -9,7 +9,8 @@
         "node": true,
         "jasmine": true,
         "shared-node-browser": true,
-        "commonjs": true
+        "commonjs": true,
+        "amd": true
     }
   },
   "scripts": {
