@@ -1,6 +1,7 @@
-/* eslint-env jasmine */
+/* eslint-env jasmine, browser, webextensions */
+/* global getQuestionsNumbers */
 
-var getQuestionsNumbers = require('../getQuestionsNumber.js');
+// var getQuestionsNumbers = require('../getQuestionsNumbers.js');
 
 describe('find questions numbers', () => {
   it('should find all questions numbers', () => {
