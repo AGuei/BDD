@@ -1,6 +1,5 @@
 /* eslint-env jasmine, browser, webextensions, amd */
 /* eslint-disable no-unused-vars */
-
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
     // Node/CommonJS
@@ -10,16 +9,16 @@
     define(factory);
   } else {
     // Browser globals
-    root.getQuestionsNumbers = factory();
+    root.stringToRegexp = factory();
   }
 }(this, function factory () {
-  function getQuestionsNumbers (questions, regExpPatternString) {
+  function stringToRegexp (regexpString) {
     let regexpPattern = /(.+)\/(?:[gum]+)/;
-    let patternString = regexpPattern.exec(regExpPatternString)[1];
+    let patternString = regexpPattern.exec(regexpString)[1];
     let regexpModePattern = /.+\/([gum]+)/;
-    let patternModeString = regexpModePattern.exec(regExpPatternString)[1];
-    let questionsNumbersRegexp = new RegExp(patternString, patternModeString);
-    return questions.match(questionsNumbersRegexp);
+    let patternModeString = regexpModePattern.exec(regexpString)[1];
+    let pattern = new RegExp(patternString, patternModeString);
+    return pattern;
   }
-  return getQuestionsNumbers;
+  return stringToRegexp;
 }));

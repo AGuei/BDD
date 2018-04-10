@@ -18,13 +18,13 @@
     factory(root.getQuestionsNumbers);
   }
 }(this, function factory (getQuestionsNumbers) {
-  describe('find questions numbers', () => {
+  describe('Accept pattern from user\'s choice for finding questions numbers', () => {
     it('should find all questions numbers', () => {
       let questions = '1. xxxxxx\n2. aaaasadf\n3. 444asdjfj';
-      // let questionsRegex = /^\d{1,3}\.[\s\S]+?/gum;
+      let questionsRegexpString = '^\\d{1,3}\\.[\\s\\S]+?/gmu';
 
-      expect(getQuestionsNumbers(questions).length).toEqual(3);
-      expect(getQuestionsNumbers(questions)).toEqual(['1. ', '2. ', '3. ']);
+      expect(getQuestionsNumbers(questions, questionsRegexpString).length).toEqual(3);
+      expect(getQuestionsNumbers(questions, questionsRegexpString)).toEqual(['1. ', '2. ', '3. ']);
     });
   });
 }));
