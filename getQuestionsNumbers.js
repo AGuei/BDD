@@ -15,10 +15,10 @@
     root.getQuestionsNumbers = factory(root.stringToRegexp);
   }
 }(this, function factory (stringToRegexp) {
-  function getQuestionsNumbers (questions, regExpPatternString) {
+  function returnExports (questions, regExpPatternString) {
     let pattern = stringToRegexp(regExpPatternString);
     let questionsNumbersRegexp = new RegExp(pattern);
     return questions.match(questionsNumbersRegexp);
   }
-  return getQuestionsNumbers;
+  return returnExports;
 }));

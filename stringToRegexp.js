@@ -12,7 +12,7 @@
     root.stringToRegexp = factory();
   }
 }(this, function factory () {
-  function stringToRegexp (regexpString) {
+  function returnExports (regexpString) {
     let regexpPattern = /(.+)\/(?:[gum]+)/;
     let patternString = regexpPattern.exec(regexpString)[1];
     let regexpModePattern = /.+\/([gum]+)/;
@@ -20,5 +20,5 @@
     let pattern = new RegExp(patternString, patternModeString);
     return pattern;
   }
-  return stringToRegexp;
+  return returnExports;
 }));
