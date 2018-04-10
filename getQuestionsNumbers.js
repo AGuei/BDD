@@ -4,21 +4,20 @@
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) {
     // Node/CommonJS
-    module.exports = factory();
+    module.exports = factory(require('./stringToRegexp.js'));
   } else if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(factory);
+    define([
+      './stringToRegexp.js'
+    ], factory);
   } else {
     // Browser globals
-    root.getQuestionsNumbers = factory();
+    root.getQuestionsNumbers = factory(root.stringToRegexp);
   }
-}(this, function factory () {
+}(this, function factory (stringToRegexp) {
   function getQuestionsNumbers (questions, regExpPatternString) {
-    let regexpPattern = /(.+)\/(?:[gum]+)/;
-    let patternString = regexpPattern.exec(regExpPatternString)[1];
-    let regexpModePattern = /.+\/([gum]+)/;
-    let patternModeString = regexpModePattern.exec(regExpPatternString)[1];
-    let questionsNumbersRegexp = new RegExp(patternString, patternModeString);
+    let pattern = stringToRegexp(regExpPatternString);
+    let questionsNumbersRegexp = new RegExp(pattern);
     return questions.match(questionsNumbersRegexp);
   }
   return getQuestionsNumbers;
