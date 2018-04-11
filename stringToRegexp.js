@@ -13,11 +13,9 @@
   }
 }(this, function factory () {
   function stringToRegexp (regexpString) {
-    let regexpPattern = /(.+)\/(?:[gum]+)/;
-    let patternString = regexpPattern.exec(regexpString)[1];
-    let regexpModePattern = /.+\/([gum]+)/;
-    let patternModeString = regexpModePattern.exec(regexpString)[1];
-    let pattern = new RegExp(patternString, patternModeString);
+    let patternString = regexpString.replace(/(.+)\/(?:[gum]+)/, '$1');
+    let regexpFlags = regexpString.replace(/.+\/([gium]*)$/, '$1');
+    let pattern = new RegExp(patternString, regexpFlags);
     return pattern;
   }
   return stringToRegexp;
