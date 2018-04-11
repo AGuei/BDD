@@ -15,9 +15,9 @@
     root.getQuestionsNumbers = factory(root.stringToRegexp);
   }
 }(this, function factory (stringToRegexp) {
-  function returnExports (questions, regExpPatternString) {    
+  function getQuestionsNumbers (questions, regExpPatternString) {
     let questionsNumbersRegexp = new RegExp(stringToRegexp(regExpPatternString));
     return questions.match(questionsNumbersRegexp);
   }
-  return returnExports;
+  return getQuestionsNumbers;
 }));
