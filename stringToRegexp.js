@@ -13,10 +13,13 @@
   }
 }(this, function factory () {
   function stringToRegexp (regexpString) {
-    let patternString = regexpString.replace(/(.+)\/(?:[gum]+)/, '$1');
+    let patternString = regexpString.replace(/(.+)\/(?:[gium]*)/, '$1');
     let regexpFlags = regexpString.replace(/.+\/([gium]*)$/, '$1');
-    let pattern = new RegExp(patternString, regexpFlags);
-    return pattern;
+    if (!regexpFlags.match(/[gimu]+/)) {
+      return new RegExp(patternString);
+    } else {
+      return new RegExp(patternString, regexpFlags);
+    }
   }
   return stringToRegexp;
 }));

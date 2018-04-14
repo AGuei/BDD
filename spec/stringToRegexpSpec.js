@@ -19,9 +19,12 @@
   describe('Transform string to an Regexp object', () => {
     it('should tranform string to Regexp', () => {
       let string = '^\\d{1,3}\\.[\\s\\S]+?/gmu';
+      let string2 = '123';
       let regExp = /^\d{1,3}\.[\s\S]+?/gmu;
+      let regExp2 = /123/;
 
       expect(stringToRegexp(string).source).toEqual(regExp.source);
+      expect(stringToRegexp(string2).source).toEqual(regExp2.source);
     });
   });
 }));
