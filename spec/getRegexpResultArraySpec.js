@@ -19,13 +19,13 @@
   let questions = '1. xxxxxx\n2. aaaasadf\n3. 444asdjfj';
   describe('Accept pattern from user\'s choice for finding questions numbers', () => {
     it('should find all questions numbers if regexp do not include capture group', () => {
-      let getQuestionsNumbersRegexpString = '^\\d{1,3}\\.[\\s\\S]+?/gmu';
-      let result = getRegexpResultArray(questions, getQuestionsNumbersRegexpString);
+      let getQuestionsNumbersPattern = '^\\d{1,3}\\.[\\s\\S]+?/gmu';
+      let result = getRegexpResultArray(questions, getQuestionsNumbersPattern);
       expect(result).toEqual(['1. ', '2. ', '3. ']);
     });
     it('should find all questions numbers if regexp includes capture group', () => {
-      let getQuestionsNumbersRegexpString = '^(\\d{1,3}\\.)[\\s\\S]+?/gmu';
-      let result = getRegexpResultArray(questions, getQuestionsNumbersRegexpString);
+      let getQuestionsNumbersPattern = '^(\\d{1,3}\\.)[\\s\\S]+?/gmu';
+      let result = getRegexpResultArray(questions, getQuestionsNumbersPattern);
       expect(result).toEqual(['1.', '2.', '3.']);
     });
   });
