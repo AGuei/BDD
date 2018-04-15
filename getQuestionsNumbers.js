@@ -16,8 +16,19 @@
   }
 }(this, function factory (stringToRegexp) {
   function getQuestionsNumbers (questions, regExpPatternString) {
-    let questionsNumbersRegexp = new RegExp(stringToRegexp(regExpPatternString));
-    return questions.match(questionsNumbersRegexp);
+    let questionsNumbersRegexp = stringToRegexp(regExpPatternString);
+    let matchResult;
+    let resultArray = [];
+    while ((matchResult = questionsNumbersRegexp.exec(questions)) !== null) {
+      if (matchResult.length > 1) {
+        for (let i = 1; i < matchResult.length; i++) {
+          resultArray.push(matchResult[i]);
+        }
+      } else {
+        resultArray.push(matchResult[0]);
+      }
+    }
+    return resultArray;
   }
   return getQuestionsNumbers;
 }));
