@@ -12,14 +12,14 @@
     ], factory);
   } else {
     // Browser globals
-    root.getQuestionsNumbers = factory(root.stringToRegexp);
+    root.getRegexpResultArray = factory(root.stringToRegexp);
   }
 }(this, function factory (stringToRegexp) {
-  function getQuestionsNumbers (questions, regExpPatternString) {
-    let questionsNumbersRegexp = stringToRegexp(regExpPatternString);
+  function getRegexpResultArray (questions, regExpPatternString) {
+    let regexp = stringToRegexp(regExpPatternString);
     let matchResult;
     let resultArray = [];
-    while ((matchResult = questionsNumbersRegexp.exec(questions)) !== null) {
+    while ((matchResult = regexp.exec(questions)) !== null) {
       if (matchResult.length > 1) {
         for (let i = 1; i < matchResult.length; i++) {
           resultArray.push(matchResult[i]);
@@ -30,5 +30,5 @@
     }
     return resultArray;
   }
-  return getQuestionsNumbers;
+  return getRegexpResultArray;
 }));
