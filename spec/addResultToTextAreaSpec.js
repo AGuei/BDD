@@ -20,8 +20,6 @@
     it('should append/replace a textarea node to a given id node', () => {
       let addNodeId = 'resultOfGetQuestionsNumbers';
       addResultToTextArea(addNodeId);
-      // let bodyChildNodesLength = document.body.childNodes.length;
-      // expect(bodyChildNodesLength).toBe(1);
       expect(document.querySelector('#' + addNodeId).id).toEqual(addNodeId);
     });
   });
