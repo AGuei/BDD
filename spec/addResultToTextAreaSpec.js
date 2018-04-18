@@ -32,6 +32,18 @@
       let parrentNode = document.querySelector('#' + parrentNodeId);
       expect(textAreaDom.value.split(/\n/m, 4)).toEqual(dataArray);
       expect(parrentNode).toBe(textAreaDom.parentNode);
+      const dataArray2 = ['2.', '3.', '4.'];
+      addResultToTextArea(dataArray2, addNodeId, parrentNodeId);
+      textAreaDom = document.querySelector('#' + addNodeId);
+      expect(textAreaDom.value.split(/\n/m, 3)).toEqual(dataArray2);
+      expect(parrentNode.firstChild.value.split(/\n/m, 3)).toEqual(dataArray2);
+      expect(parrentNode.firstChild.value.split(/\n/m, 4)).not.toEqual(dataArray);
+      addResultToTextArea(dataArray, addNodeId, parrentNodeId);
+      textAreaDom = document.querySelector('#' + addNodeId);
+      expect(textAreaDom.value.split(/\n/m, 4)).toEqual(dataArray);
+      expect(parrentNode.childNodes.length).toBe(1);
+      expect(parrentNode.firstChild.value.split(/\n/m, 4)).toEqual(dataArray);
+      expect(parrentNode.firstChild.value.split(/\n/m, 3)).not.toEqual(dataArray2);
     });
   });
 }));

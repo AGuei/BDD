@@ -4,23 +4,27 @@
   if (typeof module === 'object' && module.exports) {
     // Node/CommonJS
     module.exports = factory(
-      require('./getRegexpResultArray.js')
     );
   } else if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(factory);
   } else {
     // Browser globals
-    root.addResultToTextArea = factory(root.getRegexpResultArray);
+    root.addResultToTextArea = factory();
   }
-}(this, function factory (getRegexpResultArray) {
+}(this, function factory () {
   function addResultToTextArea (result, textAreaId, parrentNodeId) {
     let textArea = document.createElement('textarea');
     textArea.id = textAreaId;
     for (let i = 0; i < result.length; i++) {
       textArea.value += result[i] + '\r\n';
     }
-    document.querySelector('#' + parrentNodeId).appendChild(textArea);
+    let parrentNode = document.querySelector('#' + parrentNodeId);
+    if (!document.getElementById('resultOfGetQuestionsNumbers')) {
+      parrentNode.appendChild(textArea);
+    } else {
+      parrentNode.replaceChild(textArea, document.getElementById('resultOfGetQuestionsNumbers'));
+    }
   }
   return addResultToTextArea;
 }));
