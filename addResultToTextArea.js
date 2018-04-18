@@ -14,9 +14,12 @@
     root.addResultToTextArea = factory(root.getRegexpResultArray);
   }
 }(this, function factory (getRegexpResultArray) {
-  function addResultToTextArea (textAreaId) {
+  function addResultToTextArea (result, textAreaId) {
     let textArea = document.createElement('textarea');
     textArea.id = textAreaId;
+    for (let i = 0; i < result.length; i++) {
+      textArea.value += result[i] + '\r\n';
+    }
     document.body.appendChild(textArea);
   }
   return addResultToTextArea;
