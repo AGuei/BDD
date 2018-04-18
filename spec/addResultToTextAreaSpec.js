@@ -4,24 +4,24 @@
   if (typeof module === 'object' && module.exports) {
     // Node/CommonJS
     factory(
-      require('../addResultToNode')
+      require('../addResultToTextArea')
     );
   } else if (typeof define === 'function' && define.amd) {
     // AMD
     define([
-      'addResultToNode'
+      'addResultToTextArea'
     ], factory);
   } else {
     // Browser globals
-    factory(root.addResultToNode);
+    factory(root.addResultToTextArea);
   }
-}(this, function factory (addResultToNode) {
+}(this, function factory (addResultToTextArea) {
   describe('Add Array data to HTMLNode', () => {
     it('should append/replace a textarea node to a given id node', () => {
       let addNodeId = 'resultOfGetQuestionsNumbers';
-      addResultToNode(addNodeId);
-      let bodyChildNodesLength = document.body.childNodes.length;
-      expect(bodyChildNodesLength).toBe(1);
+      addResultToTextArea(addNodeId);
+      // let bodyChildNodesLength = document.body.childNodes.length;
+      // expect(bodyChildNodesLength).toBe(1);
       expect(document.querySelector('#' + addNodeId).id).toEqual(addNodeId);
     });
   });

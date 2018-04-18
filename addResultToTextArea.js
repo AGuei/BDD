@@ -11,13 +11,13 @@
     define(factory);
   } else {
     // Browser globals
-    root.addResultToNode = factory(root.getRegexpResultArray);
+    root.addResultToTextArea = factory(root.getRegexpResultArray);
   }
 }(this, function factory (getRegexpResultArray) {
-  function addResultToNode (textAreaId) {
+  function addResultToTextArea (textAreaId) {
     let textArea = document.createElement('textarea');
     textArea.id = textAreaId;
     document.body.appendChild(textArea);
   }
-  return addResultToNode;
+  return addResultToTextArea;
 }));
