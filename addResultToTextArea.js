@@ -14,13 +14,13 @@
     root.addResultToTextArea = factory(root.getRegexpResultArray);
   }
 }(this, function factory (getRegexpResultArray) {
-  function addResultToTextArea (result, textAreaId) {
+  function addResultToTextArea (result, textAreaId, parrentNodeId) {
     let textArea = document.createElement('textarea');
     textArea.id = textAreaId;
     for (let i = 0; i < result.length; i++) {
       textArea.value += result[i] + '\r\n';
     }
-    document.body.appendChild(textArea);
+    document.querySelector('#' + parrentNodeId).appendChild(textArea);
   }
   return addResultToTextArea;
 }));
