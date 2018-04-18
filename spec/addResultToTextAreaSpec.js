@@ -22,5 +22,11 @@
       addResultToTextArea(addNodeId);
       expect(document.querySelector('#' + addNodeId).id).toEqual(addNodeId);
     });
+    it('should append/replace a textarea node to a given id node', () => {
+      let addNodeId2 = 'resultOfGetQuestionsNumbers2';
+      addResultToTextArea(addNodeId2);
+      expect(document.body.childNodes.length).toBe(2);
+      expect(document.querySelector('#' + addNodeId2).id).toEqual(addNodeId2);
+    });
   });
 }));
