@@ -20,7 +20,7 @@
       if (i < result.length - 1) {
         textArea.value += result[i] + '\r\n';
       } else {
-        textArea.value += result[result.length-1];
+        textArea.value += result[result.length - 1];
       }
     }
     let parrentNode = document.querySelector('#' + parrentNodeId);
