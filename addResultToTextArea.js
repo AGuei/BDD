@@ -14,6 +14,9 @@
   }
 }(this, function factory () {
   function addResultToTextArea (result, textAreaId, parrentNodeId) {
+    if (!result) {
+      return;
+    }
     let textArea = document.createElement('textarea');
     textArea.id = textAreaId;
     for (let i = 0; i < result.length; i++) {
@@ -24,10 +27,10 @@
       }
     }
     let parrentNode = document.querySelector('#' + parrentNodeId);
-    if (!document.getElementById('resultOfGetQuestionsNumbers')) {
+    if (!document.getElementById(textAreaId)) {
       parrentNode.appendChild(textArea);
     } else {
-      parrentNode.replaceChild(textArea, document.getElementById('resultOfGetQuestionsNumbers'));
+      parrentNode.replaceChild(textArea, document.getElementById(textAreaId));
     }
   }
   return addResultToTextArea;
