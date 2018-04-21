@@ -17,7 +17,11 @@
     let textArea = document.createElement('textarea');
     textArea.id = textAreaId;
     for (let i = 0; i < result.length; i++) {
-      textArea.value += result[i] + '\r\n';
+      if (i < result.length - 1) {
+        textArea.value += result[i] + '\r\n';
+      } else {
+        textArea.value += result[result.length-1];
+      }
     }
     let parrentNode = document.querySelector('#' + parrentNodeId);
     if (!document.getElementById('resultOfGetQuestionsNumbers')) {
