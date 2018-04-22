@@ -19,11 +19,24 @@
     }
     let textArea = document.createElement('textarea');
     textArea.id = textAreaId;
-    for (let i = 0; i < result.length; i++) {
-      if (i < result.length - 1) {
-        textArea.value += result[i] + '\r\n';
-      } else {
-        textArea.value += result[result.length - 1];
+    if (result[0].hasOwnProperty('choices')) {
+      for (let j = 0; j < result.length; j++) {
+        for (let i = 0; i < result[j].choices.length; i++) {
+          if (i < result[j].choices.length - 1) {
+            textArea.value += result[j].choices[i] + '\r\n';
+          } else {
+            textArea.value += result[j].choices[result[j].choices.length - 1];
+          }
+        }
+        textArea.value += '\r\n' + '\r\n';
+      }
+    } else {
+      for (let i = 0; i < result.length; i++) {
+        if (i < result.length - 1) {
+          textArea.value += result[i] + '\r\n';
+        } else {
+          textArea.value += result[result.length - 1];
+        }
       }
     }
     let parrentNode = document.querySelector('#' + parrentNodeId);

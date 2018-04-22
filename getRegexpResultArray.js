@@ -15,14 +15,25 @@
     root.getRegexpResultArray = factory(root.stringToRegexp);
   }
 }(this, function factory (stringToRegexp) {
-  function getRegexpResultArray (questions, regExpPatternString) {
+  function getRegexpResultArray (questions, regExpPatternString, choicesObject) {
     let regexp = stringToRegexp(regExpPatternString);
     let matchResult;
     let resultArray = [];
     while ((matchResult = regexp.exec(questions)) !== null) {
       if (matchResult.length > 1) {
         for (let i = 1; i < matchResult.length; i++) {
-          resultArray.push(matchResult[i]);
+          if (matchResult[i]) {
+            matchResult[i] = matchResult[i].trim().replace(/\n*/gm, '');
+            if (!choicesObject) {
+              resultArray.push(matchResult[i]);
+            } else {
+              choicesObject.choices.push(matchResult[i]);
+            }
+          }
+        }
+        if (choicesObject) {
+          resultArray.push(choicesObject);
+          choicesObject = { choices: [] };
         }
       } else {
         resultArray.push(matchResult[0]);
