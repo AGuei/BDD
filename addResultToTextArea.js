@@ -19,6 +19,7 @@
     }
     let textArea = document.createElement('textarea');
     textArea.id = textAreaId;
+    textArea.rows = '10';
     if (result[0].hasOwnProperty('choices')) {
       for (let j = 0; j < result.length; j++) {
         for (let i = 0; i < result[j].choices.length; i++) {
@@ -28,7 +29,9 @@
             textArea.value += result[j].choices[result[j].choices.length - 1];
           }
         }
-        textArea.value += '\r\n' + '\r\n';
+        if (j < result.length - 1) {
+          textArea.value += '\r\n' + '\r\n';
+        }
       }
     } else {
       for (let i = 0; i < result.length; i++) {
