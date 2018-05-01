@@ -24,6 +24,11 @@
 ##### 軟體
 
 - [x] 安裝 Visual Studio Code
+    - [x] 安裝 JavaScript Semistandard Style
+    - [x] 安裝 gulp Snippets
+    - [x] 安裝 Jasmine code snippets
+    - [x] 安裝 JS Refactor
+    - [x] 安裝 snippet-creator
 
 ##### Node.js 模組
 
