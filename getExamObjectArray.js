@@ -33,7 +33,23 @@
         let examObject = {qa: '', ans: [], options: []};
         examObject.qa = qaArray[i];
         for (let j = 0; j < ansArray[i].length; j++) {
-          examObject.ans.push(ansArray[i][j]);
+          switch (ansArray[i][j].toUpperCase()) {
+            case 'A':
+              examObject.ans.push(optionsArray[i][0]);
+              break;
+            case 'B':
+              examObject.ans.push(optionsArray[i][1]);
+              break;
+            case 'C':
+              examObject.ans.push(optionsArray[i][2]);
+              break;
+            case 'D':
+              examObject.ans.push(optionsArray[i][3]);
+              break;
+            case 'E':
+              examObject.ans.push(optionsArray[i][4]);
+              break;
+          }
         }
         for (let j = 0; j < optionsArray[i].length; j++) {
           examObject.options.push(optionsArray[i][j]);

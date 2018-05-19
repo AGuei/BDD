@@ -30,8 +30,8 @@
       let examObjectArray = getExamObjectArray(textareaContainer);
       expect(examObjectArray.length).toEqual(4);
       expect(examObjectArray[0].qa).toEqual('aaaaaaaaaaaaaaa');
-      expect(examObjectArray[1].ans[0]).toEqual('b');
-      expect(examObjectArray[2].ans).toEqual(['c', 'd']);
+      expect(examObjectArray[1].ans[0]).toEqual('fff');
+      expect(examObjectArray[2].ans).toEqual(['kkk', 'lll']);
       expect(examObjectArray[2].options[0]).toEqual('iii');
     });
   });
