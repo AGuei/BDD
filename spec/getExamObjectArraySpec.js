@@ -23,9 +23,9 @@
         textareaContainer[prop] = document.createElement('textarea');
       }
     }
-    textareaContainer.qa.textContent = 'aaaaaaaaaaaaaaa\nbbbbbbbbbbbbb\ncccccccccc\nddddddddddddddd\n';
-    textareaContainer.ans.textContent = 'a\n\nb\n\nc\nd\n\nd\n\n';
-    textareaContainer.options.textContent = 'aaa\nbbb\nccc\nddd\n\neee\nfff\nggg\nhhh\n\niii\njjj\nkkk\nlll\n\nmmm\nnnn\nooo\nppp\n\n';
+    textareaContainer.qa.value = 'aaaaaaaaaaaaaaa\nbbbbbbbbbbbbb\ncccccccccc\nddddddddddddddd\n';
+    textareaContainer.ans.value = 'a\n\nb\n\nc\nd\n\nd\n\n';
+    textareaContainer.options.value = 'aaa\nbbb\nccc\nddd\n\neee\nfff\nggg\nhhh\n\niii\njjj\nkkk\nlll\n\nmmm\nnnn\nooo\nppp\n\n';
     it('get data from textarea to return a exam object', () => {
       let examObjectArray = getExamObjectArray(textareaContainer);
       expect(examObjectArray.length).toEqual(4);
