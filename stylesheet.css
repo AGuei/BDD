@@ -1,7 +1,3 @@
-#title{
-	text-align:center; 
-	font-size:30px;
-}
 #questionsAndAnswers{
 	margin-left:25%; 
 	height:150px;
@@ -12,29 +8,29 @@
 	text-align:center; 
 }
 #containerOfResult{
-	text-align:center;
+	display:inline-flex;
+    width:;
+	height:172px;
 }
-#promptOfResultOfGetQuestionsNumbers{
-	width:25%;
-}
-.QuestionsNumbers{
-	margin-top:25%;
-}
-#promptOfResultOfAnswers{
-	width:25%;
-}
-.Answers{
-	
-}
-#promptOfResultOfGetQuestions{
-	width:25%;
-}
-.Questions{
-	
-}
+#promptOfResultOfGetQuestionsNumbers,
+#promptOfResultOfAnswers,
+#promptOfResultOfGetQuestions,
 #promptOfResultOfChoices{
-	width:25%;
 }
-.Choices{
-	
+label{
+	flex-direction:column;
+}
+text{
+	width:100px;
+	height:20px;
+}
+textarea.item1{
+	width:100px;
+	height:150px;
+	overflow;
+}
+textarea.item2{
+	width:250px;
+	height:150px;
+	overflow;
 }
