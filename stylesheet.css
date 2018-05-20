@@ -1,0 +1,40 @@
+#title{
+	text-align:center; 
+	font-size:30px;
+}
+#questionsAndAnswers{
+	margin-left:25%; 
+	height:150px;
+	width:50%;
+	overflow;
+}
+#patternContainer{
+	text-align:center; 
+}
+#containerOfResult{
+	text-align:center;
+}
+#promptOfResultOfGetQuestionsNumbers{
+	width:25%;
+}
+.QuestionsNumbers{
+	margin-top:25%;
+}
+#promptOfResultOfAnswers{
+	width:25%;
+}
+.Answers{
+	
+}
+#promptOfResultOfGetQuestions{
+	width:25%;
+}
+.Questions{
+	
+}
+#promptOfResultOfChoices{
+	width:25%;
+}
+.Choices{
+	
+}
