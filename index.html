@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel=stylesheet type="text/css" href="stylesheet.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -13,7 +14,7 @@
 </head>
 <body>
     <div class="questionsAndAnswersContainer" id="questionsAndAnswersContainer">
-        <textarea name="textarea" id="questionsAndAnswers" cols="30" rows="10"></textarea>
+        <textarea name="textarea" id="questionsAndAnswers"></textarea>
     </div>
     <div class="patternContainer" id="patternContainer">
         <label for="questionsNumbersPattern">題號樣式
@@ -33,7 +34,7 @@
         <label for="questionsPattern">題目樣式
             <select name="questionsPattern" id="questionsPattern">
                 <option value="^\d{1,3}(?!\.)\s{0,3}[ABCDE]\s([\s\S]+?)(?=\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?\(d\)\s{0,3}[\s\S]+?(?:\(e\)\s{0,3}[\s\S]+?)?(?=^\d{1,3}|$))/gmu">test3</option>
-                <option value="^\d{1,3}\.\s{0,3}[ABCDE]\s([\s\S]+?)(?=\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?\(D\)\s{0,3}[\s\S]+?(?:\(E\)\s{0,3}[\s\S]+?)?(?=^\d{1,3}|$))/gmu">test4</option>                
+                <option value="^\d{1,3}\.\s{0,3}[ABCDE]\s([\s\S]+?)(?=\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?\(D\)\s{0,3}[\s\S]+?(?:\(E\)\s{0,3}[\s\S]+?)?(?=^\d{1,3}|$))/gmu">test4</option>
             </select>
         </label>
         <label for="choicesPattern">選項樣式
@@ -51,38 +52,28 @@
         <input id="btn" type="button" value="產生考卷">
     </div>
     <div id="containerOfResult">
-      <div class="row">
-        <div class="col">
-          <label id="promptOfResultOfGetQuestionsNumbers">題號篩選結果
-              <textarea id="ResultOfGetQuestionsNumbers" rows = "10"></textarea>
-          </label>
-        </div>
-        <div class="col">
-          <label id="promptOfResultOfAnswers">答案篩選結果
-            <textarea id="ResultOfAnswers" rows = "10"></textarea>
-          </label>
-        </div>
-        <div class="col">
-          <label id="promptOfResultOfGetQuestions">題目篩選結果
-            <textarea id="ResultOfGetQuestions" rows = "10"></textarea>
-          </label>
-        </div>
-        <div class="col">
-          <label id="promptOfResultOfChoices">選項篩選結果
-            <textarea id="ResultOfChoices" rows = "10"></textarea>
-          </label>
-        </div>
-      </div>      
+          <label id="promptOfResultOfGetQuestionsNumbers">
+		  <text>題號篩選結果</text>
+          <textarea class="item1" id="ResultOfGetQuestionsNumbers"></textarea></label>
+          <label id="promptOfResultOfAnswers">
+		  <text>答案篩選結果</text>
+          <textarea class="item1" id="ResultOfAnswers"></textarea></label>
+          <label id="promptOfResultOfGetQuestions">
+		  <text>題目篩選結果</text>
+          <textarea class="item2" id="ResultOfGetQuestions"></textarea></label>
+          <label id="promptOfResultOfChoices">
+		  <text>選項篩選結果</text>
+          <textarea class="item2" id="ResultOfChoices"></textarea></label>
     </div>
     <script>
         let selectOfQuestionsNumbersPattern = document.getElementById('questionsNumbersPattern');
         let optionsOfQuestionsNumbersPattern = selectOfQuestionsNumbersPattern.options;
         let questionsAndAnswers = document.getElementById('questionsAndAnswers');
-        function applyQuestionsNumbersPattern () {       
+        function applyQuestionsNumbersPattern () {
           let labelId = 'promptOfResultOfGetQuestionsNumbers';
           let textAreaId = 'ResultOfGetQuestionsNumbers';
           let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
-          let questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, questionsNumbersPattern);          
+          let questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, questionsNumbersPattern);
           if (questionsNumbersArray.length !== 0) {
               addResultToTextArea(questionsNumbersArray, textAreaId, labelId);
           }
@@ -96,8 +87,8 @@
           let choicesObject = { choices:[]};
           let choicesPattern = optionsOfChoicesPattern[optionsOfChoicesPattern.selectedIndex].value;
           let choicesArray = getRegexpResultArray(questionsAndAnswers.value, choicesPattern, choicesObject);
-          if (choicesArray.length !== 0) {              
-            addResultToTextArea(choicesArray, textAreaId, labelId);          
+          if (choicesArray.length !== 0) {
+            addResultToTextArea(choicesArray, textAreaId, labelId);
           }
         }
         selectOfChoicesPattern.addEventListener('change', applyChoicesPattern);
@@ -108,8 +99,8 @@
           let textAreaId = 'ResultOfAnswers';
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
           let answersArray = getRegexpResultArray(questionsAndAnswers.value, answersPattern);
-          if (answersArray.length !== 0) {              
-            addResultToTextArea(answersArray, textAreaId, labelId);          
+          if (answersArray.length !== 0) {
+            addResultToTextArea(answersArray, textAreaId, labelId);
           }
         }
         selectOfAnswersPattern.addEventListener('change', applyAnswersPattern);
@@ -126,14 +117,14 @@
             return choicesPattern.replace(/\(\[\\s\\S\]\+\?\)/gmu,'[\\s\\S]+?');
           }(choicesPattern);
           console.log(test);
-          let test2 = function removeCaptureGroupParentheses(questionsNumbersPattern) {          
+          let test2 = function removeCaptureGroupParentheses(questionsNumbersPattern) {
             return questionsNumbersPattern.replace(/\^\(\\d\{1,3\}\\\.\)/,'^\\d{1,3}\\.');
           }(questionsNumbersPattern);
-          let test3 = function removeCaptureGroupParentheses(answersPattern) {            
-            return answersPattern.replace(/\(\[ABCDE\]\)/,'[ABCDE]');  
+          let test3 = function removeCaptureGroupParentheses(answersPattern) {
+            return answersPattern.replace(/\(\[ABCDE\]\)/,'[ABCDE]');
           }(answersPattern);
-          let questionsPattern = test3.replace(/\/gmu/,'') + '([\\s\\S]+?)(?=' + test.replace(/\/gmu/,')/gmu');          
-          let questionsArray = getRegexpResultArray(questionsAndAnswers.value, questionsPattern);          
+          let questionsPattern = test3.replace(/\/gmu/,'') + '([\\s\\S]+?)(?=' + test.replace(/\/gmu/,')/gmu');
+          let questionsArray = getRegexpResultArray(questionsAndAnswers.value, questionsPattern);
           if(questionsArray.length !== 0){
               addResultToTextArea(questionsArray, textAreaId, labelId);
           }
@@ -207,13 +198,13 @@
               temporaryValue = array[currentIndex];
               array[currentIndex] = array[randomIndex];
               array[randomIndex] = temporaryValue;
-            }            
+            }
             return array;
           }
           if (!data) {
               return;
             }
-          shuffle(data);        
+          shuffle(data);
           let table = document.createElement('table');
           let tbody = document.createElement('tbody');
           let tr = document.createElement('tr');
@@ -246,7 +237,7 @@
                 objLabel.htmlFor = objRadio.id;
                 objLabel.appendChild(objRadio);
                 objLabel.appendChild(radioText);
-                li2.appendChild(objLabel);                
+                li2.appendChild(objLabel);
               } else {
                 let chkText = document.createTextNode(tempStr);
                 let objChk = document.createElement('input');
@@ -275,7 +266,8 @@
           document.body.appendChild(table);
         }
     </script>
-    <style>
+    <!--
+	<style>
       html, body {
         height: 100%;
         margin: 0;
@@ -288,7 +280,7 @@
       .row {
         flex: 1;
         display: flex;
-        flex-flow: row wrap;        
+        flex-flow: row wrap;
       }
       .col {
         flex: 1;
@@ -306,16 +298,17 @@
         margin: 2px 0;
         padding: 1px;
         border: 1px solid;
-        resize: none;                
+        resize: none;
       }
       input[type="radio"], input[type="checkbox"] {
         left:40px;
         position: absolute;
       }
       td {
-        max-width: 800px; 
+        max-width: 800px;
         word-wrap: break-word;
-      }      
-    </style>    
+      }
+    </style>
+	-->
 </body>
 </html>
