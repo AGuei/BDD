@@ -6,6 +6,7 @@ body{
 	text-align:center;
 }
 #questionsAndAnswers{
+	background-color:lightgray;
 	height:150px;
 	width:1000px;
 	overflow:auto;
@@ -16,9 +17,16 @@ body{
 }
 .choose{
 	font-size:120%;
+	background-color:#c4a96e;
 }
 .button{
 	font-size:120%;
+}
+.button:hover{
+	background-color:lightgreen;
+}
+.button:active{
+	background-color:lightblue;
 }
 #containerOfResult{
 	text-align:center; 
@@ -38,17 +46,16 @@ body{
 	font-size:120%;
 	width:auto;
 	height:20px;
-	background:;
 }
 .item1{
 	width:100px;
 	height:150px;
 	overflow:auto;
-	background:;
+	background-color:lightgray;
 }
 .item2{
 	width:450px;
 	height:150px;
 	overflow:auto;
-	background:;
+	background-color:lightgray;
 }
