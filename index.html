@@ -12,19 +12,19 @@
     <script src="getExamObjectArray.js"></script>
     <title>BDD TEST Document</title>
 </head>
-<body>
+<body style>
     <div class="questionsAndAnswersContainer" id="questionsAndAnswersContainer">
-        <textarea name="textarea" id="questionsAndAnswers"></textarea>
+        <textarea class="texebox" name="textarea" id="questionsAndAnswers"></textarea>
     </div>
     <div class="patternContainer" id="patternContainer">
         <label for="questionsNumbersPattern">題號樣式
-            <select name="questionsNumbersPattern" id="questionsNumbersPattern">
+            <select class="choose" name="questionsNumbersPattern" id="questionsNumbersPattern">
                 <option value="^(\d{1,3})(?!\.)\s{0,3}/gmu">題號無小數點</option>
                 <option value="^(\d{1,3}\.)\s{0,3}/gmu">題號有小數點</option>
             </select>
         </label>
         <label for="answersPattern">答案樣式
-                <select name="answersPattern" id="answersPattern">
+                <select class="choose" name="answersPattern" id="answersPattern">
                     <option value="^([ABCDE])\s\d{1,3}(?!\.)\s{0,3}/gmu">答案在前，題號無小數點</option>
                     <option value="^([ABCDE])\s\d{1,3}\.\s{0,3}/gmu">答案在前，題號有小數點</option>
                     <option value="^\d{1,3}(?!\.)\s{0,3}([ABCDE])\s/gmu">答案在後，題號無小數點</option>
@@ -32,13 +32,13 @@
                 </select>
         </label>
         <label for="questionsPattern">題目樣式
-            <select name="questionsPattern" id="questionsPattern">
+            <select class="choose" name="questionsPattern" id="questionsPattern">
                 <option value="^\d{1,3}(?!\.)\s{0,3}[ABCDE]\s([\s\S]+?)(?=\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?\(d\)\s{0,3}[\s\S]+?(?:\(e\)\s{0,3}[\s\S]+?)?(?=^\d{1,3}|$))/gmu">test3</option>
                 <option value="^\d{1,3}\.\s{0,3}[ABCDE]\s([\s\S]+?)(?=\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?\(D\)\s{0,3}[\s\S]+?(?:\(E\)\s{0,3}[\s\S]+?)?(?=^\d{1,3}|$))/gmu">test4</option>
             </select>
         </label>
-        <label for="choicesPattern">選項樣式
-            <select name="choicesPattern" id="choicesPattern">
+        <label for="choicesPattern"></br>選項樣式
+            <select class="choose" name="choicesPattern" id="choicesPattern">
                 <option value="\(A\)\s{0,3}([\s\S]+?)\(B\)\s{0,3}([\s\S]+?)\(C\)\s{0,3}([\s\S]+?)\(D\)\s{0,3}([\s\S]+?)(?:\(E\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}\.|$)/gmu">選項不在行首，題號有小數點</option>
                 <option value="\(a\)\s{0,3}([\s\S]+?)\(b\)\s{0,3}([\s\S]+?)\(c\)\s{0,3}([\s\S]+?)\(d\)\s{0,3}([\s\S]+?)(?:\(e\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}|$)/gmu">選項不在行首，題號無小數點</option>
                 <option value="^\(A\)\s{0,3}([\s\S]+?)^\(B\)\s{0,3}([\s\S]+?)^\(C\)\s{0,3}([\s\S]+?)^\(D\)\s{0,3}([\s\S]+?)(?:^\(E\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}\.\s[ABCDE]|$)/gmu">選項在行首，答案在後，題號有小數點</option>
@@ -48,22 +48,26 @@
             </select>
         </label>
         <br/>
-        <input id="applyAllPattern" type="button" value="套用樣式進行篩選">
-        <input id="btn" type="button" value="產生考卷">
+        <input class="button" id="applyAllPattern" type="button" value="套用樣式進行篩選">
+        <input class="button" id="btn" type="button" value="產生考卷">
     </div>
     <div id="containerOfResult">
-          <label id="promptOfResultOfGetQuestionsNumbers">
-		  <text>題號篩選結果</text>
-          <textarea class="item1" id="ResultOfGetQuestionsNumbers"></textarea></label>
-          <label id="promptOfResultOfAnswers">
-		  <text>答案篩選結果</text>
-          <textarea class="item1" id="ResultOfAnswers"></textarea></label>
-          <label id="promptOfResultOfGetQuestions">
-		  <text>題目篩選結果</text>
-          <textarea class="item2" id="ResultOfGetQuestions"></textarea></label>
-          <label id="promptOfResultOfChoices">
-		  <text>選項篩選結果</text>
-          <textarea class="item2" id="ResultOfChoices"></textarea></label>
+          <label class="flex-column" id="promptOfResultOfGetQuestionsNumbers">
+		  <text class="text">題號篩選結果:</text>
+          <textarea class="item1" id="ResultOfGetQuestionsNumbers"></textarea>
+		  </label>
+          <label class="flex-column" id="promptOfResultOfAnswers">
+		  <text class="text">答案篩選結果:</text>
+          <textarea class="item1" id="ResultOfAnswers"></textarea>
+		  </label>
+          <label class="flex-column" id="promptOfResultOfGetQuestions">
+		  <text class="text">題目篩選結果:</text>
+          <textarea class="item2" id="ResultOfGetQuestions"></textarea>
+		  </label>
+          <label class="flex-column" id="promptOfResultOfChoices">
+		  <text class="text">選項篩選結果:</text>
+          <textarea class="item2" id="ResultOfChoices"></textarea>
+		  </label>
     </div>
     <script>
         let selectOfQuestionsNumbersPattern = document.getElementById('questionsNumbersPattern');

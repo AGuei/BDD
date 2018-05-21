@@ -1,15 +1,28 @@
+body{
+	background-color:black;
+	color:white;
+}
+.questionsAndAnswersContainer{
+	text-align:center;
+}
 #questionsAndAnswers{
-	margin-left:25%; 
 	height:150px;
-	width:50%;
-	overflow;
+	width:1000px;
+	overflow:auto;
 }
 #patternContainer{
+	font-size:150%;
 	text-align:center; 
 }
+.choose{
+	font-size:120%;
+}
+.button{
+	font-size:120%;
+}
 #containerOfResult{
-	display:inline-flex;
-    width:;
+	text-align:center; 
+    width:100%;
 	height:172px;
 }
 #promptOfResultOfGetQuestionsNumbers,
@@ -17,20 +30,24 @@
 #promptOfResultOfGetQuestions,
 #promptOfResultOfChoices{
 }
-label{
+.flex-column{
+	display:inline-flex;
 	flex-direction:column;
 }
-text{
-	width:100px;
+.text{
+	width:auto;
 	height:20px;
+	background:;
 }
-textarea.item1{
+.item1{
 	width:100px;
 	height:150px;
-	overflow;
+	overflow:auto;
+	background:;
 }
-textarea.item2{
-	width:250px;
+.item2{
+	width:450px;
 	height:150px;
-	overflow;
+	overflow:auto;
+	background:;
 }

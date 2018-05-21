@@ -1,0 +1,63 @@
+.col {
+        flex: 1;
+        display: flex;
+        flex-flow: column;
+        margin: 0px 3px;
+      }
+	  html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+body {
+        display: flex;
+        flex-flow: column;
+      }
+.row {
+        flex: 1;
+        display: flex;
+        flex-flow: row wrap;
+      }
+
+label textarea {
+        display: block;
+        padding-left: 2px;
+      }
+textarea {
+        flex: 1;
+        display: block;
+        margin: 2px 0;
+        padding: 1px;
+        border: 1px solid;
+        resize: none;
+      }
+input[type="radio"], input[type="checkbox"] {
+        left:40px;
+        position: absolute;
+      }
+td {
+        max-width: 800px;
+        word-wrap: break-word;
+      }
+#title{
+	text-align:center; 
+	font-size:30px;
+}
+#questionsAndAnswers{
+	margin-left:25%; 
+	height:150px;
+	width:50%;
+	overflow;
+}
+#patternContainer{
+	text-align:center; 
+}
+#containerOfResult{
+	
+}
+#promptOfResultOfGetQuestionsNumbers{
+	width:80px;
+}
+#ResultOfGetQuestionsNumbers{
+	width:80px;
+}
