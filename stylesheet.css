@@ -35,6 +35,7 @@ body{
 	flex-direction:column;
 }
 .text{
+	font-size:120%;
 	width:auto;
 	height:20px;
 	background:;
