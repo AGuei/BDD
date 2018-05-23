@@ -17,8 +17,9 @@
     if (!result) {
       return;
     }
-    let textArea = document.createElement('textarea');
-    textArea.id = textAreaId;
+    let existedTextArea = document.querySelector('#' + textAreaId);
+    let textArea = existedTextArea.cloneNode();
+    textArea.value = '';
     textArea.rows = '10';
     if (result[0].hasOwnProperty('choices')) {
       for (let j = 0; j < result.length; j++) {
