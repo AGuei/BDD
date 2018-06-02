@@ -1,14 +1,4 @@
-01. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-02. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-03. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-04. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-05. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-06. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-07. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-08. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-09. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-10. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
-11. A s1d6aw4d16wa5d4w6ad413as1faw15d6faw4de6ad1a65w4da35w1d65a4rf3a51fa (A)123(B)456(C)789(D)000
+
 .col {
         flex: 1;
         display: flex;
