@@ -8,14 +8,19 @@ body{
 #questionsAndAnswers{
 	background-color:lightgray;
 	height:150px;
-	width:1000px;
+	width:90%;
 	overflow:auto;
 }
 #patternContainer{
+	display:flex;
+	flex-direction:column;
+	height:auto;
+	width:80%;
 	font-size:150%;
-	text-align:center; 
+	margin-left: 5%;
 }
 .choose{
+	width:auto;
 	font-size:120%;
 	background-color:#c4a96e;
 }
@@ -28,11 +33,7 @@ body{
 .button:active{
 	background-color:lightblue;
 }
-#containerOfResult{
-	text-align:center; 
-        width:100%;
-	//height:172px;
-}
+
 .flex-column{
 	display:inline-flex;
 	flex-direction:column;
@@ -53,4 +54,8 @@ body{
 	height:150px;
 	overflow:auto;
 	background-color:lightgray;
+}
+table{
+	width:90%;
+	height:auto;
 }
