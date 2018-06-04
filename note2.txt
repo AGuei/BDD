@@ -1,0 +1,52 @@
+<table> 
+  <tr> 
+    <td><label for="questionsNumbersPattern">題號樣式:</label></td> 
+    <td> 
+	        <select class="choose" name="questionsNumbersPattern" id="questionsNumbersPattern">
+                <option value="^(\d{1,3})(?!\.)\s{0,3}/gmu">題號無小數點</option>
+                <option value="^(\d{1,3}\.)\s{0,3}/gmu">題號有小數點</option>
+            </select>
+	</td> 
+  </tr> 
+  <tr> 
+    <td><label for="answersPattern">答案樣式:</label></td> 
+    <td>
+	            <select class="choose" name="answersPattern" id="answersPattern">
+                    <option value="^([ABCDE])\s\d{1,3}(?!\.)\s{0,3}/gmu">答案在前，題號無小數點</option>
+                    <option value="^([ABCDE])\s\d{1,3}\.\s{0,3}/gmu">答案在前，題號有小數點</option>
+                    <option value="^\d{1,3}(?!\.)\s{0,3}([ABCDE])\s/gmu">答案在後，題號無小數點</option>
+                    <option value="^\d{1,3}\.\s{0,3}([ABCDE])\s/gmu">答案在後，題號有小數點</option>
+                </select>
+	</td> 
+  </tr> 
+  <tr> 
+    <td><label for="questionsPattern">題目樣式:</label></td> 
+    <td> 
+	        <select class="choose" name="questionsPattern" id="questionsPattern">
+                <option value="^\d{1,3}(?!\.)\s{0,3}[ABCDE]\s([\s\S]+?)(?=\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?\(d\)\s{0,3}[\s\S]+?(?:\(e\)\s{0,3}[\s\S]+?)?(?=^\d{1,3}|$))/gmu">test3</option>
+                <option value="^\d{1,3}\.\s{0,3}[ABCDE]\s([\s\S]+?)(?=\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?\(D\)\s{0,3}[\s\S]+?(?:\(E\)\s{0,3}[\s\S]+?)?(?=^\d{1,3}|$))/gmu">test4</option>
+            </select>
+	</td> 
+  </tr> 
+  <tr> 
+    <td><label for="choicesPattern">選項樣式:</label></td> 
+    <td>
+	        <select class="choose" name="choicesPattern" id="choicesPattern">
+                <option value="\(A\)\s{0,3}([\s\S]+?)\(B\)\s{0,3}([\s\S]+?)\(C\)\s{0,3}([\s\S]+?)\(D\)\s{0,3}([\s\S]+?)(?:\(E\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}\.|$)/gmu">選項不在行首，題號有小數點</option>
+                <option value="\(a\)\s{0,3}([\s\S]+?)\(b\)\s{0,3}([\s\S]+?)\(c\)\s{0,3}([\s\S]+?)\(d\)\s{0,3}([\s\S]+?)(?:\(e\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}|$)/gmu">選項不在行首，題號無小數點</option>
+                <option value="^\(A\)\s{0,3}([\s\S]+?)^\(B\)\s{0,3}([\s\S]+?)^\(C\)\s{0,3}([\s\S]+?)^\(D\)\s{0,3}([\s\S]+?)(?:^\(E\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}\.\s[ABCDE]|$)/gmu">選項在行首，答案在後，題號有小數點</option>
+                <option value="^\(A\)\s{0,3}([\s\S]+?)^\(B\)\s{0,3}([\s\S]+?)^\(C\)\s{0,3}([\s\S]+?)^\(D\)\s{0,3}([\s\S]+?)(?:^\(E\)\s{0,3}([\s\S]+?))?(?=^[ABCDE]\s\d{1,3}\.|$)/gmu">選項在行首，答案在前，題號有小數點</option>
+                <option value="^\(a\)\s{0,3}([\s\S]+?)^\(b\)\s{0,3}([\s\S]+?)^\(c\)\s{0,3}([\s\S]+?)^\(d\)\s{0,3}([\s\S]+?)(?:^\(e\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}\s[ABCDE]\s|$)/gmu">選項在行首，答案在後，題號無小數點</option>
+                <option value="^\(a\)\s{0,3}([\s\S]+?)^\(b\)\s{0,3}([\s\S]+?)^\(c\)\s{0,3}([\s\S]+?)^\(d\)\s{0,3}([\s\S]+?)(?:^\(e\)\s{0,3}([\s\S]+?))?(?=^[ABCDE]\s\d{1,3}\s|$)/gmu">選項在行首，答案在前，題號無小數點</option>
+            </select>
+	</td> 
+  </tr> 
+   <tr> 
+    <td>
+	<input class="button" id="applyAllPattern" type="button" value="套用樣式進行篩選">
+	</td> 
+    <td>
+	<input class="button" id="btn" type="button" value="產生考卷">
+	</td> 
+  </tr> 
+</table>
