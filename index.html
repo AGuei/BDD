@@ -155,42 +155,6 @@
 
         var correctArray = [];
         function makeTable (data) {
-          function check (id, liid, j, name) {
-            let right = document.createTextNode('答對了');
-            let obj = document.getElementById(id);
-            let objnext = obj.nextSibling;
-            let len = objnext.textContent.length;
-            let li = document.getElementById(liid);
-            if (name === undefined) {
-              name = '';
-              if (obj.checked) {
-                if (objnext.textContent === correctArray[j][0]) {
-                  li.appendChild(right);
-                }
-              }
-            } else {
-              let checkboxes = document.getElementsByName(name);
-              let cAnsLen = correctArray[j].length;
-              let selected = [];
-              let correctTimes = 0;
-              for (let i = 0, len = checkboxes.length; i < len; i++) {
-                let templen = checkboxes[i].nextSibling.textContent.length;
-                if (checkboxes[i].checked) {
-                  selected.push(checkboxes[i].nextSibling.textContent.substring(3, templen));
-                }
-              }
-              for (let p = 0, len2 = selected.length; p < len2; p++) {
-                for (let k = 0; k < cAnsLen; k++) {
-                  if (selected[p] === correctArray[j][k]) {
-                    correctTimes++;
-                  }
-                }
-              }
-              if (correctTimes === cAnsLen && selected.length === cAnsLen) {
-                li.appendChild(right);
-              }
-            }
-          }
           function shuffle(array) {
             var currentIndex = array.length, temporaryValue, randomIndex;
             // While there remain elements to shuffle...
@@ -215,6 +179,10 @@
           let td = document.createElement('td');
           let ol = document.createElement('ol');
           for (let j = 0, len = data.length; j < len; j++) {
+            let tr = document.createElement('tr');
+            let td = document.createElement('td');
+            let ol = document.createElement('ol');
+            ol.start = j + 1;
             shuffle(data[j].options);
             correctArray.push(data[j].ans);
             let cAnsLen = data[j].ans.length;
@@ -232,40 +200,86 @@
                 let radioText = document.createTextNode(tempStr);
                 let objRadio = document.createElement('input');
                 objRadio.type = 'radio';
-                objRadio.name = 'radioGroup_' + j;
-                objRadio.id = 'idradio_' + j + '_' + i;
+                objRadio.name = 'singleChoicesGroup_' + j;
+                objRadio.id = 'singleChoiceId_' + j + '_' + i;
                 objRadio.value = i + 1;
-                objRadio.addEventListener('click', function () {
-                  check(this.id, li.id, j);
-                }, false);
                 objLabel.htmlFor = objRadio.id;
                 objLabel.appendChild(objRadio);
                 objLabel.appendChild(radioText);
-                li2.appendChild(objLabel);
+                li2.appendChild(objLabel);                
               } else {
                 let chkText = document.createTextNode(tempStr);
                 let objChk = document.createElement('input');
                 objChk.type = 'checkbox';
-                objChk.name = 'chkGroup_' + j;
-                objChk.id = 'idchk_' + j + '_' + i;
-                objChk.addEventListener('click', function () {
-                  check(this.id, li.id, j, this.name);
-                }, false);
+                objChk.name = 'multipleChoicesGroup_' + j;
+                objChk.id = 'multipleChoiceId_' + j + '_' + i;
                 objLabel.htmlFor = objChk.id;
                 objLabel.appendChild(objChk);
                 objLabel.appendChild(chkText);
                 li2.appendChild(objLabel);
               }
               ol2.appendChild(li2);
+              li.appendChild(ol2);
+              ol.appendChild(li);              
+              td.appendChild(ol);
+              tr.appendChild(td);
+              tbody.appendChild(tr);
             }
-            li.appendChild(ol2);
-            ol.appendChild(li);
-            let objBr = document.createElement('br');
-            ol.appendChild(objBr);
-            td.appendChild(ol);
-            tr.appendChild(td);
-            tbody.appendChild(tr);
           }
+          tbody.addEventListener('click', function delegateOfCheck(e) {
+            let event = e || window.event;
+            let target = event.target || event.srcElement;                
+            let id = target.id;            
+            function disableEles(eles) {
+              for(let i = 0; i < eles.length; i++) {
+                eles[i].disabled = true;
+              }
+            }
+            if (target.type === 'radio') {
+              let qNum = id.match(/_(\d)_/)[1];
+              let optNum = id.match(/_\d_(\d)/)[1];
+              let radioEle = document.getElementById(id);
+              let optText = radioEle.nextSibling.textContent;
+              if (radioEle.checked) {
+                if (optText === correctArray[qNum][0]) {
+                  radioEle.className += 'correctAns';                  
+                  let radioGroup = document.querySelectorAll(
+                    'li input[name = singleChoicesGroup_' + qNum + ']'
+                  );
+                  disableEles(radioGroup);
+                }
+              }
+            } else if (target.type === 'checkbox') {
+              let qNum = id.match(/_(\d)_/)[1];
+              let optNum = id.match(/_\d_(\d)/)[1];
+              let checkboxGroup = document.querySelectorAll(
+                'li input[name = multipleChoicesGroup_' + qNum + ']'
+              );
+              let cAnsLen = correctArray[qNum].length;
+              let selected = [];
+              let checkedPosition = [];
+              let correctTimes = 0;
+              for (let i = 0, len = checkboxGroup.length; i < len; i++) {
+                if (checkboxGroup[i].checked) {
+                  checkedPosition.push(i);
+                  selected.push(checkboxGroup[i].nextSibling.textContent);
+                }
+              }
+              for (let p = 0, len2 = selected.length; p < len2; p++) {
+                for (let k = 0; k < cAnsLen; k++) {
+                  if (selected[p] === correctArray[qNum][k]) {
+                    correctTimes++;
+                  }
+                }
+              }
+              if (correctTimes === cAnsLen && selected.length === cAnsLen) {
+                for(let i = 0; i < checkedPosition.length; i++) {
+                  checkboxGroup[checkedPosition[i]].className = 'correctAns';
+                }
+                disableEles(checkboxGroup);                
+              }
+            }
+          }, false)
           table.appendChild(tbody);
           document.body.appendChild(table);
         }
