@@ -68,3 +68,6 @@ table{
 li{
 	overflow:auto;
 }
+.correctAns{
+	color:green;
+}
