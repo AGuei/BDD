@@ -267,21 +267,22 @@
               let optNum = id.match(/_\d_(\d)/)[1];
               let checkboxGroup = document.querySelectorAll(
                 'li input[name = multipleChoicesGroup_' + qNum + ']'
-              );
+              );              
               let cAnsLen = correctArray[qNum].length;
               let selected = [];
               let checkedPosition = [];
               let correctTimes = 0;
               for (let i = 0, len = checkboxGroup.length; i < len; i++) {
                 if (checkboxGroup[i].checked) {
-                  checkedPosition.push(i);
-                  selected.push(checkboxGroup[i].nextSibling.textContent);
+                  checkedPosition.push(i);                  
+                  selected.push(checkboxGroup[i].nextSibling.textContent);                  
                 }
               }
-              for (let p = 0, len2 = selected.length; p < len2; p++) {
+              for (let p = 0; p < selected.length; p++) {
                 for (let k = 0; k < cAnsLen; k++) {
                   if (selected[p] === correctArray[qNum][k]) {
                     correctTimes++;
+                    break;
                   }
                 }
               }
