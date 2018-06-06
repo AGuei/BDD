@@ -162,7 +162,12 @@
           textareaContainer.ans = document.getElementById('ResultOfAnswers');
           textareaContainer.options = document.getElementById('ResultOfChoices');
           examObject = getExamObjectArray(textareaContainer);
-          makeTable(examObject);
+          let examtable = makeTable(examObject);
+          if (!document.getElementById('examTable')) {            
+            document.body.appendChild(examtable);
+          } else {
+            document.body.replaceChild(examtable, document.getElementById('examTable'));
+          }
         }
         btn.addEventListener('click', createExamHtml);
 
@@ -187,6 +192,7 @@
             }
           shuffle(data);
           let table = document.createElement('table');
+          table.id = 'examTable';
           let tbody = document.createElement('tbody');
           let tr = document.createElement('tr');
           let td = document.createElement('td');
@@ -295,7 +301,7 @@
             }
           }, false)
           table.appendChild(tbody);
-          document.body.appendChild(table);
+          return table;          
         }
     </script>
 </body>
