@@ -1,12 +1,11 @@
 body{
-	background-color:black;
+	background-color:#271c11;
 	color:white;
 }
 #questionsAndAnswersContainer{
 	text-align:center;
 }
 #questionsAndAnswers{
-	background-color:lightgray;
 	height:150px;
 	width:90%;
 	overflow:auto;
@@ -23,10 +22,12 @@ body{
 .choose{
 	width:auto;
 	font-size:120%;
-	background-color:#c4a96e;
+	background-color:#ffc300e3;
+	font-weight:bold;
 }
 .button{
 	font-size:120%;
+	font-weight:bold;
 }
 .button:hover{
 	background-color:lightgreen;
@@ -46,17 +47,18 @@ body{
 	width:auto;
 	height:auto;
 }
+.texebox{
+	background-color:#eaa5a5;
+}
 .item1{
 	width:120PX;
 	height:150PX;
 	overflow:auto;
-	background-color:lightgray;
 }
 .item2{
 	width:450px;
 	height:150px;
 	overflow:auto;
-	background-color:lightgray;
 }
 table{
 	margin-left: 5%;
@@ -65,4 +67,7 @@ table{
 }
 li{
 	overflow:auto;
+}
+.correctAns{
+	color:green;
 }
