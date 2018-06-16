@@ -22,8 +22,8 @@
   <th><label for="questionsNumbersPattern">題號樣式:</label></th>
   <td>
         <select class="choose" name="questionsNumbersPattern" id="questionsNumbersPattern">
-              <option value="^(\d{1,3})(?!\.)\s{0,3}/gmu">題號無小數點</option>
-              <option value="^(\d{1,3}\.)\s{0,3}/gmu">題號有小數點</option>
+              <option value="\d{1,3}(?!\.)">題號無小數點</option>
+              <option value="\d{1,3}\.">題號有小數點</option>
           </select>
 </td>
 </tr>
@@ -31,32 +31,17 @@
   <th><label for="answersPattern">答案樣式:</label></th>
   <td>
             <select class="choose" name="answersPattern" id="answersPattern">
-                  <option value="^([ABCDE])\s\d{1,3}(?!\.)\s{0,3}/gmu">答案在前，題號無小數點</option>
-                  <option value="^([ABCDE])\s\d{1,3}\.\s{0,3}/gmu">答案在前，題號有小數點</option>
-                  <option value="^\d{1,3}(?!\.)\s{0,3}([ABCDE])\s/gmu">答案在後，題號無小數點</option>
-                  <option value="^\d{1,3}\.\s{0,3}([ABCDE])\s/gmu">答案在後，題號有小數點</option>
+                  <option value="[ABCDE]">答案為ABCDE</option>
+                  <option value="[abcde]">答案為abcde</option>
               </select>
-</td>
-</tr>
-<tr>
-  <th><label for="questionsPattern">題目樣式:</label></th>
-  <td>
-        <select class="choose" name="questionsPattern" id="questionsPattern">
-              <option value="^\d{1,3}(?!\.)\s{0,3}[ABCDE]\s([\s\S]+?)(?=\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?\(d\)\s{0,3}[\s\S]+?(?:\(e\)\s{0,3}[\s\S]+?)?(?=^\d{1,3}|$))/gmu">test3</option>
-              <option value="^\d{1,3}\.\s{0,3}[ABCDE]\s([\s\S]+?)(?=\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?\(D\)\s{0,3}[\s\S]+?(?:\(E\)\s{0,3}[\s\S]+?)?(?=^\d{1,3}|$))/gmu">test4</option>
-          </select>
 </td>
 </tr>
 <tr>
   <th><label for="choicesPattern">選項樣式:</label></th>
   <td>
         <select class="choose" name="choicesPattern" id="choicesPattern">
-              <option value="\(A\)\s{0,3}([\s\S]+?)\(B\)\s{0,3}([\s\S]+?)\(C\)\s{0,3}([\s\S]+?)\(D\)\s{0,3}([\s\S]+?)(?:\(E\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}\.|$)/gmu">選項不在行首，題號有小數點</option>
-              <option value="\(a\)\s{0,3}([\s\S]+?)\(b\)\s{0,3}([\s\S]+?)\(c\)\s{0,3}([\s\S]+?)\(d\)\s{0,3}([\s\S]+?)(?:\(e\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}|$)/gmu">選項不在行首，題號無小數點</option>
-              <option value="^\(A\)\s{0,3}([\s\S]+?)^\(B\)\s{0,3}([\s\S]+?)^\(C\)\s{0,3}([\s\S]+?)^\(D\)\s{0,3}([\s\S]+?)(?:^\(E\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}\.\s[ABCDE]|$)/gmu">選項在行首，答案在後，題號有小數點</option>
-              <option value="^\(A\)\s{0,3}([\s\S]+?)^\(B\)\s{0,3}([\s\S]+?)^\(C\)\s{0,3}([\s\S]+?)^\(D\)\s{0,3}([\s\S]+?)(?:^\(E\)\s{0,3}([\s\S]+?))?(?=^[ABCDE]\s\d{1,3}\.|$)/gmu">選項在行首，答案在前，題號有小數點</option>
-              <option value="^\(a\)\s{0,3}([\s\S]+?)^\(b\)\s{0,3}([\s\S]+?)^\(c\)\s{0,3}([\s\S]+?)^\(d\)\s{0,3}([\s\S]+?)(?:^\(e\)\s{0,3}([\s\S]+?))?(?=^\d{1,3}\s[ABCDE]\s|$)/gmu">選項在行首，答案在後，題號無小數點</option>
-              <option value="^\(a\)\s{0,3}([\s\S]+?)^\(b\)\s{0,3}([\s\S]+?)^\(c\)\s{0,3}([\s\S]+?)^\(d\)\s{0,3}([\s\S]+?)(?:^\(e\)\s{0,3}([\s\S]+?))?(?=^[ABCDE]\s\d{1,3}\s|$)/gmu">選項在行首，答案在前，題號無小數點</option>
+              <option value="\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?\(D\)\s{0,3}[\s\S]+?(?:\(E\)\s{0,3}[\s\S]+?)?">選項為(A)(B)(C)(D)(E)</option>
+              <option value="\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?\(d\)\s{0,3}[\s\S]+?(?:\(e\)\s{0,3}[\s\S]+?)?">選項為(a)(b)(c)(d)(e)</option>
           </select>
 </td>
 </tr>
@@ -83,16 +68,29 @@
 		  </label>
     </div>
     <script>
-        let selectOfQuestionsNumbersPattern = document.getElementById('questionsNumbersPattern');
-        let optionsOfQuestionsNumbersPattern = selectOfQuestionsNumbersPattern.options;
         let questionsAndAnswers = document.getElementById('questionsAndAnswers');
+        let selectOfQuestionsNumbersPattern = document.getElementById('questionsNumbersPattern');
+        let selectOfAnswersPattern = document.getElementById('answersPattern');
+        let optionsOfAnswersPattern = selectOfAnswersPattern.options;
+        let optionsOfQuestionsNumbersPattern = selectOfQuestionsNumbersPattern.options;
         function applyQuestionsNumbersPattern () {
+          let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
+          let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
           let labelId = 'promptOfResultOfGetQuestionsNumbers';
           let textAreaId = 'ResultOfGetQuestionsNumbers';
-          let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
-          let questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, questionsNumbersPattern);
+          let captureQN = '(' + questionsNumbersPattern + ')';
+          let orderOne = '^' + captureQN + '\\s{1,3}' + answersPattern + '/gmu';
+          let orderTwo = '^' + answersPattern + '\\s{1,3}' + captureQN + '/gmu';
+          let questionsNumbersArray = [];
+          if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
+            questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);             
+          } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
+            questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
+          }
           if (questionsNumbersArray.length !== 0) {
               addResultToTextArea(questionsNumbersArray, textAreaId, labelId);
+          } else {
+            document.getElementById(textAreaId).value = '';
           }
         }
         selectOfQuestionsNumbersPattern.addEventListener('change', applyQuestionsNumbersPattern);
@@ -103,50 +101,75 @@
           let textAreaId = 'ResultOfChoices';
           let choicesObject = { choices:[]};
           let choicesPattern = optionsOfChoicesPattern[optionsOfChoicesPattern.selectedIndex].value;
-          let choicesArray = getRegexpResultArray(questionsAndAnswers.value, choicesPattern, choicesObject);
+          let captureChoices = choicesPattern.replace(/\[\\s\\S\]\+\?/gmu, '([\\s\\S]+?)');
+          let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
+          let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
+          let questionsPattern = '\[\\s\\S\]\+\?';
+          let orderOne = captureChoices + '(?=^' + questionsNumbersPattern + '\\s{1,3}' + 
+                         answersPattern + '|$)' + '/gmu';
+          let orderTwo = captureChoices + '(?=^' + answersPattern + '\\s{1,3}' + 
+                         questionsNumbersPattern + '|$)' + '/gmu';
+          let choicesArray = [];
+          if (getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject).length !== 0) {
+            choicesObject = { choices:[]}
+            choicesArray = getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject);
+          } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject).length !== 0) {
+            choicesObject = { choices:[]}
+            choicesArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject);
+          }
           if (choicesArray.length !== 0) {
             addResultToTextArea(choicesArray, textAreaId, labelId);
+          } else {
+            document.getElementById(textAreaId).value = '';
           }
         }
         selectOfChoicesPattern.addEventListener('change', applyChoicesPattern);
-        let selectOfAnswersPattern = document.getElementById('answersPattern');
-        let optionsOfAnswersPattern = selectOfAnswersPattern.options;
         function applyAnswersPattern () {
           let labelId = 'promptOfResultOfAnswers';
           let textAreaId = 'ResultOfAnswers';
+          let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
-          let answersArray = getRegexpResultArray(questionsAndAnswers.value, answersPattern);
+          let captureAns = '(' + answersPattern + ')';
+          let orderOne = '^' + captureAns + '\\s{1,3}' + questionsNumbersPattern + '/gmu';
+          let orderTwo = '^' + questionsNumbersPattern + '\\s{1,3}' + captureAns + '/gmu';
+          let answersArray = [];
+          if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
+            answersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
+          } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
+            answersArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
+          }
           if (answersArray.length !== 0) {
             addResultToTextArea(answersArray, textAreaId, labelId);
+          } else {
+            document.getElementById(textAreaId).value = '';
           }
         }
         selectOfAnswersPattern.addEventListener('change', applyAnswersPattern);
-        let selectOfQuestionsPattern = document.getElementById('questionsPattern');
         function applyQuestionsPattern () {
-          let optionsOfQuestionsPattern = selectOfQuestionsPattern.options;
           let labelId = 'promptOfResultOfGetQuestions';
           let textAreaId = 'ResultOfGetQuestions';
           let choicesPattern = optionsOfChoicesPattern[optionsOfChoicesPattern.selectedIndex].value;
-          console.log(choicesPattern);
           let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
-          let test = function removeCaptureGroupParentheses(choicesPattern) {
-            return choicesPattern.replace(/\(\[\\s\\S\]\+\?\)/gmu,'[\\s\\S]+?');
-          }(choicesPattern);
-          console.log(test);
-          let test2 = function removeCaptureGroupParentheses(questionsNumbersPattern) {
-            return questionsNumbersPattern.replace(/\^\(\\d\{1,3\}\\\.\)/,'^\\d{1,3}\\.');
-          }(questionsNumbersPattern);
-          let test3 = function removeCaptureGroupParentheses(answersPattern) {
-            return answersPattern.replace(/\(\[ABCDE\]\)/,'[ABCDE]');
-          }(answersPattern);
-          let questionsPattern = test3.replace(/\/gmu/,'') + '([\\s\\S]+?)(?=' + test.replace(/\/gmu/,')/gmu');
-          let questionsArray = getRegexpResultArray(questionsAndAnswers.value, questionsPattern);
+          let captureQuestions = '([\\s\\S]+?)';
+          let orderOne = '^' + questionsNumbersPattern + '\\s{1,3}' + answersPattern +
+                         '\\s{1,3}' + captureQuestions + '\\s{1,3}' + choicesPattern +
+                         '(?=^' + questionsNumbersPattern + '\\s{1,3}' + answersPattern +
+                          '|$)' + '/gmu';
+          let orderTwo = '^' + answersPattern + '\\s{1,3}' + questionsNumbersPattern +
+                         '\\s{1,3}' + captureQuestions + '\\s{1,3}' + choicesPattern +
+                         '(?=^' + answersPattern + '\\s{1,3}' + questionsNumbersPattern +
+                          '|$)' + '/gmu';
+          let questionsArray = [];
+          if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
+            questionsArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
+          } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
+            questionsArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
+          }
           if(questionsArray.length !== 0){
               addResultToTextArea(questionsArray, textAreaId, labelId);
           }
         }
-        selectOfQuestionsPattern.addEventListener('change', applyQuestionsPattern);
         let btn = document.getElementById('btn');
         let applyPatternBtn = document.getElementById('applyAllPattern');
         applyPatternBtn.addEventListener('click', () => {
