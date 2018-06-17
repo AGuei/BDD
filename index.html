@@ -183,9 +183,9 @@
         let examObject;
         let textareaContainer = function () {
           let textareaObject = {qa: undefined, ans: undefined, options: undefined};
-          textareaContainer.qa = document.getElementById('ResultOfGetQuestions');
-          textareaContainer.ans = document.getElementById('ResultOfAnswers');
-          textareaContainer.options = document.getElementById('ResultOfChoices');
+          textareaObject.qa = document.getElementById('ResultOfGetQuestions');
+          textareaObject.ans = document.getElementById('ResultOfAnswers');
+          textareaObject.options = document.getElementById('ResultOfChoices');
           return textareaObject;
         };
         function createExamHtml () {
