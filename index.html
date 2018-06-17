@@ -50,7 +50,9 @@
 <input class="button" id="btn" type="button" value="產生考卷">
 <input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫">
 <input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫">
-    </div>
+<input class="button" id="saveResultBtn" type="button" value="儲存篩選結果">
+<input class="button" id="loadResultBtn" type="button" value="讀取篩選結果">
+</div>
     <div id="containerOfResult">
           <label class="flex-column" id="promptOfResultOfGetQuestionsNumbers">
 		  <text class="text">題號篩選結果:</text>
@@ -113,10 +115,10 @@
                          questionsNumbersPattern + '|$)' + '/gmu';
           let choicesArray = [];
           if (getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject).length !== 0) {
-            choicesObject = { choices:[]}
+            choicesObject = { choices:[]};
             choicesArray = getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject);
           } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject).length !== 0) {
-            choicesObject = { choices:[]}
+            choicesObject = { choices:[]};
             choicesArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject);
           }
           if (choicesArray.length !== 0) {
@@ -205,6 +207,17 @@
         });
         loadOringinQaBtn.addEventListener('click', function () {
           questionsAndAnswers.value = JSON.parse(localStorage.getItem('oringinQa'));
+        });
+        let saveResultBtn = document.getElementById('saveResultBtn');
+        let loadResultBtn = document.getElementById('loadResultBtn');
+        saveResultBtn.addEventListener('click', function () {
+          localStorage.setItem('resultOfQa', JSON.stringify(getExamObjectArray(textareaContainer())));
+        });
+        loadResultBtn.addEventListener('click', function () {
+          let resultObject = JSON.parse(localStorage.getItem('resultOfQa'));
+          addResultToTextArea(resultObject.map(obj => obj.ans), 'ResultOfAnswers', 'promptOfResultOfAnswers');
+          addResultToTextArea(resultObject.map(obj => obj.qa), 'ResultOfGetQuestions', 'promptOfResultOfGetQuestions');
+          addResultToTextArea(resultObject.map(obj => { return {choices: obj.options};}), 'ResultOfChoices', 'promptOfResultOfChoices');
         });
         var correctArray = [];
         function makeTable (data) {
