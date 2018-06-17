@@ -48,6 +48,8 @@
 </table>
 <input class="button" id="applyAllPattern" type="button" value="套用樣式進行篩選">
 <input class="button" id="btn" type="button" value="產生考卷">
+<input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫">
+<input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫">
     </div>
     <div id="containerOfResult">
           <label class="flex-column" id="promptOfResultOfGetQuestionsNumbers">
@@ -73,6 +75,8 @@
         let selectOfAnswersPattern = document.getElementById('answersPattern');
         let optionsOfAnswersPattern = selectOfAnswersPattern.options;
         let optionsOfQuestionsNumbersPattern = selectOfQuestionsNumbersPattern.options;
+        let selectOfChoicesPattern = document.getElementById('choicesPattern');
+        let optionsOfChoicesPattern = selectOfChoicesPattern.options;
         function applyQuestionsNumbersPattern () {
           let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
@@ -94,8 +98,6 @@
           }
         }
         selectOfQuestionsNumbersPattern.addEventListener('change', applyQuestionsNumbersPattern);
-        let selectOfChoicesPattern = document.getElementById('choicesPattern');
-        let optionsOfChoicesPattern = selectOfChoicesPattern.options;
         function applyChoicesPattern () {
           let labelId = 'promptOfResultOfChoices';
           let textAreaId = 'ResultOfChoices';
@@ -179,12 +181,15 @@
             applyQuestionsPattern();
         })
         let examObject;
-        function createExamHtml () {
-          let textareaContainer = {qa: undefined, ans: undefined, options: undefined};
+        let textareaContainer = function () {
+          let textareaObject = {qa: undefined, ans: undefined, options: undefined};
           textareaContainer.qa = document.getElementById('ResultOfGetQuestions');
           textareaContainer.ans = document.getElementById('ResultOfAnswers');
           textareaContainer.options = document.getElementById('ResultOfChoices');
-          examObject = getExamObjectArray(textareaContainer);
+          return textareaObject;
+        };
+        function createExamHtml () {
+          examObject = getExamObjectArray(textareaContainer());
           let examtable = makeTable(examObject);
           if (!document.getElementById('examTable')) {            
             document.body.appendChild(examtable);
@@ -193,7 +198,14 @@
           }
         }
         btn.addEventListener('click', createExamHtml);
-
+        let saveOringinQaBtn = document.getElementById('saveOringinQaBtn');
+        let loadOringinQaBtn = document.getElementById('loadOringinQaBtn');
+        saveOringinQaBtn.addEventListener('click', function () {
+          localStorage.setItem('oringinQa', JSON.stringify(questionsAndAnswers.value));
+        });
+        loadOringinQaBtn.addEventListener('click', function () {
+          questionsAndAnswers.value = JSON.parse(localStorage.getItem('oringinQa'));
+        });
         var correctArray = [];
         function makeTable (data) {
           function shuffle(array) {
