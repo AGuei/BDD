@@ -22,7 +22,7 @@
           return item !== '';
         });
       });
-    } else {
+    } else if (result.length === 1) {
       return result[0].split(/\n/).filter(function (item) {
         return item !== '';
       });

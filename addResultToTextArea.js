@@ -14,7 +14,7 @@
   }
 }(this, function factory () {
   function addResultToTextArea (result, textAreaId, parrentNodeId) {
-    if (!result) {
+    if (!result || result.length === 0) {
       return;
     }
     let existedTextArea = document.getElementById(textAreaId);

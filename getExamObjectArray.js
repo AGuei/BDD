@@ -16,9 +16,9 @@
 }(this, function factory (splitResultOfTextArea) {
   function getExamObjectArray (textareaContainer) {
     let examObjectArray = [];
-    let qaArray = splitResultOfTextArea(textareaContainer.qa.value);
-    let ansArray = splitResultOfTextArea(textareaContainer.ans.value);
-    let optionsArray = splitResultOfTextArea(textareaContainer.options.value);
+    let qaArray = splitResultOfTextArea(textareaContainer.qa.value) || [];
+    let ansArray = splitResultOfTextArea(textareaContainer.ans.value) || [];
+    let optionsArray = splitResultOfTextArea(textareaContainer.options.value) || [];
     function hasSameLength () {
       let len = arguments.length;
       for (let i = 1; i < len; i++) {
