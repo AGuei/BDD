@@ -184,10 +184,11 @@
         })
         let examObject;
         let textareaContainer = function () {
-          let textareaObject = {qa: undefined, ans: undefined, options: undefined};
+          let textareaObject = {qa: undefined, ans: undefined, options: undefined, qNum: undefined};
           textareaObject.qa = document.getElementById('ResultOfGetQuestions');
           textareaObject.ans = document.getElementById('ResultOfAnswers');
           textareaObject.options = document.getElementById('ResultOfChoices');
+          textareaObject.qNum = document.getElementById('ResultOfGetQuestionsNumbers');
           return textareaObject;
         };
         function createExamHtml () {
@@ -211,13 +212,17 @@
         let saveResultBtn = document.getElementById('saveResultBtn');
         let loadResultBtn = document.getElementById('loadResultBtn');
         saveResultBtn.addEventListener('click', function () {
-          localStorage.setItem('resultOfQa', JSON.stringify(getExamObjectArray(textareaContainer())));
+          let textareaObject = textareaContainer();
+          localStorage.setItem('resultOfQa', JSON.stringify(textareaObject.qa.value));
+          localStorage.setItem('resultOfAns', JSON.stringify(textareaObject.ans.value));
+          localStorage.setItem('resultOfOptions', JSON.stringify(textareaObject.options.value));
+          localStorage.setItem('resultOfQnum', JSON.stringify(textareaObject.qNum.value));
         });
         loadResultBtn.addEventListener('click', function () {
-          let resultObject = JSON.parse(localStorage.getItem('resultOfQa'));
-          addResultToTextArea(resultObject.map(obj => obj.ans), 'ResultOfAnswers', 'promptOfResultOfAnswers');
-          addResultToTextArea(resultObject.map(obj => obj.qa), 'ResultOfGetQuestions', 'promptOfResultOfGetQuestions');
-          addResultToTextArea(resultObject.map(obj => { return {choices: obj.options};}), 'ResultOfChoices', 'promptOfResultOfChoices');
+          document.getElementById('ResultOfGetQuestions').value = JSON.parse(localStorage.getItem('resultOfQa'));
+          document.getElementById('ResultOfAnswers').value = JSON.parse(localStorage.getItem('resultOfAns'));
+          document.getElementById('ResultOfChoices').value = JSON.parse(localStorage.getItem('resultOfOptions'));
+          document.getElementById('ResultOfGetQuestionsNumbers').value = JSON.parse(localStorage.getItem('resultOfQnum'));
         });
         var correctArray = [];
         function makeTable (data) {
