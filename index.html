@@ -225,6 +225,11 @@
           document.getElementById('ResultOfGetQuestionsNumbers').value = JSON.parse(localStorage.getItem('resultOfQnum'));
         });
         var correctArray = [];
+        function addClassName(node, name) {
+          if (node.className.indexOf(name) === -1) {
+            node.className += name;
+          }
+        }
         function makeTable (data) {
           function shuffle(array) {
             var currentIndex = array.length, temporaryValue, randomIndex;
@@ -298,63 +303,176 @@
               tbody.appendChild(tr);
             }
           }
-          tbody.addEventListener('click', function delegateOfCheck(e) {
-            let event = e || window.event;
-            let target = event.target || event.srcElement;                
-            let id = target.id;            
-            function disableEles(eles) {
-              for(let i = 0; i < eles.length; i++) {
-                eles[i].disabled = true;
-              }
-            }
-            if (target.type === 'radio') {
-              let qNum = id.match(/_(\d)_/)[1];
-              let optNum = id.match(/_\d_(\d)/)[1];
-              let radioEle = document.getElementById(id);
-              let optText = radioEle.nextSibling.textContent;
-              if (radioEle.checked) {
-                if (optText === correctArray[qNum][0]) {
-                  radioEle.className += 'correctAns';                  
-                  let radioGroup = document.querySelectorAll(
-                    'li input[name = singleChoicesGroup_' + qNum + ']'
-                  );
-                  disableEles(radioGroup);
-                }
-              }
-            } else if (target.type === 'checkbox') {
-              let qNum = id.match(/_(\d)_/)[1];
-              let optNum = id.match(/_\d_(\d)/)[1];
-              let checkboxGroup = document.querySelectorAll(
-                'li input[name = multipleChoicesGroup_' + qNum + ']'
-              );              
-              let cAnsLen = correctArray[qNum].length;
-              let selected = [];
-              let checkedPosition = [];
-              let correctTimes = 0;
-              for (let i = 0, len = checkboxGroup.length; i < len; i++) {
-                if (checkboxGroup[i].checked) {
-                  checkedPosition.push(i);                  
-                  selected.push(checkboxGroup[i].nextSibling.textContent);                  
-                }
-              }
-              for (let p = 0; p < selected.length; p++) {
-                for (let k = 0; k < cAnsLen; k++) {
-                  if (selected[p] === correctArray[qNum][k]) {
-                    correctTimes++;
-                    break;
-                  }
-                }
-              }
-              if (correctTimes === cAnsLen && selected.length === cAnsLen) {
-                for(let i = 0; i < checkedPosition.length; i++) {
-                  checkboxGroup[checkedPosition[i]].className = 'correctAns';
-                }
-                disableEles(checkboxGroup);                
-              }
-            }
-          }, false)
+          tbody.addEventListener('click', function () {
+            delegateOfCheckAll(data);
+          }, false);
           table.appendChild(tbody);
           return table;          
+        }
+        function delegateOfCheck(e) {
+          let event = e || window.event;
+          let target = event.target || event.srcElement;                
+          let id = target.id;            
+          function disableEles(eles) {
+            for(let i = 0; i < eles.length; i++) {
+              eles[i].disabled = true;
+            }
+          }
+          let qNum = id.match(/_(\d)_/)[1];
+          if (target.type === 'radio') {
+            let radioEle = document.getElementById(id);
+            let optText = radioEle.nextSibling.textContent;
+            let parentNode = radioEle.parentNode;
+            if (radioEle.checked) {
+              if (optText === correctArray[qNum][0]) {
+                addClassName(parentNode, 'correctAns');
+                let radioGroup = document.querySelectorAll(
+                  'li input[name = singleChoicesGroup_' + qNum + ']'
+                );
+                disableEles(radioGroup);
+              } else {
+                addClassName(parentNode, 'wrongAns');
+              }
+            }
+          } else if (target.type === 'checkbox') {
+            let checkboxGroup = document.querySelectorAll(
+              'li input[name = multipleChoicesGroup_' + qNum + ']'
+            );              
+            let cAnsLen = correctArray[qNum].length;
+            let selected = [];
+            let checkedPosition = [];
+            let correctTimes = 0;
+            for (let i = 0, len = checkboxGroup.length; i < len; i++) {
+              if (checkboxGroup[i].checked) {
+                checkedPosition.push(i);                  
+                selected.push(checkboxGroup[i].nextSibling.textContent);                  
+              }
+            }
+            for (let p = 0; p < selected.length; p++) {
+              for (let k = 0; k < cAnsLen; k++) {
+                if (selected[p] === correctArray[qNum][k]) {
+                  correctTimes++;
+                  break;
+                }
+              }
+            }
+            if (correctTimes === cAnsLen && selected.length === cAnsLen) {
+              for(let i = 0; i < checkedPosition.length; i++) {
+                addClassName(checkboxGroup[checkedPosition[i]].parentNode, 'correctAns');
+              }
+              disableEles(checkboxGroup);                
+            } else {
+              checkboxGroup.forEach(ele => {
+                let parentNode = ele.parentNode;
+                let ansText = ele.nextSibling.textContent;
+                if (ele.checked) {
+                  correctArray[qNum].some(cAns => {
+                    if (ansText === cAns) {
+                      addClassName(parentNode, 'correctAns');
+                      return true;
+                    } else {
+                      addClassName(parentNode, 'wrongAns');
+                    }
+                  });
+                }
+              });
+            }
+          }
+        }
+        function delegateOfCheckAll(data) {
+          function getGroupNames () {
+            let groups = {};
+            document.querySelectorAll('input[name]').forEach(inputNode => {
+              groups[inputNode.name] = true;
+            });
+            return groups;
+          }
+          let groupNames = getGroupNames();
+          function checkedOnceAtleast(groups) {
+            return Object.getOwnPropertyNames(groupNames).every(groupName => {
+              return document.querySelectorAll('input[name=' + groupName + ']:checked').length >= 1;
+            });
+          }
+          let prompMsg = '尚有未作答的題目，確定要交卷嗎？';
+          if (!checkedOnceAtleast()) {
+            if (confirm(prompMsg)) {
+              let examResult = checkAns();
+              examResult.wrongTimes = examResult.correctTimes - examResult.wrongQaArray.length;
+              
+            }
+          } else {
+            console.log(checkAns());
+          }
+          function checkAns () {
+            let result = {
+              correctTimes: 0,
+              wrongQaArray: []
+            };
+            Object.getOwnPropertyNames(groupNames).map(groupName => {
+              return document.querySelector('input[name=' + groupName + ']:checked');
+            }).filter(ele => {
+              return ele !== null;
+            }).forEach(ele => {
+              let qNum = ele.id.match(/_(\d)_/)[1];
+              if (ele.type === 'radio') {
+                let optText = ele.nextSibling.textContent;
+                let parentNode = ele.parentNode;
+                if (optText === correctArray[qNum][0]) {
+                  result.correctTimes++;
+                  addClassName(parentNode, 'correctAns');
+                } else {
+                  result.wrongQaArray.push(data[qNum]);
+                  addClassName(parentNode, 'wrongAns');
+                }
+              } else if (ele.type === 'checkbox') {
+                let checkboxGroup = document.querySelectorAll(
+                  'li input[name = multipleChoicesGroup_' + qNum + ']'
+                );              
+                let cAnsLen = correctArray[qNum].length;
+                let selected = [];
+                let checkedPosition = [];
+                let correctTimes = 0;
+                checkboxGroup.forEach((ele, index) => {
+                  if (ele.checked) {
+                    checkedPosition.push(index);
+                    selected.push(ele.nextSibling.textContent);
+                  }
+                });
+                selected.forEach(ele => {
+                  correctArray[qNum].some(cAns => {
+                    if ( ele === cAns) {
+                      correctTimes++;
+                      return true;
+                    }
+                  });
+                });
+                if (correctTimes === cAnsLen && selected.length === cAnsLen) {
+                  result.correctTimes++;
+                  checkedPosition.forEach(ele => {
+                    let parentNode = checkboxGroup[ele].parentNode;
+                    addClassName(parentNode, 'correctAns');
+                  });
+                } else {
+                  result.wrongQaArray.push(data[qNum]);
+                  checkboxGroup.forEach(ele => {
+                    let parentNode = ele.parentNode;
+                    let ansText = ele.nextSibling.textContent;
+                    if (ele.checked) {
+                      correctArray[qNum].some(cAns => {
+                        if (ansText === cAns) {
+                          addClassName(parentNode, 'correctAns');
+                          return true;
+                        } else {
+                          addClassName(parentNode, 'wrongAns');
+                        }
+                      });
+                    }
+                  });
+                }
+              }
+            });
+            return result;
+          }
         }
     </script>
 </body>
