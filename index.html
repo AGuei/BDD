@@ -47,12 +47,12 @@
   <th><label for="choicesPattern">選項樣式:</label></th>
   <td>
         <select class="choose" name="choicesPattern" id="choicesPattern">
-              <option value="(?!^)\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?\(D\)\s{0,3}[\s\S]+?(?:\(E\)\s{0,3}[\s\S]+?)?(?:\n|$|\()">選項為(A)(B)(C)(D)(E)</option>
-              <option value="(?!^)（A）\s{0,3}[\s\S]+?（B）\s{0,3}[\s\S]+?（C）\s{0,3}[\s\S]+?（D）\s{0,3}[\s\S]+?(?:（E）\s{0,3}[\s\S]+?)?(?:\n|$|（)">選項為（A）（B）（C）（D）（E）</option>
-              <option value="(?!^)\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?\(d\)\s{0,3}[\s\S]+?(?:\(e\)\s{0,3}[\s\S]+?)?(?:\n|$|\()">選項為(a)(b)(c)(d)(e)</option>
-              <option value="(?!^)（a）\s{0,3}[\s\S]+?（b）\s{0,3}[\s\S]+?（c）\s{0,3}[\s\S]+?（d）\s{0,3}[\s\S]+?(?:（e）\s{0,3}[\s\S]+?)?(?:\n|$|（)">選項為（a）（b）（c）（d）（e）</option>
-              <option value="(?!^)\(1\)\s{0,3}[\s\S]+?\(2\)\s{0,3}[\s\S]+?\(3\)\s{0,3}[\s\S]+?\(4\)\s{0,3}[\s\S]+?(?:\(5\)\s{0,3}[\s\S]+?)?(?:\n|$|\()">選項為(1)(2)(3)(4)(5)</option>
-              <option value="(?!^)（1）\s{0,3}[\s\S]+?（2）\s{0,3}[\s\S]+?（3）\s{0,3}[\s\S]+?（4）\s{0,3}[\s\S]+?(?:（5）\s{0,3}[\s\S]+?)?(?:\n|$|（)">選項為（1）（2）（3）（4）（5）</option>
+              <option value="\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?\(D\)\s{0,3}[\s\S]+?(?:\(E\)\s{0,3}[\s\S]+?)?(?:\n|$|\()">選項為(A)(B)(C)(D)(E)</option>
+              <option value="（A）\s{0,3}[\s\S]+?（B）\s{0,3}[\s\S]+?（C）\s{0,3}[\s\S]+?（D）\s{0,3}[\s\S]+?(?:（E）\s{0,3}[\s\S]+?)?(?:\n|$|（)">選項為（A）（B）（C）（D）（E）</option>
+              <option value="\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?\(d\)\s{0,3}[\s\S]+?(?:\(e\)\s{0,3}[\s\S]+?)?(?:\n|$|\()">選項為(a)(b)(c)(d)(e)</option>
+              <option value="（a）\s{0,3}[\s\S]+?（b）\s{0,3}[\s\S]+?（c）\s{0,3}[\s\S]+?（d）\s{0,3}[\s\S]+?(?:（e）\s{0,3}[\s\S]+?)?(?:\n|$|（)">選項為（a）（b）（c）（d）（e）</option>
+              <option value="\(1\)\s{0,3}[\s\S]+?\(2\)\s{0,3}[\s\S]+?\(3\)\s{0,3}[\s\S]+?\(4\)\s{0,3}[\s\S]+?(?:\(5\)\s{0,3}[\s\S]+?)?(?:\n|$|\()">選項為(1)(2)(3)(4)(5)</option>
+              <option value="（1）\s{0,3}[\s\S]+?（2）\s{0,3}[\s\S]+?（3）\s{0,3}[\s\S]+?（4）\s{0,3}[\s\S]+?(?:（5）\s{0,3}[\s\S]+?)?(?:\n|$|（)">選項為（1）（2）（3）（4）（5）</option>
           </select>
 </td>
 </tr>
@@ -121,9 +121,9 @@
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
           let questionsPattern = '\[\\s\\S\]\+\?';
           let orderOne = captureChoices + '(?=^' + questionsNumbersPattern + '\\s{1,3}' + 
-                         answersPattern + '|$)' + '/gmu';
+                         answersPattern + '|$|\\n)' + '/gmu';
           let orderTwo = captureChoices + '(?=^' + answersPattern + '\\s{1,3}' + 
-                         questionsNumbersPattern + '|$)' + '/gmu';
+                         questionsNumbersPattern + '|$|\\n)' + '/gmu';
           let choicesArray = [];
           if (getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject).length !== 0) {
             choicesObject = { choices:[]};
@@ -131,6 +131,10 @@
           } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject).length !== 0) {
             choicesObject = { choices:[]};
             choicesArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject);
+          } else {
+            choicesObject = { choices:[]};
+            captureChoices += '/gmu';
+            choicesArray = getRegexpResultArray(questionsAndAnswers.value, captureChoices, choicesObject);
           }
           if (choicesArray.length !== 0) {
             addResultToTextArea(choicesArray, textAreaId, labelId);
