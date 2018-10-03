@@ -50,19 +50,19 @@
               examObject.ans.push(optionsArray[i][4]);
               break;
             case '1':
-              examObject.ans.push(optionsArray[i][1]);
+              examObject.ans.push(optionsArray[i][0]);
               break;
             case '2':
               examObject.ans.push(optionsArray[i][1]);
               break;
             case '3':
-              examObject.ans.push(optionsArray[i][1]);
+              examObject.ans.push(optionsArray[i][2]);
               break;
             case '4':
-              examObject.ans.push(optionsArray[i][1]);
+              examObject.ans.push(optionsArray[i][3]);
               break;
             case '5':
-              examObject.ans.push(optionsArray[i][1]);
+              examObject.ans.push(optionsArray[i][4]);
               break;
           }
         }
