@@ -71,3 +71,6 @@ li{
 .correctAns{
 	color:green;
 }
+.wrongAns{
+	color:red;
+}
