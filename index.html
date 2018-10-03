@@ -149,8 +149,8 @@
           let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
           let captureAns = answersPattern.replace(/\[/gmu,'(\[').replace(/\]/gmu,'\])');
-          let orderOne = '^' + captureAns + '\\s{1,3}' + questionsNumbersPattern + '/gmu';
-          let orderTwo = '^' + questionsNumbersPattern + '\\s{1,3}' + captureAns + '/gmu';
+          let orderOne = '^' + captureAns + '\\s{0,3}' + questionsNumbersPattern + '/gmu';
+          let orderTwo = '^' + questionsNumbersPattern + '\\s{0,3}' + captureAns + '/gmu';
           let answersArray = [];
           if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
             answersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
@@ -174,13 +174,13 @@
           let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
           let captureQuestions = '([\\s\\S]+?)';
-          let orderOne = '^' + questionsNumbersPattern + '\\s{1,3}' + answersPattern +
-                         '\\s{1,3}' + captureQuestions + '\\s{1,3}' + choicesPattern +
-                         '(?=^' + questionsNumbersPattern + '\\s{1,3}' + answersPattern +
+          let orderOne = '^' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
+                         '\\s{0,3}' + captureQuestions + '\\s{0,3}' + choicesPattern +
+                         '(?=^' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
                           '|$)' + '/gmu';
-          let orderTwo = '^' + answersPattern + '\\s{1,3}' + questionsNumbersPattern +
-                         '\\s{1,3}' + captureQuestions + '\\s{1,3}' + choicesPattern +
-                         '(?=^' + answersPattern + '\\s{1,3}' + questionsNumbersPattern +
+          let orderTwo = '^' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
+                         '\\s{0,3}' + captureQuestions + '\\s{0,3}' + choicesPattern +
+                         '(?=^' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
                           '|$)' + '/gmu';
           let questionsArray = [];
           if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
