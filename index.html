@@ -148,7 +148,7 @@
           let textAreaId = 'ResultOfAnswers';
           let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
-          let captureAns = '(' + answersPattern + ')';
+          let captureAns = answersPattern.replace(/\[/gmu,'(\[').replace(/\]/gmu,'\])');
           let orderOne = '^' + captureAns + '\\s{1,3}' + questionsNumbersPattern + '/gmu';
           let orderTwo = '^' + questionsNumbersPattern + '\\s{1,3}' + captureAns + '/gmu';
           let answersArray = [];
@@ -157,6 +157,7 @@
           } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
             answersArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
           }
+          console.log(answersArray);
           if (answersArray.length !== 0) {
             addResultToTextArea(answersArray, textAreaId, labelId);
           } else {
