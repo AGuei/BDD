@@ -64,6 +64,21 @@
             case '5':
               examObject.ans.push(optionsArray[i][4]);
               break;
+            case '１':
+              examObject.ans.push(optionsArray[i][0]);
+              break;
+            case '２':
+              examObject.ans.push(optionsArray[i][1]);
+              break;
+            case '３':
+              examObject.ans.push(optionsArray[i][2]);
+              break;
+            case '４':
+              examObject.ans.push(optionsArray[i][3]);
+              break;
+            case '５':
+              examObject.ans.push(optionsArray[i][4]);
+              break;
           }
         }
         for (let j = 0; j < optionsArray[i].length; j++) {
