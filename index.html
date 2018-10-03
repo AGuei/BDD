@@ -319,9 +319,7 @@
               tbody.appendChild(tr);
             }
           }
-          tbody.addEventListener('click', function () {
-            delegateOfCheckAll(data);
-          }, false);
+          tbody.addEventListener('click',delegateOfCheck, false);
           table.appendChild(tbody);
           return table;          
         }
