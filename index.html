@@ -32,15 +32,15 @@
   <td>
             <select class="choose" name="answersPattern" id="answersPattern">
                   <option value="[ABCDE]">答案為ABCDE</option>
-                  <option value="\([ABCDE]\)">答案為(A)(B)(C)(D)(E)</option>
-                  <option value="（[ABCDE]）">答案為（A）（B）（C）（D）（E）</option>
+                  <option value="\(\s{0,3}[ABCDE]\s{0,3}\)">答案為(A)(B)(C)(D)(E)</option>
+                  <option value="（\s{0,3}[ABCDE]\s{0,3}）">答案為（A）（B）（C）（D）（E）</option>
                   <option value="[abcde]">答案為abcde</option>
-                  <option value="\([abcde]\)">答案為(a)(b)(c)(d)(e)</option>
-                  <option value="（[abcde]）">答案為（a）（b）（c）（d）（e）</option>
+                  <option value="\(\s{0,3}[abcde]\\s{0,3})">答案為(a)(b)(c)(d)(e)</option>
+                  <option value="（\s{0,3}[abcde]\s{0,3}）">答案為（a）（b）（c）（d）（e）</option>
                   <option value="[12345]">答案為12345</option>
-                  <option value="\([12345]\)">答案為(1)(2)(3)(4)(5)</option>
-                  <option value="（[12345]）">答案為（1）（2）（3）（4）（5）</option>
-                  <option value="（[１２３４５]）">答案為（１）（２）（３）（４）（５）(全形括號與數字)</option>
+                  <option value="\(\s{0,3}[12345]\s{0,3}\)">答案為(1)(2)(3)(4)(5)</option>
+                  <option value="（\s{0,3}[12345]\s{0,3}）">答案為（1）（2）（3）（4）（5）</option>
+                  <option value="（\s{0,3}[１２３４５]\s{0,3}）">答案為（１）（２）（３）（４）（５）(全形括號與數字)</option>
               </select>
 </td>
 </tr>
