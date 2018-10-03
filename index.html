@@ -156,6 +156,9 @@
             answersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
           } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
             answersArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
+          } else {
+            captureAns += '/gmu';
+            answersArray = getRegexpResultArray(questionsAndAnswers.value, captureAns);
           }
           if (answersArray.length !== 0) {
             addResultToTextArea(answersArray, textAreaId, labelId);
