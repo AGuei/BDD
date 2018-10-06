@@ -83,6 +83,21 @@
           <textarea class="texebox item2" id="ResultOfChoices"></textarea>
 		  </label>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-database.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAg9Jg4jQFhfbnTHp_m9DqD0P69qtoqbFU",
+        authDomain: "testproject-f19a4.firebaseapp.com",
+        databaseURL: "https://testproject-f19a4.firebaseio.com",
+        projectId: "testproject-f19a4",
+        storageBucket: "",
+        messagingSenderId: "460869512764"
+      };
+      firebase.initializeApp(config);
+    </script>
     <script>
         let questionsAndAnswers = document.getElementById('questionsAndAnswers');
         let selectOfQuestionsNumbersPattern = document.getElementById('questionsNumbersPattern');
