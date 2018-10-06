@@ -121,10 +121,16 @@
           let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
           let questionsPattern = '\[\\s\\S\]\+\?';
-          let orderOne = captureChoices + '(?=^' + questionsNumbersPattern + '\\s{0,3}' + 
-                         answersPattern + '|(?!\\n)$)' + '/gmu';
-          let orderTwo = captureChoices + '(?=^' + answersPattern + '\\s{0,3}' + 
-                         questionsNumbersPattern + '|(?!\\n)$)' + '/gmu';
+          let startPatternOrderOne = questionsNumbersPattern + '\\s{0,3}' + 
+                         answersPattern;
+          let startPatternOrderTwo = answersPattern + '\\s{0,3}' + 
+                         questionsNumbersPattern;
+          let orderOne = '(?:' + startPatternOrderOne + questionsPattern + ')' +
+                         captureChoices + '(?=^' + startPatternOrderOne + '|(?!\\n)$)' +
+                          '/gmu';
+          let orderTwo = '(?:' + startPatternOrderTwo + questionsPattern + ')' +
+                         captureChoices + '(?=^' + startPatternOrderTwo + '|(?!\\n)$)' +
+                          '/gmu';
           let choicesArray = [];
           if (getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject).length !== 0) {
             choicesObject = { choices:[]};
