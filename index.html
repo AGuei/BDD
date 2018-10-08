@@ -65,17 +65,19 @@
 <input class="button" id="btn" type="button" value="產生考卷">
 
 <li>本地題庫
-  <lo><input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫"></lo>
-  <lo><input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫"></lo>
+  <input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫">
+  <input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫">
 </li>
 
 <li>雲端
-<lo>123</lo>
-<lo><input class="button" id="saveOringinQaToFirebaseBtn" type="button" value="原始題庫儲存到雲端資料庫"></lo>
+    <input class="oringinQaName" id="oringinQaName_field" type="text" value="" placeholder="為原始題庫取名" required>
+    <input class="button" id="saveOringinQaToFirestoreBtn" type="button" value="原始題庫儲存到雲端資料庫">
 </li>
-<li>題庫
-<lo>123</lo>
-<lo><input class="button" id="loadOringinQaFromFirebaseBtn" type="button" value="從雲端資料庫讀取原始題庫"></lo>
+<li>
+  <select>
+    <option>題庫名稱</option>
+  </select>
+  <input class="button" id="loadOringinQaFromFirestoreBtn" type="button" value="從雲端資料庫讀取原始題庫">
 </li>
 
 </div>
@@ -97,12 +99,18 @@
           <textarea class="texebox item2" id="ResultOfChoices"></textarea>
 		  </label>
     </div>
-    <input class="button" id="saveResultBtn" type="button" value="儲存篩選結果">
-    <input class="button" id="loadResultBtn" type="button" value="讀取篩選結果">
-    <a>123</a>
-    <a>123</a>
-    <input class="button" id="saveResultToFirebaseBtn" type="button" value="篩選結果儲存到雲端資料庫">
-    <input class="button" id="loadResultFromFirebaseBtn" type="button" value="從雲端資料庫讀取篩選結果">
+    <li>本地題庫
+      <input class="button" id="saveResultBtn" type="button" value="儲存篩選結果">
+      <input class="button" id="loadResultBtn" type="button" value="讀取篩選結果">
+    </li>
+    <li>雲端
+      <input class="resultName" id="resultName_field" type="text" value="" placeholder="為篩選結果取名" required>
+      <input class="button" id="saveResultToFirestoreBtn" type="button" value="篩選結果儲存到雲端資料庫">
+      <select class="resultName" id="resultNameOnFirestore_field">
+        <option>題庫名稱</option>
+      </select>
+      <input class="button" id="loadResultFromFirestoreBtn" type="button" value="從雲端資料庫讀取篩選結果">
+    </li>
     <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-database.js"></script>
