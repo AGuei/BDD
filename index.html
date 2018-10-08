@@ -63,14 +63,21 @@
 </table>
 <input class="button" id="applyAllPattern" type="button" value="套用樣式進行篩選">
 <input class="button" id="btn" type="button" value="產生考卷">
-<input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫">
-<input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫">
-<input class="button" id="saveResultBtn" type="button" value="儲存篩選結果">
-<input class="button" id="loadResultBtn" type="button" value="讀取篩選結果">
-<input class="button" id="saveOringinQaToFirebaseBtn" type="button" value="原始題庫儲存到雲端資料庫">
-<input class="button" id="loadOringinQaFromFirebaseBtn" type="button" value="從雲端資料庫讀取原始題庫">
-<input class="button" id="saveResultToFirebaseBtn" type="button" value="篩選結果儲存到雲端資料庫">
-<input class="button" id="loadResultFromFirebaseBtn" type="button" value="從雲端資料庫讀取篩選結果">
+
+<li>本地題庫
+  <lo><input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫"></lo>
+  <lo><input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫"></lo>
+</li>
+
+<li>雲端
+<lo>123</lo>
+<lo><input class="button" id="saveOringinQaToFirebaseBtn" type="button" value="原始題庫儲存到雲端資料庫"></lo>
+</li>
+<li>題庫
+<lo>123</lo>
+<lo><input class="button" id="loadOringinQaFromFirebaseBtn" type="button" value="從雲端資料庫讀取原始題庫"></lo>
+</li>
+
 </div>
     <div id="containerOfResult">
           <label class="flex-column" id="promptOfResultOfGetQuestionsNumbers">
@@ -90,6 +97,12 @@
           <textarea class="texebox item2" id="ResultOfChoices"></textarea>
 		  </label>
     </div>
+    <input class="button" id="saveResultBtn" type="button" value="儲存篩選結果">
+    <input class="button" id="loadResultBtn" type="button" value="讀取篩選結果">
+    <a>123</a>
+    <a>123</a>
+    <input class="button" id="saveResultToFirebaseBtn" type="button" value="篩選結果儲存到雲端資料庫">
+    <input class="button" id="loadResultFromFirebaseBtn" type="button" value="從雲端資料庫讀取篩選結果">
     <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-database.js"></script>
@@ -123,7 +136,7 @@
           let orderTwo = '^' + answersPattern + '\\s{0,3}' + captureQN + '/gmu';
           let questionsNumbersArray = [];
           if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
-            questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);             
+            questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
           } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
             questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
           }
@@ -143,9 +156,9 @@
           let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
           let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
           let questionsPattern = '\[\\s\\S\]\+\?';
-          let startPatternOrderOne = questionsNumbersPattern + '\\s{0,3}' + 
+          let startPatternOrderOne = questionsNumbersPattern + '\\s{0,3}' +
                          answersPattern;
-          let startPatternOrderTwo = answersPattern + '\\s{0,3}' + 
+          let startPatternOrderTwo = answersPattern + '\\s{0,3}' +
                          questionsNumbersPattern;
           let orderOne = '(?:' + startPatternOrderOne + questionsPattern + ')' +
                          captureChoices + '(?=^' + startPatternOrderOne + '|(?!\\n)$)' +
@@ -241,7 +254,7 @@
         function createExamHtml () {
           examObject = getExamObjectArray(textareaContainer());
           let examtable = makeTable(examObject);
-          if (!document.getElementById('examTable')) {            
+          if (!document.getElementById('examTable')) {
             document.body.appendChild(examtable);
           } else {
             document.body.replaceChild(examtable, document.getElementById('examTable'));
@@ -277,7 +290,7 @@
 
         });
         loadOringinQaFromFirebaseBtn.addEventListener('click', function () {
-          
+
         });
         let saveResultToFirebaseBtn = document.getElementById('saveResultToFirebaseBtn');
         let loadResultFromFirebaseBtn = document.getElementById('loadResultFromFirebaseBtn');
@@ -285,7 +298,7 @@
 
         });
         loadResultFromFirebaseBtn.addEventListener('click', function () {
-          
+
         });
         var correctArray = [];
         function addClassName(node, name) {
@@ -346,7 +359,7 @@
                 objLabel.htmlFor = objRadio.id;
                 objLabel.appendChild(objRadio);
                 objLabel.appendChild(radioText);
-                li2.appendChild(objLabel);                
+                li2.appendChild(objLabel);
               } else {
                 let chkText = document.createTextNode(tempStr);
                 let objChk = document.createElement('input');
@@ -360,7 +373,7 @@
               }
               ol2.appendChild(li2);
               li.appendChild(ol2);
-              ol.appendChild(li);              
+              ol.appendChild(li);
               td.appendChild(ol);
               tr.appendChild(td);
               tbody.appendChild(tr);
@@ -368,12 +381,12 @@
           }
           tbody.addEventListener('click',delegateOfCheck, false);
           table.appendChild(tbody);
-          return table;          
+          return table;
         }
         function delegateOfCheck(e) {
           let event = e || window.event;
-          let target = event.target || event.srcElement;                
-          let id = target.id;            
+          let target = event.target || event.srcElement;
+          let id = target.id;
           function disableEles(eles) {
             for(let i = 0; i < eles.length; i++) {
               eles[i].disabled = true;
@@ -398,15 +411,15 @@
           } else if (target.type === 'checkbox') {
             let checkboxGroup = document.querySelectorAll(
               'li input[name = multipleChoicesGroup_' + qNum + ']'
-            );              
+            );
             let cAnsLen = correctArray[qNum].length;
             let selected = [];
             let checkedPosition = [];
             let correctTimes = 0;
             for (let i = 0, len = checkboxGroup.length; i < len; i++) {
               if (checkboxGroup[i].checked) {
-                checkedPosition.push(i);                  
-                selected.push(checkboxGroup[i].nextSibling.textContent);                  
+                checkedPosition.push(i);
+                selected.push(checkboxGroup[i].nextSibling.textContent);
               }
             }
             for (let p = 0; p < selected.length; p++) {
@@ -421,7 +434,7 @@
               for(let i = 0; i < checkedPosition.length; i++) {
                 addClassName(checkboxGroup[checkedPosition[i]].parentNode, 'correctAns');
               }
-              disableEles(checkboxGroup);                
+              disableEles(checkboxGroup);
             } else {
               checkboxGroup.forEach(ele => {
                 let parentNode = ele.parentNode;
@@ -459,7 +472,7 @@
             if (confirm(prompMsg)) {
               let examResult = checkAns();
               examResult.wrongTimes = examResult.correctTimes - examResult.wrongQaArray.length;
-              
+
             }
           } else {
             console.log(checkAns());
@@ -488,7 +501,7 @@
               } else if (ele.type === 'checkbox') {
                 let checkboxGroup = document.querySelectorAll(
                   'li input[name = multipleChoicesGroup_' + qNum + ']'
-                );              
+                );
                 let cAnsLen = correctArray[qNum].length;
                 let selected = [];
                 let checkedPosition = [];
