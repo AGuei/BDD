@@ -302,7 +302,7 @@
         saveOringinQaToFirestoreBtn.addEventListener('click', function () {
           let qaName = document.getElementById('oringinQaName_field').value;
           let qaTextContent = questionsAndAnswers.value;
-          saveToFirestore(qaName, qaTextContent);
+          saveToFirestore( 'oringinQa_'+ qaName, qaTextContent);
         });
         function saveToFirestore (keyName, value) {
           const user = firebase.auth().currentUser;
@@ -349,7 +349,8 @@
         let saveResultToFirestoreBtn = document.getElementById('saveResultToFirestoreBtn');
         let loadResultFromFirestoreBtn = document.getElementById('loadResultFromFirestoreBtn');
         saveResultToFirestoreBtn.addEventListener('click', function () {
-
+          let resultName = document.getElementById('resultName_field').value;
+          saveToFirestore('result_' + resultName, getExamObjectArray(textareaContainer()));
         });
         loadResultFromFirestoreBtn.addEventListener('click', function () {
 
