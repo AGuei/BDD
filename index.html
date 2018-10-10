@@ -299,9 +299,13 @@
         db.settings(settings);
         let selectOfOringinQa = document.getElementById('oringinQaNameOnFirestore');
         selectOfOringinQa.addEventListener('focus', function () {
-          loadNameFromFirestore('allQaName');
+          loadNameFromFirestore('allQaName', 'oringinQaNameOnFirestore');
         }, false);
-        function loadNameFromFirestore(str) {
+        let selectOfResult = document.getElementById('ResultNameOnFirestore');
+        selectOfResult.addEventListener('focus', function () {
+          loadNameFromFirestore('allResultName', 'ResultNameOnFirestore');
+        }, false);
+        function loadNameFromFirestore(str, id) {
           let user = firebase.auth().currentUser;
           if (user) {
            let userRef = db.collection('users').doc(user.uid);
@@ -309,7 +313,8 @@
             .then(function (docSnapshot) {
               if (docSnapshot.exists) {
                 let obj = {};
-                let options = selectOfOringinQa.children;
+                let selectEle = document.getElementById(id);
+                let options = selectEle.children;
                 for(let i = 1; i < options.length; i++) {
                   obj[options[i].text] = options.text;
                 }
@@ -317,7 +322,7 @@
                   let option = document.createElement('option');
                   option.textContent = name;
                   if (!obj.hasOwnProperty(name)) {
-                    selectOfOringinQa.appendChild(option);
+                    selectEle.appendChild(option);
                   }
                   options[0].text = '題庫名稱共 ' + (options.length - 1) + ' 筆';
                 });
