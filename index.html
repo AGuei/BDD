@@ -1,104 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel=stylesheet type="text/css" href="stylesheet.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="stringToRegexp.js"></script>
-    <script src="getRegexpResultArray.js"></script>
-    <script src="addResultToTextArea.js"></script>
-    <script src="splitResultOfTextArea.js"></script>
-    <script src="getExamObjectArray.js"></script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
-    <title>BDD TEST Document</title>
+  <link rel=stylesheet type="text/css" href="stylesheet.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="stringToRegexp.js"></script>
+  <script src="getRegexpResultArray.js"></script>
+  <script src="addResultToTextArea.js"></script>
+  <script src="splitResultOfTextArea.js"></script>
+  <script src="getExamObjectArray.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+  <title>BDD TEST Document</title>
 </head>
-<body style>
-    <div class="questionsAndAnswersContainer" id="questionsAndAnswersContainer">
-        <textarea class="texebox" name="textarea" id="questionsAndAnswers"></textarea>
-    </div>
-    <div class="patternContainer" id="patternContainer">
-      <table>
-<tr>
-  <th><label for="questionsNumbersPattern">題號樣式:</label></th>
-  <td>
-        <select class="choose" name="questionsNumbersPattern" id="questionsNumbersPattern">
-              <option value="\d{1,3}(?!\.)">題號無小數點</option>
-              <option value="\d{1,3}\.">題號有小數點</option>
+<body>
+  <div class="questionsAndAnswersContainer" id="questionsAndAnswersContainer">
+    <textarea class="texebox" name="textarea" id="questionsAndAnswers"></textarea>
+  </div>
+  <div class="patternContainer" id="patternContainer">
+    <table>
+      <tr>
+        <th><label for="questionsNumbersPattern">題號樣式:</label></th>
+        <td>
+          <select class="choose" name="questionsNumbersPattern" id="questionsNumbersPattern">
+            <option value="\d{1,3}(?!\.)">題號無小數點</option>
+            <option value="\d{1,3}\.">題號有小數點</option>
           </select>
-</td>
-</tr>
-<tr>
-  <th><label for="answersPattern">答案樣式:</label></th>
-  <td>
-            <select class="choose" name="answersPattern" id="answersPattern">
-                  <option value="[ABCDE]">答案為ABCDE</option>
-                  <option value="\(\s{0,3}[ABCDE]\s{0,3}\)">答案為(A)(B)(C)(D)(E)</option>
-                  <option value="（\s{0,3}[ABCDE]\s{0,3}）">答案為（A）（B）（C）（D）（E）</option>
-                  <option value="[abcde]">答案為abcde</option>
-                  <option value="\(\s{0,3}[abcde]\\s{0,3})">答案為(a)(b)(c)(d)(e)</option>
-                  <option value="（\s{0,3}[abcde]\s{0,3}）">答案為（a）（b）（c）（d）（e）</option>
-                  <option value="[12345]">答案為12345</option>
-                  <option value="\(\s{0,3}[12345]\s{0,3}\)">答案為(1)(2)(3)(4)(5)</option>
-                  <option value="（\s{0,3}[12345]\s{0,3}）">答案為（1）（2）（3）（4）（5）</option>
-                  <option value="（\s{0,3}[１２３４５]\s{0,3}）">答案為（１）（２）（３）（４）（５）(全形括號與數字)</option>
-              </select>
-</td>
-</tr>
-<tr>
-  <th><label for="choicesPattern">選項樣式:</label></th>
-  <td>
-        <select class="choose" name="choicesPattern" id="choicesPattern">
-              <option value="\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?(?:\(D\)\s{0,3}[\s\S]+?)?(?:\(E\)\s{0,3}[\s\S]+?)?">選項為(A)(B)(C)(D)(E)</option>
-              <option value="（A）\s{0,3}[\s\S]+?（B）\s{0,3}[\s\S]+?（C）\s{0,3}[\s\S]+?(?:（D）\s{0,3}[\s\S]+?)?(?:（E）\s{0,3}[\s\S]+?)?">選項為（A）（B）（C）（D）（E）</option>
-              <option value="\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?(?:\(d\)\s{0,3}[\s\S]+?)?(?:\(e\)\s{0,3}[\s\S]+?)?">選項為(a)(b)(c)(d)(e)</option>
-              <option value="（a）\s{0,3}[\s\S]+?（b）\s{0,3}[\s\S]+?（c）\s{0,3}[\s\S]+?(?:（d）\s{0,3}[\s\S]+?)?(?:（e）\s{0,3}[\s\S]+?)?">選項為（a）（b）（c）（d）（e）</option>
-              <option value="\(1\)\s{0,3}[\s\S]+?\(2\)\s{0,3}[\s\S]+?\(3\)\s{0,3}[\s\S]+?(?:\(4\)\s{0,3}[\s\S]+?)?(?:\(5\)\s{0,3}[\s\S]+?)?">選項為(1)(2)(3)(4)(5)</option>
-              <option value="（1）\s{0,3}[\s\S]+?（2）\s{0,3}[\s\S]+?（3）\s{0,3}[\s\S]+?(?:（4）\s{0,3}[\s\S]+?)?(?:（5）\s{0,3}[\s\S]+?)?">選項為（1）（2）（3）（4）（5）</option>
-              <option value="①\s{0,3}[\s\S]+?②\s{0,3}[\s\S]+?③\s{0,3}[\s\S]+?(?:④\s{0,3}[\s\S]+?)?(?:⑤\s{0,3}[\s\S]+?)?">選項為①②③④⑤</option>
+        </td>
+      </tr>
+      <tr>
+        <th><label for="answersPattern">答案樣式:</label></th>
+        <td>
+          <select class="choose" name="answersPattern" id="answersPattern">
+            <option value="[ABCDE]">答案為ABCDE</option>
+            <option value="\(\s{0,3}[ABCDE]\s{0,3}\)">答案為(A)(B)(C)(D)(E)</option>
+            <option value="（\s{0,3}[ABCDE]\s{0,3}）">答案為（A）（B）（C）（D）（E）</option>
+            <option value="[abcde]">答案為abcde</option>
+            <option value="\(\s{0,3}[abcde]\\s{0,3})">答案為(a)(b)(c)(d)(e)</option>
+            <option value="（\s{0,3}[abcde]\s{0,3}）">答案為（a）（b）（c）（d）（e）</option>
+            <option value="[12345]">答案為12345</option>
+            <option value="\(\s{0,3}[12345]\s{0,3}\)">答案為(1)(2)(3)(4)(5)</option>
+            <option value="（\s{0,3}[12345]\s{0,3}）">答案為（1）（2）（3）（4）（5）</option>
+            <option value="（\s{0,3}[１２３４５]\s{0,3}）">答案為（１）（２）（３）（４）（５）(全形括號與數字)</option>
           </select>
-</td>
-</tr>
-</table>
-<input class="button" id="applyAllPattern" type="button" value="套用樣式進行篩選">
-<input class="button" id="btn" type="button" value="產生考卷">
-
-<li>本地題庫
-  <input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫">
-  <input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫">
-</li>
-
-<li>雲端
-    <input class="oringinQaName" id="oringinQaName_field" type="text" value="" placeholder="為原始題庫取名" required>
-    <input class="button" id="saveOringinQaToFirestoreBtn" type="button" value="原始題庫儲存到雲端資料庫">
-</li>
-<li>
-  <select class="choose" name="oringinQaNameOnFirestore" id="oringinQaNameOnFirestore">
-    <option>題庫名稱</option>
-  </select>
-  <input class="button" id="loadOringinQaFromFirestoreBtn" type="button" value="從雲端資料庫讀取原始題庫">
-</li>
-
-</div>
-    <div id="containerOfResult">
-          <label class="flex-column" id="promptOfResultOfGetQuestionsNumbers">
-		  <text class="text">題號篩選結果:</text>
-          <textarea class="texebox item1" id="ResultOfGetQuestionsNumbers"></textarea>
-		  </label>
-          <label class="flex-column" id="promptOfResultOfAnswers">
-		  <text class="text">答案篩選結果:</text>
-          <textarea class="texebox item1" id="ResultOfAnswers"></textarea>
-		  </label>
-          <label class="flex-column" id="promptOfResultOfGetQuestions">
-		  <text class="text">題目篩選結果:</text>
-          <textarea class="texebox item2" id="ResultOfGetQuestions"></textarea>
-		  </label>
-          <label class="flex-column" id="promptOfResultOfChoices">
-		  <text class="text">選項篩選結果:</text>
-          <textarea class="texebox item2" id="ResultOfChoices"></textarea>
-		  </label>
-    </div>
+        </td>
+      </tr>
+      <tr>
+        <th><label for="choicesPattern">選項樣式:</label></th>
+        <td>
+          <select class="choose" name="choicesPattern" id="choicesPattern">
+            <option value="\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?(?:\(D\)\s{0,3}[\s\S]+?)?(?:\(E\)\s{0,3}[\s\S]+?)?">選項為(A)(B)(C)(D)(E)</option>
+            <option value="（A）\s{0,3}[\s\S]+?（B）\s{0,3}[\s\S]+?（C）\s{0,3}[\s\S]+?(?:（D）\s{0,3}[\s\S]+?)?(?:（E）\s{0,3}[\s\S]+?)?">選項為（A）（B）（C）（D）（E）</option>
+            <option value="\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?(?:\(d\)\s{0,3}[\s\S]+?)?(?:\(e\)\s{0,3}[\s\S]+?)?">選項為(a)(b)(c)(d)(e)</option>
+            <option value="（a）\s{0,3}[\s\S]+?（b）\s{0,3}[\s\S]+?（c）\s{0,3}[\s\S]+?(?:（d）\s{0,3}[\s\S]+?)?(?:（e）\s{0,3}[\s\S]+?)?">選項為（a）（b）（c）（d）（e）</option>
+            <option value="\(1\)\s{0,3}[\s\S]+?\(2\)\s{0,3}[\s\S]+?\(3\)\s{0,3}[\s\S]+?(?:\(4\)\s{0,3}[\s\S]+?)?(?:\(5\)\s{0,3}[\s\S]+?)?">選項為(1)(2)(3)(4)(5)</option>
+            <option value="（1）\s{0,3}[\s\S]+?（2）\s{0,3}[\s\S]+?（3）\s{0,3}[\s\S]+?(?:（4）\s{0,3}[\s\S]+?)?(?:（5）\s{0,3}[\s\S]+?)?">選項為（1）（2）（3）（4）（5）</option>
+            <option value="①\s{0,3}[\s\S]+?②\s{0,3}[\s\S]+?③\s{0,3}[\s\S]+?(?:④\s{0,3}[\s\S]+?)?(?:⑤\s{0,3}[\s\S]+?)?">選項為①②③④⑤</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <input class="button" id="applyAllPattern" type="button" value="套用樣式進行篩選">
+    <input class="button" id="btn" type="button" value="產生考卷">
+    <li>本地題庫
+      <input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫">
+      <input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫">
+    </li>
+    <li>雲端
+      <input class="oringinQaName" id="oringinQaName_field" type="text" value="" placeholder="為原始題庫取名" required>
+      <input class="button" id="saveOringinQaToFirestoreBtn" type="button" value="原始題庫儲存到雲端資料庫">
+    </li>
+    <li>
+      <select class="choose" name="oringinQaNameOnFirestore" id="oringinQaNameOnFirestore">
+        <option>題庫名稱</option>
+      </select>
+      <input class="button" id="loadOringinQaFromFirestoreBtn" type="button" value="從雲端資料庫讀取原始題庫">
+    </li>
+  </div>
+  <div id="containerOfResult">
+    <label class="flex-column" id="promptOfResultOfGetQuestionsNumbers">
+      <text class="text">題號篩選結果:</text>
+      <textarea class="texebox item1" id="ResultOfGetQuestionsNumbers"></textarea>
+    </label>
+      <label class="flex-column" id="promptOfResultOfAnswers">
+      <text class="text">答案篩選結果:</text>
+      <textarea class="texebox item1" id="ResultOfAnswers"></textarea>
+    </label>
+      <label class="flex-column" id="promptOfResultOfGetQuestions">
+      <text class="text">題目篩選結果:</text>
+      <textarea class="texebox item2" id="ResultOfGetQuestions"></textarea>
+    </label>
+      <label class="flex-column" id="promptOfResultOfChoices">
+      <text class="text">選項篩選結果:</text>
+      <textarea class="texebox item2" id="ResultOfChoices"></textarea>
+    </label>
     <li>本地題庫
       <input class="button" id="saveResultBtn" type="button" value="儲存篩選結果">
       <input class="button" id="loadResultBtn" type="button" value="讀取篩選結果">
@@ -111,541 +107,542 @@
       </select>
       <input class="button" id="loadResultFromFirestoreBtn" type="button" value="從雲端資料庫讀取篩選結果">
     </li>
-    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyAg9Jg4jQFhfbnTHp_m9DqD0P69qtoqbFU",
-        authDomain: "testproject-f19a4.firebaseapp.com",
-        databaseURL: "https://testproject-f19a4.firebaseio.com",
-        projectId: "testproject-f19a4",
-        storageBucket: "",
-        messagingSenderId: "460869512764"
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAg9Jg4jQFhfbnTHp_m9DqD0P69qtoqbFU",
+      authDomain: "testproject-f19a4.firebaseapp.com",
+      databaseURL: "https://testproject-f19a4.firebaseio.com",
+      projectId: "testproject-f19a4",
+      storageBucket: "",
+      messagingSenderId: "460869512764"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script>
+    let questionsAndAnswers = document.getElementById('questionsAndAnswers');
+    let selectOfQuestionsNumbersPattern = document.getElementById('questionsNumbersPattern');
+    let selectOfAnswersPattern = document.getElementById('answersPattern');
+    let optionsOfAnswersPattern = selectOfAnswersPattern.options;
+    let optionsOfQuestionsNumbersPattern = selectOfQuestionsNumbersPattern.options;
+    let selectOfChoicesPattern = document.getElementById('choicesPattern');
+    let optionsOfChoicesPattern = selectOfChoicesPattern.options;
+    function applyQuestionsNumbersPattern () {
+      let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
+      let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
+      let labelId = 'promptOfResultOfGetQuestionsNumbers';
+      let textAreaId = 'ResultOfGetQuestionsNumbers';
+      let captureQN = '(' + questionsNumbersPattern + ')';
+      let orderOne = '^' + captureQN + '\\s{0,3}' + answersPattern + '/gmu';
+      let orderTwo = '^' + answersPattern + '\\s{0,3}' + captureQN + '/gmu';
+      let questionsNumbersArray = [];
+      if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
+        questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
+      } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
+        questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
+      }
+      if (questionsNumbersArray.length !== 0) {
+          addResultToTextArea(questionsNumbersArray, textAreaId, labelId);
+      } else {
+        document.getElementById(textAreaId).value = '';
+      }
+    }
+    selectOfQuestionsNumbersPattern.addEventListener('change', applyQuestionsNumbersPattern);
+    function applyChoicesPattern () {
+      let labelId = 'promptOfResultOfChoices';
+      let textAreaId = 'ResultOfChoices';
+      let choicesObject = { choices:[]};
+      let choicesPattern = optionsOfChoicesPattern[optionsOfChoicesPattern.selectedIndex].value;
+      let captureChoices = choicesPattern.replace(/\[\\s\\S\]\+\?/gmu, '([\\s\\S]+?)');
+      let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
+      let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
+      let questionsPattern = '\[\\s\\S\]\+\?';
+      let startPatternOrderOne = questionsNumbersPattern + '\\s{0,3}' +
+                      answersPattern;
+      let startPatternOrderTwo = answersPattern + '\\s{0,3}' +
+                      questionsNumbersPattern;
+      let orderOne = '(?:' + startPatternOrderOne + questionsPattern + ')' +
+                      captureChoices + '(?=^' + startPatternOrderOne + '|(?!\\n)$)' +
+                      '/gmu';
+      let orderTwo = '(?:' + startPatternOrderTwo + questionsPattern + ')' +
+                      captureChoices + '(?=^' + startPatternOrderTwo + '|(?!\\n)$)' +
+                      '/gmu';
+      let choicesArray = [];
+      if (getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject).length !== 0) {
+        choicesObject = { choices:[]};
+        choicesArray = getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject);
+      } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject).length !== 0) {
+        choicesObject = { choices:[]};
+        choicesArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject);
+      } else {
+        choicesObject = { choices:[]};
+        captureChoices += '/gmu';
+        choicesArray = getRegexpResultArray(questionsAndAnswers.value, captureChoices, choicesObject);
+      }
+      if (choicesArray.length !== 0) {
+        addResultToTextArea(choicesArray, textAreaId, labelId);
+      } else {
+        document.getElementById(textAreaId).value = '';
+      }
+    }
+    selectOfChoicesPattern.addEventListener('change', applyChoicesPattern);
+    function applyAnswersPattern () {
+      let labelId = 'promptOfResultOfAnswers';
+      let textAreaId = 'ResultOfAnswers';
+      let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
+      let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
+      let captureAns = answersPattern.replace(/\[/gmu,'(\[').replace(/\]/gmu,'\])');
+      let orderOne = '^' + captureAns + '\\s{0,3}' + questionsNumbersPattern + '/gmu';
+      let orderTwo = '^' + questionsNumbersPattern + '\\s{0,3}' + captureAns + '/gmu';
+      let answersArray = [];
+      if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
+        answersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
+      } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
+        answersArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
+      } else {
+        captureAns += '/gmu';
+        answersArray = getRegexpResultArray(questionsAndAnswers.value, captureAns);
+      }
+      if (answersArray.length !== 0) {
+        addResultToTextArea(answersArray, textAreaId, labelId);
+      } else {
+        document.getElementById(textAreaId).value = '';
+      }
+    }
+    selectOfAnswersPattern.addEventListener('change', applyAnswersPattern);
+    function applyQuestionsPattern () {
+      let labelId = 'promptOfResultOfGetQuestions';
+      let textAreaId = 'ResultOfGetQuestions';
+      let choicesPattern = optionsOfChoicesPattern[optionsOfChoicesPattern.selectedIndex].value;
+      let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
+      let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
+      let captureQuestions = '([\\s\\S]+?)';
+      let orderOne = '^' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
+                      '\\s{0,3}' + captureQuestions + '\\s{0,3}' + choicesPattern +
+                      '(?=^' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
+                      '|$)' + '/gmu';
+      let orderTwo = '^' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
+                      '\\s{0,3}' + captureQuestions + '\\s{0,3}' + choicesPattern +
+                      '(?=^' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
+                      '|$)' + '/gmu';
+      let questionsArray = [];
+      if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
+        questionsArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
+      } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
+        questionsArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
+      }
+      if(questionsArray.length !== 0){
+          addResultToTextArea(questionsArray, textAreaId, labelId);
+      }
+    }
+    let btn = document.getElementById('btn');
+    let applyPatternBtn = document.getElementById('applyAllPattern');
+    applyPatternBtn.addEventListener('click', () => {
+        applyQuestionsNumbersPattern();
+        applyAnswersPattern();
+        applyChoicesPattern();
+        applyQuestionsPattern();
+    })
+    let examObject;
+    let textareaContainer = function () {
+      let textareaObject = {qa: undefined, ans: undefined, options: undefined, qNum: undefined};
+      textareaObject.qa = document.getElementById('ResultOfGetQuestions');
+      textareaObject.ans = document.getElementById('ResultOfAnswers');
+      textareaObject.options = document.getElementById('ResultOfChoices');
+      textareaObject.qNum = document.getElementById('ResultOfGetQuestionsNumbers');
+      return textareaObject;
+    };
+    function createExamHtml () {
+      examObject = getExamObjectArray(textareaContainer());
+      let examtable = makeTable(examObject);
+      if (!document.getElementById('examTable')) {
+        document.body.appendChild(examtable);
+      } else {
+        document.body.replaceChild(examtable, document.getElementById('examTable'));
+      }
+    }
+    btn.addEventListener('click', createExamHtml);
+    let saveOringinQaBtn = document.getElementById('saveOringinQaBtn');
+    let loadOringinQaBtn = document.getElementById('loadOringinQaBtn');
+    saveOringinQaBtn.addEventListener('click', function () {
+      localStorage.setItem('oringinQa', JSON.stringify(questionsAndAnswers.value));
+    });
+    loadOringinQaBtn.addEventListener('click', function () {
+      questionsAndAnswers.value = JSON.parse(localStorage.getItem('oringinQa'));
+    });
+    let saveResultBtn = document.getElementById('saveResultBtn');
+    let loadResultBtn = document.getElementById('loadResultBtn');
+    saveResultBtn.addEventListener('click', function () {
+      let textareaObject = textareaContainer();
+      localStorage.setItem('resultOfQa', JSON.stringify(textareaObject.qa.value));
+      localStorage.setItem('resultOfAns', JSON.stringify(textareaObject.ans.value));
+      localStorage.setItem('resultOfOptions', JSON.stringify(textareaObject.options.value));
+      localStorage.setItem('resultOfQnum', JSON.stringify(textareaObject.qNum.value));
+    });
+    loadResultBtn.addEventListener('click', function () {
+      document.getElementById('ResultOfGetQuestions').value = JSON.parse(localStorage.getItem('resultOfQa'));
+      document.getElementById('ResultOfAnswers').value = JSON.parse(localStorage.getItem('resultOfAns'));
+      document.getElementById('ResultOfChoices').value = JSON.parse(localStorage.getItem('resultOfOptions'));
+      document.getElementById('ResultOfGetQuestionsNumbers').value = JSON.parse(localStorage.getItem('resultOfQnum'));
+    });
+
+    const db = firebase.firestore();
+    const settings = {timestampsInSnapshots: true};
+    db.settings(settings);
+    let selectOfOringinQa = document.getElementById('oringinQaNameOnFirestore');
+    selectOfOringinQa.addEventListener('focus', function () {
+      loadNameFromFirestore('allQaName', 'oringinQaNameOnFirestore');
+    }, false);
+    let selectOfResult = document.getElementById('ResultNameOnFirestore');
+    selectOfResult.addEventListener('focus', function () {
+      loadNameFromFirestore('allResultName', 'ResultNameOnFirestore');
+    }, false);
+    function loadNameFromFirestore(str, id) {
+      let user = firebase.auth().currentUser;
+      if (user) {
+        let userRef = db.collection('users').doc(user.uid);
+        userRef.get()
+        .then(function (docSnapshot) {
+          if (docSnapshot.exists) {
+            let obj = {};
+            let selectEle = document.getElementById(id);
+            let options = selectEle.children;
+            for(let i = 1; i < options.length; i++) {
+              obj[options[i].text] = options.text;
+            }
+            Object.keys(docSnapshot.data()[str]).map(name => {
+              let option = document.createElement('option');
+              option.textContent = name;
+              if (!obj.hasOwnProperty(name)) {
+                selectEle.appendChild(option);
+              }
+              options[0].text = '題庫名稱共 ' + (options.length - 1) + ' 筆';
+            });
+          }
+        }) 
+      }
+    }
+    let saveOringinQaToFirestoreBtn = document.getElementById('saveOringinQaToFirestoreBtn');
+    let loadOringinQaFromFirestoreBtn = document.getElementById('loadOringinQaFromFirestoreBtn');
+    saveOringinQaToFirestoreBtn.addEventListener('click', function () {
+      let qaName = document.getElementById('oringinQaName_field').value;
+      let qaTextContent = questionsAndAnswers.value;
+      saveToFirestore( 'oringinQa_'+ qaName, qaTextContent);
+    });
+    function saveToFirestore (keyName, value) {
+      const user = firebase.auth().currentUser;
+      const userRef = db.collection('users').doc(user.uid);
+      if(!keyName || !value) {
+        return;
+      }
+      let name;
+      let key;
+      if (keyName.indexOf('oringinQa_') !== -1) {
+        name = keyName.slice(10);
+        key = 'allQaName';
+      } else if (keyName.indexOf('result_') !== -1) {
+        name = keyName.slice(8);
+        key = 'allResultName';
+      }
+      let saveObject = {
+        [keyName]: value,
+        [key]: {
+          [name]: name
+        }
       };
-      firebase.initializeApp(config);
-    </script>
-    <script>
-        let questionsAndAnswers = document.getElementById('questionsAndAnswers');
-        let selectOfQuestionsNumbersPattern = document.getElementById('questionsNumbersPattern');
-        let selectOfAnswersPattern = document.getElementById('answersPattern');
-        let optionsOfAnswersPattern = selectOfAnswersPattern.options;
-        let optionsOfQuestionsNumbersPattern = selectOfQuestionsNumbersPattern.options;
-        let selectOfChoicesPattern = document.getElementById('choicesPattern');
-        let optionsOfChoicesPattern = selectOfChoicesPattern.options;
-        function applyQuestionsNumbersPattern () {
-          let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
-          let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
-          let labelId = 'promptOfResultOfGetQuestionsNumbers';
-          let textAreaId = 'ResultOfGetQuestionsNumbers';
-          let captureQN = '(' + questionsNumbersPattern + ')';
-          let orderOne = '^' + captureQN + '\\s{0,3}' + answersPattern + '/gmu';
-          let orderTwo = '^' + answersPattern + '\\s{0,3}' + captureQN + '/gmu';
-          let questionsNumbersArray = [];
-          if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
-            questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
-          } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
-            questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
-          }
-          if (questionsNumbersArray.length !== 0) {
-              addResultToTextArea(questionsNumbersArray, textAreaId, labelId);
-          } else {
-            document.getElementById(textAreaId).value = '';
-          }
-        }
-        selectOfQuestionsNumbersPattern.addEventListener('change', applyQuestionsNumbersPattern);
-        function applyChoicesPattern () {
-          let labelId = 'promptOfResultOfChoices';
-          let textAreaId = 'ResultOfChoices';
-          let choicesObject = { choices:[]};
-          let choicesPattern = optionsOfChoicesPattern[optionsOfChoicesPattern.selectedIndex].value;
-          let captureChoices = choicesPattern.replace(/\[\\s\\S\]\+\?/gmu, '([\\s\\S]+?)');
-          let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
-          let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
-          let questionsPattern = '\[\\s\\S\]\+\?';
-          let startPatternOrderOne = questionsNumbersPattern + '\\s{0,3}' +
-                         answersPattern;
-          let startPatternOrderTwo = answersPattern + '\\s{0,3}' +
-                         questionsNumbersPattern;
-          let orderOne = '(?:' + startPatternOrderOne + questionsPattern + ')' +
-                         captureChoices + '(?=^' + startPatternOrderOne + '|(?!\\n)$)' +
-                          '/gmu';
-          let orderTwo = '(?:' + startPatternOrderTwo + questionsPattern + ')' +
-                         captureChoices + '(?=^' + startPatternOrderTwo + '|(?!\\n)$)' +
-                          '/gmu';
-          let choicesArray = [];
-          if (getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject).length !== 0) {
-            choicesObject = { choices:[]};
-            choicesArray = getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject);
-          } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject).length !== 0) {
-            choicesObject = { choices:[]};
-            choicesArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo, choicesObject);
-          } else {
-            choicesObject = { choices:[]};
-            captureChoices += '/gmu';
-            choicesArray = getRegexpResultArray(questionsAndAnswers.value, captureChoices, choicesObject);
-          }
-          if (choicesArray.length !== 0) {
-            addResultToTextArea(choicesArray, textAreaId, labelId);
-          } else {
-            document.getElementById(textAreaId).value = '';
-          }
-        }
-        selectOfChoicesPattern.addEventListener('change', applyChoicesPattern);
-        function applyAnswersPattern () {
-          let labelId = 'promptOfResultOfAnswers';
-          let textAreaId = 'ResultOfAnswers';
-          let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
-          let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
-          let captureAns = answersPattern.replace(/\[/gmu,'(\[').replace(/\]/gmu,'\])');
-          let orderOne = '^' + captureAns + '\\s{0,3}' + questionsNumbersPattern + '/gmu';
-          let orderTwo = '^' + questionsNumbersPattern + '\\s{0,3}' + captureAns + '/gmu';
-          let answersArray = [];
-          if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
-            answersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
-          } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
-            answersArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
-          } else {
-            captureAns += '/gmu';
-            answersArray = getRegexpResultArray(questionsAndAnswers.value, captureAns);
-          }
-          if (answersArray.length !== 0) {
-            addResultToTextArea(answersArray, textAreaId, labelId);
-          } else {
-            document.getElementById(textAreaId).value = '';
-          }
-        }
-        selectOfAnswersPattern.addEventListener('change', applyAnswersPattern);
-        function applyQuestionsPattern () {
-          let labelId = 'promptOfResultOfGetQuestions';
-          let textAreaId = 'ResultOfGetQuestions';
-          let choicesPattern = optionsOfChoicesPattern[optionsOfChoicesPattern.selectedIndex].value;
-          let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
-          let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
-          let captureQuestions = '([\\s\\S]+?)';
-          let orderOne = '^' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
-                         '\\s{0,3}' + captureQuestions + '\\s{0,3}' + choicesPattern +
-                         '(?=^' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
-                          '|$)' + '/gmu';
-          let orderTwo = '^' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
-                         '\\s{0,3}' + captureQuestions + '\\s{0,3}' + choicesPattern +
-                         '(?=^' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
-                          '|$)' + '/gmu';
-          let questionsArray = [];
-          if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
-            questionsArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
-          } else if (getRegexpResultArray(questionsAndAnswers.value, orderTwo).length !== 0) {
-            questionsArray = getRegexpResultArray(questionsAndAnswers.value, orderTwo);
-          }
-          if(questionsArray.length !== 0){
-              addResultToTextArea(questionsArray, textAreaId, labelId);
-          }
-        }
-        let btn = document.getElementById('btn');
-        let applyPatternBtn = document.getElementById('applyAllPattern');
-        applyPatternBtn.addEventListener('click', () => {
-            applyQuestionsNumbersPattern();
-            applyAnswersPattern();
-            applyChoicesPattern();
-            applyQuestionsPattern();
-        })
-        let examObject;
-        let textareaContainer = function () {
-          let textareaObject = {qa: undefined, ans: undefined, options: undefined, qNum: undefined};
-          textareaObject.qa = document.getElementById('ResultOfGetQuestions');
-          textareaObject.ans = document.getElementById('ResultOfAnswers');
-          textareaObject.options = document.getElementById('ResultOfChoices');
-          textareaObject.qNum = document.getElementById('ResultOfGetQuestionsNumbers');
-          return textareaObject;
-        };
-        function createExamHtml () {
-          examObject = getExamObjectArray(textareaContainer());
-          let examtable = makeTable(examObject);
-          if (!document.getElementById('examTable')) {
-            document.body.appendChild(examtable);
-          } else {
-            document.body.replaceChild(examtable, document.getElementById('examTable'));
-          }
-        }
-        btn.addEventListener('click', createExamHtml);
-        let saveOringinQaBtn = document.getElementById('saveOringinQaBtn');
-        let loadOringinQaBtn = document.getElementById('loadOringinQaBtn');
-        saveOringinQaBtn.addEventListener('click', function () {
-          localStorage.setItem('oringinQa', JSON.stringify(questionsAndAnswers.value));
-        });
-        loadOringinQaBtn.addEventListener('click', function () {
-          questionsAndAnswers.value = JSON.parse(localStorage.getItem('oringinQa'));
-        });
-        let saveResultBtn = document.getElementById('saveResultBtn');
-        let loadResultBtn = document.getElementById('loadResultBtn');
-        saveResultBtn.addEventListener('click', function () {
-          let textareaObject = textareaContainer();
-          localStorage.setItem('resultOfQa', JSON.stringify(textareaObject.qa.value));
-          localStorage.setItem('resultOfAns', JSON.stringify(textareaObject.ans.value));
-          localStorage.setItem('resultOfOptions', JSON.stringify(textareaObject.options.value));
-          localStorage.setItem('resultOfQnum', JSON.stringify(textareaObject.qNum.value));
-        });
-        loadResultBtn.addEventListener('click', function () {
-          document.getElementById('ResultOfGetQuestions').value = JSON.parse(localStorage.getItem('resultOfQa'));
-          document.getElementById('ResultOfAnswers').value = JSON.parse(localStorage.getItem('resultOfAns'));
-          document.getElementById('ResultOfChoices').value = JSON.parse(localStorage.getItem('resultOfOptions'));
-          document.getElementById('ResultOfGetQuestionsNumbers').value = JSON.parse(localStorage.getItem('resultOfQnum'));
-        });
-
-        const db = firebase.firestore();
-        const settings = {timestampsInSnapshots: true};
-        db.settings(settings);
-        let selectOfOringinQa = document.getElementById('oringinQaNameOnFirestore');
-        selectOfOringinQa.addEventListener('focus', function () {
-          loadNameFromFirestore('allQaName', 'oringinQaNameOnFirestore');
-        }, false);
-        let selectOfResult = document.getElementById('ResultNameOnFirestore');
-        selectOfResult.addEventListener('focus', function () {
-          loadNameFromFirestore('allResultName', 'ResultNameOnFirestore');
-        }, false);
-        function loadNameFromFirestore(str, id) {
-          let user = firebase.auth().currentUser;
-          if (user) {
-           let userRef = db.collection('users').doc(user.uid);
-           userRef.get()
-            .then(function (docSnapshot) {
-              if (docSnapshot.exists) {
-                let obj = {};
-                let selectEle = document.getElementById(id);
-                let options = selectEle.children;
-                for(let i = 1; i < options.length; i++) {
-                  obj[options[i].text] = options.text;
-                }
-                Object.keys(docSnapshot.data()[str]).map(name => {
-                  let option = document.createElement('option');
-                  option.textContent = name;
-                  if (!obj.hasOwnProperty(name)) {
-                    selectEle.appendChild(option);
-                  }
-                  options[0].text = '題庫名稱共 ' + (options.length - 1) + ' 筆';
-                });
-              }
-            }) 
-          }
-        }
-        let saveOringinQaToFirestoreBtn = document.getElementById('saveOringinQaToFirestoreBtn');
-        let loadOringinQaFromFirestoreBtn = document.getElementById('loadOringinQaFromFirestoreBtn');
-        saveOringinQaToFirestoreBtn.addEventListener('click', function () {
-          let qaName = document.getElementById('oringinQaName_field').value;
-          let qaTextContent = questionsAndAnswers.value;
-          saveToFirestore( 'oringinQa_'+ qaName, qaTextContent);
-        });
-        function saveToFirestore (keyName, value) {
-          const user = firebase.auth().currentUser;
-          const userRef = db.collection('users').doc(user.uid);
-          if(!keyName || !value) {
-            return;
-          }
-          let name;
-          let key;
-          if (keyName.indexOf('oringinQa_') !== -1) {
-            name = keyName.slice(10);
-            key = 'allQaName';
-          } else if (keyName.indexOf('result_') !== -1) {
-            name = keyName.slice(8);
-            key = 'allResultName';
-          }
-          let saveObject = {
-            [keyName]: value,
-            [key]: {
-              [name]: name
-            }
-          };
-          if (user) {
-            userRef.get()
-              .then(function (docSnapshot) {
-                if (docSnapshot.exists) {
-                  userRef.set(saveObject, {merge: true})
-                  .then(function() {
-                    console.log("Document successfully updated!");
-                  })
-                  .catch(function(error) {
-                    // The document probably doesn't exist.
-                    console.error("Error updating document: ", error);
-                  });
-                } else {
-                  userRef.set(saveObject)
-                  .then(function () {
-                    console.log('success');
-                  })
-                  .catch(function(error) {
-                    console.error("Error writing document: ", error);
-                  });
-                }
+      if (user) {
+        userRef.get()
+          .then(function (docSnapshot) {
+            if (docSnapshot.exists) {
+              userRef.set(saveObject, {merge: true})
+              .then(function() {
+                console.log("Document successfully updated!");
               })
-          }
-          else {
-            console.log('user is not logging');
-            firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
-          }
-        }
-        loadOringinQaFromFirestoreBtn.addEventListener('click', function () {
-
-        });
-        let saveResultToFirestoreBtn = document.getElementById('saveResultToFirestoreBtn');
-        let loadResultFromFirestoreBtn = document.getElementById('loadResultFromFirestoreBtn');
-        saveResultToFirestoreBtn.addEventListener('click', function () {
-          let resultName = document.getElementById('resultName_field').value;
-          saveToFirestore('result_' + resultName, getExamObjectArray(textareaContainer()));
-        });
-        loadResultFromFirestoreBtn.addEventListener('click', function () {
-
-        });
-        var correctArray = [];
-        function addClassName(node, name) {
-          if (node.className.indexOf(name) === -1) {
-            node.className += name;
-          }
-        }
-        function makeTable (data) {
-          function shuffle(array) {
-            var currentIndex = array.length, temporaryValue, randomIndex;
-            // While there remain elements to shuffle...
-            while (0 !== currentIndex) {
-              // Pick a remaining element...
-              randomIndex = Math.floor(Math.random() * currentIndex);
-              currentIndex -= 1;
-              // And swap it with the current element.
-              temporaryValue = array[currentIndex];
-              array[currentIndex] = array[randomIndex];
-              array[randomIndex] = temporaryValue;
-            }
-            return array;
-          }
-          if (!data) {
-              return;
-            }
-          shuffle(data);
-          let table = document.createElement('table');
-          table.id = 'examTable';
-          let tbody = document.createElement('tbody');
-          let tr = document.createElement('tr');
-          let td = document.createElement('td');
-          let ol = document.createElement('ol');
-          for (let j = 0, len = data.length; j < len; j++) {
-            let tr = document.createElement('tr');
-            let td = document.createElement('td');
-            let ol = document.createElement('ol');
-            ol.start = j + 1;
-            shuffle(data[j].options);
-            correctArray.push(data[j].ans);
-            let cAnsLen = data[j].ans.length;
-            let li = document.createElement('li');
-            li.id = 'li_' + j;
-            let liText = document.createTextNode(data[j].qa);
-            li.appendChild(liText);
-            let ol2 = document.createElement('ol');
-            for (let i = 0, len2 = data[j].options.length; i < len2; i++) {
-              let tempStr = data[j].options[i];
-              let li2 = document.createElement('li');
-              let objLabel = document.createElement('label');
-              objLabel.id = 'lbl_' + j + '_' + i;
-              if (cAnsLen === 1) {
-                let radioText = document.createTextNode(tempStr);
-                let objRadio = document.createElement('input');
-                objRadio.type = 'radio';
-                objRadio.name = 'singleChoicesGroup_' + j;
-                objRadio.id = 'singleChoiceId_' + j + '_' + i;
-                objRadio.value = i + 1;
-                objLabel.htmlFor = objRadio.id;
-                objLabel.appendChild(objRadio);
-                objLabel.appendChild(radioText);
-                li2.appendChild(objLabel);
-              } else {
-                let chkText = document.createTextNode(tempStr);
-                let objChk = document.createElement('input');
-                objChk.type = 'checkbox';
-                objChk.name = 'multipleChoicesGroup_' + j;
-                objChk.id = 'multipleChoiceId_' + j + '_' + i;
-                objLabel.htmlFor = objChk.id;
-                objLabel.appendChild(objChk);
-                objLabel.appendChild(chkText);
-                li2.appendChild(objLabel);
-              }
-              ol2.appendChild(li2);
-              li.appendChild(ol2);
-              ol.appendChild(li);
-              td.appendChild(ol);
-              tr.appendChild(td);
-              tbody.appendChild(tr);
-            }
-          }
-          tbody.addEventListener('click',delegateOfCheck, false);
-          table.appendChild(tbody);
-          return table;
-        }
-        function delegateOfCheck(e) {
-          let event = e || window.event;
-          let target = event.target || event.srcElement;
-          let id = target.id;
-          function disableEles(eles) {
-            for(let i = 0; i < eles.length; i++) {
-              eles[i].disabled = true;
-            }
-          }
-          let qNum = id.match(/_(\d)_/)[1];
-          if (target.type === 'radio') {
-            let radioEle = document.getElementById(id);
-            let optText = radioEle.nextSibling.textContent;
-            let parentNode = radioEle.parentNode;
-            if (radioEle.checked) {
-              if (optText === correctArray[qNum][0]) {
-                addClassName(parentNode, 'correctAns');
-                let radioGroup = document.querySelectorAll(
-                  'li input[name = singleChoicesGroup_' + qNum + ']'
-                );
-                disableEles(radioGroup);
-              } else {
-                addClassName(parentNode, 'wrongAns');
-              }
-            }
-          } else if (target.type === 'checkbox') {
-            let checkboxGroup = document.querySelectorAll(
-              'li input[name = multipleChoicesGroup_' + qNum + ']'
-            );
-            let cAnsLen = correctArray[qNum].length;
-            let selected = [];
-            let checkedPosition = [];
-            let correctTimes = 0;
-            for (let i = 0, len = checkboxGroup.length; i < len; i++) {
-              if (checkboxGroup[i].checked) {
-                checkedPosition.push(i);
-                selected.push(checkboxGroup[i].nextSibling.textContent);
-              }
-            }
-            for (let p = 0; p < selected.length; p++) {
-              for (let k = 0; k < cAnsLen; k++) {
-                if (selected[p] === correctArray[qNum][k]) {
-                  correctTimes++;
-                  break;
-                }
-              }
-            }
-            if (correctTimes === cAnsLen && selected.length === cAnsLen) {
-              for(let i = 0; i < checkedPosition.length; i++) {
-                addClassName(checkboxGroup[checkedPosition[i]].parentNode, 'correctAns');
-              }
-              disableEles(checkboxGroup);
+              .catch(function(error) {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+              });
             } else {
-              checkboxGroup.forEach(ele => {
-                let parentNode = ele.parentNode;
-                let ansText = ele.nextSibling.textContent;
-                if (ele.checked) {
-                  correctArray[qNum].some(cAns => {
-                    if (ansText === cAns) {
-                      addClassName(parentNode, 'correctAns');
-                      return true;
-                    } else {
-                      addClassName(parentNode, 'wrongAns');
-                    }
-                  });
+              userRef.set(saveObject)
+              .then(function () {
+                console.log('success');
+              })
+              .catch(function(error) {
+                console.error("Error writing document: ", error);
+              });
+            }
+          })
+      }
+      else {
+        console.log('user is not logging');
+        firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      }
+    }
+    loadOringinQaFromFirestoreBtn.addEventListener('click', function () {
+
+    });
+    let saveResultToFirestoreBtn = document.getElementById('saveResultToFirestoreBtn');
+    let loadResultFromFirestoreBtn = document.getElementById('loadResultFromFirestoreBtn');
+    saveResultToFirestoreBtn.addEventListener('click', function () {
+      let resultName = document.getElementById('resultName_field').value;
+      saveToFirestore('result_' + resultName, getExamObjectArray(textareaContainer()));
+    });
+    loadResultFromFirestoreBtn.addEventListener('click', function () {
+
+    });
+    var correctArray = [];
+    function addClassName(node, name) {
+      if (node.className.indexOf(name) === -1) {
+        node.className += name;
+      }
+    }
+    function makeTable (data) {
+      function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+        return array;
+      }
+      if (!data) {
+          return;
+        }
+      shuffle(data);
+      let table = document.createElement('table');
+      table.id = 'examTable';
+      let tbody = document.createElement('tbody');
+      let tr = document.createElement('tr');
+      let td = document.createElement('td');
+      let ol = document.createElement('ol');
+      for (let j = 0, len = data.length; j < len; j++) {
+        let tr = document.createElement('tr');
+        let td = document.createElement('td');
+        let ol = document.createElement('ol');
+        ol.start = j + 1;
+        shuffle(data[j].options);
+        correctArray.push(data[j].ans);
+        let cAnsLen = data[j].ans.length;
+        let li = document.createElement('li');
+        li.id = 'li_' + j;
+        let liText = document.createTextNode(data[j].qa);
+        li.appendChild(liText);
+        let ol2 = document.createElement('ol');
+        for (let i = 0, len2 = data[j].options.length; i < len2; i++) {
+          let tempStr = data[j].options[i];
+          let li2 = document.createElement('li');
+          let objLabel = document.createElement('label');
+          objLabel.id = 'lbl_' + j + '_' + i;
+          if (cAnsLen === 1) {
+            let radioText = document.createTextNode(tempStr);
+            let objRadio = document.createElement('input');
+            objRadio.type = 'radio';
+            objRadio.name = 'singleChoicesGroup_' + j;
+            objRadio.id = 'singleChoiceId_' + j + '_' + i;
+            objRadio.value = i + 1;
+            objLabel.htmlFor = objRadio.id;
+            objLabel.appendChild(objRadio);
+            objLabel.appendChild(radioText);
+            li2.appendChild(objLabel);
+          } else {
+            let chkText = document.createTextNode(tempStr);
+            let objChk = document.createElement('input');
+            objChk.type = 'checkbox';
+            objChk.name = 'multipleChoicesGroup_' + j;
+            objChk.id = 'multipleChoiceId_' + j + '_' + i;
+            objLabel.htmlFor = objChk.id;
+            objLabel.appendChild(objChk);
+            objLabel.appendChild(chkText);
+            li2.appendChild(objLabel);
+          }
+          ol2.appendChild(li2);
+          li.appendChild(ol2);
+          ol.appendChild(li);
+          td.appendChild(ol);
+          tr.appendChild(td);
+          tbody.appendChild(tr);
+        }
+      }
+      tbody.addEventListener('click',delegateOfCheck, false);
+      table.appendChild(tbody);
+      return table;
+    }
+    function delegateOfCheck(e) {
+      let event = e || window.event;
+      let target = event.target || event.srcElement;
+      let id = target.id;
+      function disableEles(eles) {
+        for(let i = 0; i < eles.length; i++) {
+          eles[i].disabled = true;
+        }
+      }
+      let qNum = id.match(/_(\d)_/)[1];
+      if (target.type === 'radio') {
+        let radioEle = document.getElementById(id);
+        let optText = radioEle.nextSibling.textContent;
+        let parentNode = radioEle.parentNode;
+        if (radioEle.checked) {
+          if (optText === correctArray[qNum][0]) {
+            addClassName(parentNode, 'correctAns');
+            let radioGroup = document.querySelectorAll(
+              'li input[name = singleChoicesGroup_' + qNum + ']'
+            );
+            disableEles(radioGroup);
+          } else {
+            addClassName(parentNode, 'wrongAns');
+          }
+        }
+      } else if (target.type === 'checkbox') {
+        let checkboxGroup = document.querySelectorAll(
+          'li input[name = multipleChoicesGroup_' + qNum + ']'
+        );
+        let cAnsLen = correctArray[qNum].length;
+        let selected = [];
+        let checkedPosition = [];
+        let correctTimes = 0;
+        for (let i = 0, len = checkboxGroup.length; i < len; i++) {
+          if (checkboxGroup[i].checked) {
+            checkedPosition.push(i);
+            selected.push(checkboxGroup[i].nextSibling.textContent);
+          }
+        }
+        for (let p = 0; p < selected.length; p++) {
+          for (let k = 0; k < cAnsLen; k++) {
+            if (selected[p] === correctArray[qNum][k]) {
+              correctTimes++;
+              break;
+            }
+          }
+        }
+        if (correctTimes === cAnsLen && selected.length === cAnsLen) {
+          for(let i = 0; i < checkedPosition.length; i++) {
+            addClassName(checkboxGroup[checkedPosition[i]].parentNode, 'correctAns');
+          }
+          disableEles(checkboxGroup);
+        } else {
+          checkboxGroup.forEach(ele => {
+            let parentNode = ele.parentNode;
+            let ansText = ele.nextSibling.textContent;
+            if (ele.checked) {
+              correctArray[qNum].some(cAns => {
+                if (ansText === cAns) {
+                  addClassName(parentNode, 'correctAns');
+                  return true;
+                } else {
+                  addClassName(parentNode, 'wrongAns');
                 }
               });
             }
-          }
+          });
         }
-        function delegateOfCheckAll(data) {
-          function getGroupNames () {
-            let groups = {};
-            document.querySelectorAll('input[name]').forEach(inputNode => {
-              groups[inputNode.name] = true;
-            });
-            return groups;
-          }
-          let groupNames = getGroupNames();
-          function checkedOnceAtleast(groups) {
-            return Object.getOwnPropertyNames(groupNames).every(groupName => {
-              return document.querySelectorAll('input[name=' + groupName + ']:checked').length >= 1;
-            });
-          }
-          let prompMsg = '尚有未作答的題目，確定要交卷嗎？';
-          if (!checkedOnceAtleast()) {
-            if (confirm(prompMsg)) {
-              let examResult = checkAns();
-              examResult.wrongTimes = examResult.correctTimes - examResult.wrongQaArray.length;
+      }
+    }
+    function delegateOfCheckAll(data) {
+        function getGroupNames () {
+          let groups = {};
+          document.querySelectorAll('input[name]').forEach(inputNode => {
+            groups[inputNode.name] = true;
+          });
+          return groups;
+        }
+        let groupNames = getGroupNames();
+        function checkedOnceAtleast(groups) {
+          return Object.getOwnPropertyNames(groupNames).every(groupName => {
+            return document.querySelectorAll('input[name=' + groupName + ']:checked').length >= 1;
+          });
+        }
+        let prompMsg = '尚有未作答的題目，確定要交卷嗎？';
+        if (!checkedOnceAtleast()) {
+          if (confirm(prompMsg)) {
+            let examResult = checkAns();
+            examResult.wrongTimes = examResult.correctTimes - examResult.wrongQaArray.length;
 
-            }
-          } else {
-            console.log(checkAns());
           }
-          function checkAns () {
-            let result = {
-              correctTimes: 0,
-              wrongQaArray: []
-            };
-            Object.getOwnPropertyNames(groupNames).map(groupName => {
-              return document.querySelector('input[name=' + groupName + ']:checked');
-            }).filter(ele => {
-              return ele !== null;
-            }).forEach(ele => {
-              let qNum = ele.id.match(/_(\d)_/)[1];
-              if (ele.type === 'radio') {
-                let optText = ele.nextSibling.textContent;
-                let parentNode = ele.parentNode;
-                if (optText === correctArray[qNum][0]) {
-                  result.correctTimes++;
-                  addClassName(parentNode, 'correctAns');
-                } else {
-                  result.wrongQaArray.push(data[qNum]);
-                  addClassName(parentNode, 'wrongAns');
+        } else {
+          console.log(checkAns());
+        }
+        function checkAns () {
+          let result = {
+            correctTimes: 0,
+            wrongQaArray: []
+          };
+          Object.getOwnPropertyNames(groupNames).map(groupName => {
+            return document.querySelector('input[name=' + groupName + ']:checked');
+          }).filter(ele => {
+            return ele !== null;
+          }).forEach(ele => {
+            let qNum = ele.id.match(/_(\d)_/)[1];
+            if (ele.type === 'radio') {
+              let optText = ele.nextSibling.textContent;
+              let parentNode = ele.parentNode;
+              if (optText === correctArray[qNum][0]) {
+                result.correctTimes++;
+                addClassName(parentNode, 'correctAns');
+              } else {
+                result.wrongQaArray.push(data[qNum]);
+                addClassName(parentNode, 'wrongAns');
+              }
+            } else if (ele.type === 'checkbox') {
+              let checkboxGroup = document.querySelectorAll(
+                'li input[name = multipleChoicesGroup_' + qNum + ']'
+              );
+              let cAnsLen = correctArray[qNum].length;
+              let selected = [];
+              let checkedPosition = [];
+              let correctTimes = 0;
+              checkboxGroup.forEach((ele, index) => {
+                if (ele.checked) {
+                  checkedPosition.push(index);
+                  selected.push(ele.nextSibling.textContent);
                 }
-              } else if (ele.type === 'checkbox') {
-                let checkboxGroup = document.querySelectorAll(
-                  'li input[name = multipleChoicesGroup_' + qNum + ']'
-                );
-                let cAnsLen = correctArray[qNum].length;
-                let selected = [];
-                let checkedPosition = [];
-                let correctTimes = 0;
-                checkboxGroup.forEach((ele, index) => {
-                  if (ele.checked) {
-                    checkedPosition.push(index);
-                    selected.push(ele.nextSibling.textContent);
+              });
+              selected.forEach(ele => {
+                correctArray[qNum].some(cAns => {
+                  if ( ele === cAns) {
+                    correctTimes++;
+                    return true;
                   }
                 });
-                selected.forEach(ele => {
-                  correctArray[qNum].some(cAns => {
-                    if ( ele === cAns) {
-                      correctTimes++;
-                      return true;
-                    }
-                  });
+              });
+              if (correctTimes === cAnsLen && selected.length === cAnsLen) {
+                result.correctTimes++;
+                checkedPosition.forEach(ele => {
+                  let parentNode = checkboxGroup[ele].parentNode;
+                  addClassName(parentNode, 'correctAns');
                 });
-                if (correctTimes === cAnsLen && selected.length === cAnsLen) {
-                  result.correctTimes++;
-                  checkedPosition.forEach(ele => {
-                    let parentNode = checkboxGroup[ele].parentNode;
-                    addClassName(parentNode, 'correctAns');
-                  });
-                } else {
-                  result.wrongQaArray.push(data[qNum]);
-                  checkboxGroup.forEach(ele => {
-                    let parentNode = ele.parentNode;
-                    let ansText = ele.nextSibling.textContent;
-                    if (ele.checked) {
-                      correctArray[qNum].some(cAns => {
-                        if (ansText === cAns) {
-                          addClassName(parentNode, 'correctAns');
-                          return true;
-                        } else {
-                          addClassName(parentNode, 'wrongAns');
-                        }
-                      });
-                    }
-                  });
-                }
+              } else {
+                result.wrongQaArray.push(data[qNum]);
+                checkboxGroup.forEach(ele => {
+                  let parentNode = ele.parentNode;
+                  let ansText = ele.nextSibling.textContent;
+                  if (ele.checked) {
+                    correctArray[qNum].some(cAns => {
+                      if (ansText === cAns) {
+                        addClassName(parentNode, 'correctAns');
+                        return true;
+                      } else {
+                        addClassName(parentNode, 'wrongAns');
+                      }
+                    });
+                  }
+                });
               }
-            });
-            return result;
-          }
+            }
+          });
+          return result;
         }
-    </script>
+      }
+  </script>
 </body>
 </html>
