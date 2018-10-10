@@ -310,25 +310,35 @@
           if(!keyName || !value) {
             return;
           }
+          let name;
+          let key;
+          if (keyName.indexOf('oringinQa_') !== -1) {
+            name = keyName.slice(10);
+            key = 'allQaName';
+          } else if (keyName.indexOf('result_') !== -1) {
+            name = keyName.slice(8);
+            key = 'allResultName';
+          }
+          let saveObject = {
+            [keyName]: value,
+            [key]: {
+              [name]: name
+            }
+          };
           if (user) {
             userRef.get()
               .then(function (docSnapshot) {
                 if (docSnapshot.exists) {
-                  userRef.update({
-                    [keyName]: value
-                  })
+                  userRef.set(saveObject, {merge: true})
                   .then(function() {
-                      console.log("Document successfully updated!");
+                    console.log("Document successfully updated!");
                   })
                   .catch(function(error) {
-                      // The document probably doesn't exist.
-                      console.error("Error updating document: ", error);
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
                   });
                 } else {
-                  console.log(docSnapshot);
-                  userRef.set({
-                    [keyName]: value,
-                  })
+                  userRef.set(saveObject)
                   .then(function () {
                     console.log('success');
                   })
