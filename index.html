@@ -297,6 +297,34 @@
         const db = firebase.firestore();
         const settings = {timestampsInSnapshots: true};
         db.settings(settings);
+        let selectOfOringinQa = document.getElementById('oringinQaNameOnFirestore');
+        selectOfOringinQa.addEventListener('focus', function () {
+          loadNameFromFirestore('allQaName');
+        }, false);
+        function loadNameFromFirestore(str) {
+          let user = firebase.auth().currentUser;
+          if (user) {
+           let userRef = db.collection('users').doc(user.uid);
+           userRef.get()
+            .then(function (docSnapshot) {
+              if (docSnapshot.exists) {
+                let obj = {};
+                let options = selectOfOringinQa.children;
+                for(let i = 1; i < options.length; i++) {
+                  obj[options[i].text] = options.text;
+                }
+                Object.keys(docSnapshot.data()[str]).map(name => {
+                  let option = document.createElement('option');
+                  option.textContent = name;
+                  if (!obj.hasOwnProperty(name)) {
+                    selectOfOringinQa.appendChild(option);
+                  }
+                  options[0].text = '題庫名稱共 ' + (options.length - 1) + ' 筆';
+                });
+              }
+            }) 
+          }
+        }
         let saveOringinQaToFirestoreBtn = document.getElementById('saveOringinQaToFirestoreBtn');
         let loadOringinQaFromFirestoreBtn = document.getElementById('loadOringinQaFromFirestoreBtn');
         saveOringinQaToFirestoreBtn.addEventListener('click', function () {
