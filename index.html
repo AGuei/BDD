@@ -336,26 +336,26 @@
     });
     function saveToFirestore (keyName, value) {
       const user = firebase.auth().currentUser;
-      const userRef = db.collection('users').doc(user.uid);
-      if(!keyName || !value) {
-        return;
-      }
-      let name;
-      let key;
-      if (keyName.indexOf('oringinQa_') !== -1) {
-        name = keyName.slice(10);
-        key = 'allQaName';
-      } else if (keyName.indexOf('result_') !== -1) {
-        name = keyName.slice(8);
-        key = 'allResultName';
-      }
-      let saveObject = {
-        [keyName]: value,
-        [key]: {
-          [name]: name
-        }
-      };
       if (user) {
+        const userRef = db.collection('users').doc(user.uid);
+        if(!keyName || !value) {
+          return;
+        }
+        let name;
+        let key;
+        if (keyName.indexOf('oringinQa_') !== -1) {
+          name = keyName.slice(10);
+          key = 'allQaName';
+        } else if (keyName.indexOf('result_') !== -1) {
+          name = keyName.slice(8);
+          key = 'allResultName';
+        }
+        let saveObject = {
+          [keyName]: value,
+          [key]: {
+            [name]: name
+          }
+        };
         userRef.get()
           .then(function (docSnapshot) {
             if (docSnapshot.exists) {
