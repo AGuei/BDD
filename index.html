@@ -336,26 +336,26 @@
     });
     function saveToFirestore (keyName, value) {
       const user = firebase.auth().currentUser;
-      const userRef = db.collection('users').doc(user.uid);
-      if(!keyName || !value) {
-        return;
-      }
-      let name;
-      let key;
-      if (keyName.indexOf('oringinQa_') !== -1) {
-        name = keyName.slice(10);
-        key = 'allQaName';
-      } else if (keyName.indexOf('result_') !== -1) {
-        name = keyName.slice(8);
-        key = 'allResultName';
-      }
-      let saveObject = {
-        [keyName]: value,
-        [key]: {
-          [name]: name
-        }
-      };
       if (user) {
+        const userRef = db.collection('users').doc(user.uid);
+        if(!keyName || !value) {
+          return;
+        }
+        let name;
+        let key;
+        if (keyName.indexOf('oringinQa_') !== -1) {
+          name = keyName.slice(10);
+          key = 'allQaName';
+        } else if (keyName.indexOf('result_') !== -1) {
+          name = keyName.slice(7);
+          key = 'allResultName';
+        }
+        let saveObject = {
+          [keyName]: value,
+          [key]: {
+            [name]: name
+          }
+        };
         userRef.get()
           .then(function (docSnapshot) {
             if (docSnapshot.exists) {
@@ -384,16 +384,48 @@
       }
     }
     loadOringinQaFromFirestoreBtn.addEventListener('click', function () {
-
-    });
+      const name = document.querySelector('#oringinQaNameOnFirestore > option:checked').textContent;
+      loadFromFirestore( 'oringinQa_' + name, 'questionsAndAnswers');
+      });
+    function loadFromFirestore(key, id) {
+      let user = firebase.auth().currentUser;
+      if (user) {
+        let userRef = db.collection('users').doc(user.uid);
+        userRef.get()
+          .then(function (docSnapshot) {
+            if (docSnapshot.exists) {
+              if (id === 'questionsAndAnswers') {
+                document.getElementById(id).value = docSnapshot.data()[key];
+              } else if (id === 'containerOfResult') {
+                let data = docSnapshot.data()[key];
+                document.getElementById('ResultOfGetQuestions').value = data.qa;
+                document.getElementById('ResultOfAnswers').value = data.ans;
+                document.getElementById('ResultOfChoices').value = data.options;
+                document.getElementById('ResultOfGetQuestionsNumbers').value = data.qNum;
+              }
+            }
+          })
+      }
+      else {
+        firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      }
+    }
     let saveResultToFirestoreBtn = document.getElementById('saveResultToFirestoreBtn');
     let loadResultFromFirestoreBtn = document.getElementById('loadResultFromFirestoreBtn');
     saveResultToFirestoreBtn.addEventListener('click', function () {
       let resultName = document.getElementById('resultName_field').value;
-      saveToFirestore('result_' + resultName, getExamObjectArray(textareaContainer()));
+      let htmlObjects = textareaContainer();
+      let textareaObject = {
+        qa: htmlObjects.qa.value,
+        ans: htmlObjects.ans.value,
+        options: htmlObjects.options.value,
+        qNum: htmlObjects.qNum.value
+      }
+      saveToFirestore('result_' + resultName, textareaObject);
     });
     loadResultFromFirestoreBtn.addEventListener('click', function () {
-
+      const name = document.querySelector('#ResultNameOnFirestore > option:checked').textContent;
+      loadFromFirestore( 'result_' + name, 'containerOfResult');
     });
     var correctArray = [];
     function addClassName(node, name) {
