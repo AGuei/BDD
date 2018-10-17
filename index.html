@@ -313,7 +313,7 @@
             let selectEle = document.getElementById(id);
             let options = selectEle.children;
             for(let i = 1; i < options.length; i++) {
-              obj[options[i].text] = options.text;
+              obj[options[i].textContent] = options[i].textContent;
             }
             Object.keys(docSnapshot.data()[str]).map(name => {
               let option = document.createElement('option');
@@ -321,7 +321,7 @@
               if (!obj.hasOwnProperty(name)) {
                 selectEle.appendChild(option);
               }
-              options[0].text = '題庫名稱共 ' + (options.length - 1) + ' 筆';
+              options[0].textContent = '題庫名稱共 ' + (options.length - 1) + ' 筆';
             });
           }
         }) 
