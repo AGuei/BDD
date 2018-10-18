@@ -632,7 +632,7 @@
               let cAnsLen = correctArray[qNum].length;
               let selected = [];
               let checkedPosition = [];
-              let correctTimes = 0;
+              let correctCounts = 0;
               checkboxGroup.forEach((ele, index) => {
                 if (ele.checked) {
                   checkedPosition.push(index);
@@ -642,12 +642,12 @@
               selected.forEach(ele => {
                 correctArray[qNum].some(cAns => {
                   if ( ele === cAns) {
-                    correctTimes++;
+                    correctCounts++;
                     return true;
                   }
                 });
               });
-              if (correctTimes === cAnsLen && selected.length === cAnsLen) {
+              if (correctCounts === cAnsLen && selected.length === cAnsLen) {
                 result.correctTimes++;
                 checkedPosition.forEach(ele => {
                   let parentNode = checkboxGroup[ele].parentNode;
