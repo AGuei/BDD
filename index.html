@@ -428,11 +428,6 @@
       loadFromFirestore( 'result_' + name, 'containerOfResult');
     });
     var correctArray = [];
-    function addClassName(node, name) {
-      if (node.className.indexOf(name) === -1) {
-        node.className += name;
-      }
-    }
     function makeTable (data) {
       function shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
@@ -519,20 +514,20 @@
           eles[i].disabled = true;
         }
       }
-      let qNum = id.match(/_(\d)_/)[1];
+      let qNum = id.match(/_(\d{1,3})_/)[1];
       if (target.type === 'radio') {
         let radioEle = document.getElementById(id);
         let optText = radioEle.nextSibling.textContent;
         let parentNode = radioEle.parentNode;
         if (radioEle.checked) {
           if (optText === correctArray[qNum][0]) {
-            addClassName(parentNode, 'correctAns');
+            parentNode.classList.add('correctAns');
             let radioGroup = document.querySelectorAll(
               'li input[name = singleChoicesGroup_' + qNum + ']'
             );
             disableEles(radioGroup);
           } else {
-            addClassName(parentNode, 'wrongAns');
+            parentNode.classList.add('wrongAns');
           }
         }
       } else if (target.type === 'checkbox') {
@@ -557,26 +552,28 @@
             }
           }
         }
+        checkboxGroup.forEach(ele => {
+          let parentNode = ele.parentNode;
+          let ansText = ele.nextSibling.textContent;
+          if (ele.checked) {
+            correctArray[qNum].some(cAns => {
+              if (ansText === cAns) {
+                parentNode.classList.remove('wrongAns');
+                parentNode.classList.add('correctAns');
+                return true;
+              } else {
+                parentNode.classList.add('wrongAns');
+              }
+            });
+          } else {
+            parentNode.classList.remove('correctAns', 'wrongAns');
+          }
+        });
         if (correctTimes === cAnsLen && selected.length === cAnsLen) {
           for(let i = 0; i < checkedPosition.length; i++) {
-            addClassName(checkboxGroup[checkedPosition[i]].parentNode, 'correctAns');
+            checkboxGroup[checkedPosition[i]].parentNode.classList.add('correctAns');
           }
           disableEles(checkboxGroup);
-        } else {
-          checkboxGroup.forEach(ele => {
-            let parentNode = ele.parentNode;
-            let ansText = ele.nextSibling.textContent;
-            if (ele.checked) {
-              correctArray[qNum].some(cAns => {
-                if (ansText === cAns) {
-                  addClassName(parentNode, 'correctAns');
-                  return true;
-                } else {
-                  addClassName(parentNode, 'wrongAns');
-                }
-              });
-            }
-          });
         }
       }
     }
@@ -620,10 +617,10 @@
               let parentNode = ele.parentNode;
               if (optText === correctArray[qNum][0]) {
                 result.correctTimes++;
-                addClassName(parentNode, 'correctAns');
+                parentNode.classList.add('correctAns');
               } else {
                 result.wrongQaArray.push(data[qNum]);
-                addClassName(parentNode, 'wrongAns');
+                parentNode.classList.add('wrongAns');
               }
             } else if (ele.type === 'checkbox') {
               let checkboxGroup = document.querySelectorAll(
@@ -651,7 +648,7 @@
                 result.correctTimes++;
                 checkedPosition.forEach(ele => {
                   let parentNode = checkboxGroup[ele].parentNode;
-                  addClassName(parentNode, 'correctAns');
+                  parentNode.classList.add('correctAns');
                 });
               } else {
                 result.wrongQaArray.push(data[qNum]);
@@ -661,10 +658,10 @@
                   if (ele.checked) {
                     correctArray[qNum].some(cAns => {
                       if (ansText === cAns) {
-                        addClassName(parentNode, 'correctAns');
+                        parentNode.classList.add('correctAns');
                         return true;
                       } else {
-                        addClassName(parentNode, 'wrongAns');
+                        parentNode.classList.add('wrongAns');
                       }
                     });
                   }
