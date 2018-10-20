@@ -670,14 +670,30 @@
                   }
                 });
               });
+              checkboxGroup.forEach(ele => {
+                let parentNode = ele.parentNode;
+                let ansText = ele.nextSibling.textContent;
+                correctArray[qNum].some(cAns => {
+                  if (ansText === cAns) {
+                    parentNode.classList.remove('wrongAns');
+                    parentNode.classList.add('correctAns');
+                    return true;
+                  } else {
+                    parentNode.classList.add('wrongAns');
+                  }
+                });
+              });
               if (correctCounts === cAnsLen && selected.length === cAnsLen) {
                 result.correctTimes++;
                 checkedPosition.forEach(ele => {
-                  let parentNode = checkboxGroup[ele].parentNode;
-                  parentNode.classList.add('correctAns');
+                  checkboxGroup[ele].parentNode.classList.add('correctAns');
                 });
               } else {
                 result.wrongQaArray.push(data[qNum]);
+              }
+              disableEles(checkboxGroup);
+            }
+          });
                 checkboxGroup.forEach(ele => {
                   let parentNode = ele.parentNode;
                   let ansText = ele.nextSibling.textContent;
