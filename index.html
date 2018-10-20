@@ -259,6 +259,7 @@
       return textareaObject;
     };
     function createExamHtml () {
+      correctArray = [];
       examObject = getExamObjectArray(textareaContainer());
       let examtable = makeTable(examObject);
       if (!document.getElementById('examTable')) {
