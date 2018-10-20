@@ -633,7 +633,7 @@
           }).filter(ele => {
             return ele !== null;
           }).forEach(ele => {
-            let qNum = ele.id.match(/_(\d)_/)[1];
+            let qNum = ele.id.match(/_(\d{1,3})_/)[1];
             if (ele.type === 'radio') {
               let optText = ele.nextSibling.textContent;
               let parentNode = ele.parentNode;
@@ -644,6 +644,10 @@
                 result.wrongQaArray.push(data[qNum]);
                 parentNode.classList.add('wrongAns');
               }
+              let radioGroup = document.querySelectorAll(
+                'li input[name = singleChoicesGroup_' + qNum + ']'
+              );
+              disableEles(radioGroup);
             } else if (ele.type === 'checkbox') {
               let checkboxGroup = document.querySelectorAll(
                 'li input[name = multipleChoicesGroup_' + qNum + ']'
