@@ -286,6 +286,8 @@
       } else {
         document.body.replaceChild(examtable, document.getElementById('examTable'));
       }
+      let tbody = document.getElementsByTagName('tbody');
+      tbody[1].removeEventListener('click', delegateOfCheck, false);
     }
     let createExamBtn = document.getElementById('createExam');
     createExamBtn.addEventListener('click', createExamWithCheckAll, false);
