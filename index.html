@@ -63,6 +63,7 @@
     </table>
     <input class="button" id="applyAllPattern" type="button" value="套用樣式進行篩選">
     <input class="button" id="btn" type="button" value="產生考卷">
+    <button id="createExam" class="button">產生考卷2</button>
     <li>本地題庫
       <input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫">
       <input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫">
@@ -266,7 +267,27 @@
         document.body.replaceChild(examtable, document.getElementById('examTable'));
       }
     }
-    btn.addEventListener('click', createExamHtml);
+    btn.addEventListener('click', createExamHtml, false);
+    function createExamWithCheckAll () {
+      examObject = getExamObjectArray(textareaContainer());
+      correctArray = [];
+      let examtable = makeTable(examObject);
+      let btn = document.createElement('button');
+      btn.id = 'calculate';
+      btn.class = 'button';
+      btn.textContent = '計算成績';
+      btn.addEventListener('click', e => {
+        delegateOfCheckAll(examObject);
+      }, false);
+      examtable.appendChild(btn);
+      if (!document.getElementById('examTable')) {
+        document.body.appendChild(examtable);
+      } else {
+        document.body.replaceChild(examtable, document.getElementById('examTable'));
+      }
+    }
+    let createExamBtn = document.getElementById('createExam');
+    createExamBtn.addEventListener('click', createExamWithCheckAll, false);
     let saveOringinQaBtn = document.getElementById('saveOringinQaBtn');
     let loadOringinQaBtn = document.getElementById('loadOringinQaBtn');
     saveOringinQaBtn.addEventListener('click', function () {
