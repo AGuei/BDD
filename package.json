@@ -30,8 +30,8 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-livereload": "^3.8.1",
-    "jasmine": "^3.1.0",
-    "jsdom": "^11.7.0",
+    "jasmine": "^3.2.0",
+    "jsdom": "^11.12.0",
     "semistandard": "^12.0.1"
   }
 }
