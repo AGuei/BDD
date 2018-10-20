@@ -694,22 +694,40 @@
               disableEles(checkboxGroup);
             }
           });
+          Object.getOwnPropertyNames(groupNames).map(groupName => {
+            return document.querySelector('input[name=' + groupName + ']:not(:checked)');
+          }).filter(ele => {
+            return ele !== null;
+          }).forEach(ele => {
+            let qNum = ele.id.match(/_(\d{1,3})_/)[1];
+            result.wrongQaArray.push(data[qNum]);
+            if (ele.type === 'radio') {
+              let radioGroup = document.querySelectorAll(
+                'li input[name = singleChoicesGroup_' + qNum + ']'
+              );
+              radioGroup.forEach(ele => {
+                let optText = ele.nextSibling.textContent;
+                let parentNode = ele.parentNode;
+                if (optText === correctArray[qNum][0]) {
+                  parentNode.classList.add('correctAns');
+                }
+              });
+              disableEles(radioGroup);
+            } else if (ele.type === 'checkbox') {
+              let checkboxGroup = document.querySelectorAll(
+                'li input[name = multipleChoicesGroup_' + qNum + ']'
+              );
                 checkboxGroup.forEach(ele => {
                   let parentNode = ele.parentNode;
                   let ansText = ele.nextSibling.textContent;
-                  if (ele.checked) {
-                    correctArray[qNum].some(cAns => {
+                correctArray[qNum].forEach(cAns => {
                       if (ansText === cAns) {
                         parentNode.classList.add('correctAns');
                         return true;
-                      } else {
-                        parentNode.classList.add('wrongAns');
                       }
                     });
-                  }
                 });
               }
-            }
           });
           return result;
         }
