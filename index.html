@@ -298,6 +298,27 @@
       textareaObject.qNum = document.getElementById('ResultOfGetQuestionsNumbers');
       return textareaObject;
     };
+    function updateTextarea () {
+      let objTemp = {};
+      let data = testTable.getData();
+      let textareaObj = data.reduce((pre, obj, index) => {
+        Object.getOwnPropertyNames(obj).map((property) => {
+          if (objTemp[property] === undefined) {
+            objTemp[property] = '';
+          }
+          if (property !== 'options') {
+            objTemp[property] += obj[property] + '\n';
+          } else {
+            objTemp[property] += obj[property] + '\n\n';
+          }
+        });
+        return objTemp;
+      }, objTemp);
+      document.getElementById('ResultOfGetQuestionsNumbers').value = textareaObj.qNum;
+      document.getElementById('ResultOfAnswers').value = textareaObj.ans;
+      document.getElementById('ResultOfGetQuestions').value = textareaObj.qa;
+      document.getElementById('ResultOfChoices').value = textareaObj.options;
+    }
     function createExamHtml () {
       correctArray = [];
       examObject = getExamObjectArray(textareaContainer());
