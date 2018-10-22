@@ -352,6 +352,25 @@
     }
     let createExamBtn = document.getElementById('createExam');
     createExamBtn.addEventListener('click', createExamWithCheckAll, false);
+    function changeTextareaDataToTabulator () {
+      let data = textareaContainer();
+      function notEmptyStr (str) {
+        return str !== '';
+      }
+      let tabulatorArray = [];
+      return Object.getOwnPropertyNames(data).reduce((pre, property, index) => {
+        if (property !== 'options') {
+          data[property].value.split(/\n/).filter(notEmptyStr).map((str, index) => {
+            tabulatorArray[index] = Object.assign({ [property]: str}, tabulatorArray[index]);
+          });
+        } else {
+          data[property].value.split(/\n\n/).filter(notEmptyStr).map((str, index) => {
+            tabulatorArray[index] = Object.assign({ [property]: str}, tabulatorArray[index]);
+          });
+        }
+        return tabulatorArray;
+      }, tabulatorArray);
+    }
     let saveOringinQaBtn = document.getElementById('saveOringinQaBtn');
     let loadOringinQaBtn = document.getElementById('loadOringinQaBtn');
     saveOringinQaBtn.addEventListener('click', function () {
