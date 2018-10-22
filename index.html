@@ -284,11 +284,11 @@
     let btn = document.getElementById('btn');
     let applyPatternBtn = document.getElementById('applyAllPattern');
     applyPatternBtn.addEventListener('click', () => {
-        applyQuestionsNumbersPattern();
-        applyAnswersPattern();
-        applyChoicesPattern();
-        applyQuestionsPattern();
-        testTable.setData(changeTextareaDataToTabulator());
+      applyQuestionsNumbersPattern();
+      applyAnswersPattern();
+      applyChoicesPattern();
+      applyQuestionsPattern();
+      testTable.setData(changeTextareaDataToTabulator());
     })
     let examObject;
     let textareaContainer = function () {
@@ -616,11 +616,11 @@
       table.appendChild(tbody);
       return table;
     }
-      function disableEles(eles) {
-        for(let i = 0; i < eles.length; i++) {
-          eles[i].disabled = true;
-        }
+    function disableEles(eles) {
+      for(let i = 0; i < eles.length; i++) {
+        eles[i].disabled = true;
       }
+    }
     function delegateOfCheck(e) {
       let event = e || window.event;
       let target = event.target || event.srcElement;
@@ -694,138 +694,138 @@
       }
     }
     function delegateOfCheckAll(data) {
-        function getGroupNames () {
-          let groups = {};
-          document.querySelectorAll('input[name]').forEach(inputNode => {
-            groups[inputNode.name] = true;
-          });
-          return groups;
-        }
-        let groupNames = getGroupNames();
-        function checkedOnceAtleast(groups) {
-          return Object.getOwnPropertyNames(groupNames).every(groupName => {
-            return document.querySelectorAll('input[name=' + groupName + ']:checked').length >= 1;
-          });
-        }
-        let prompMsg = '尚有未作答的題目，確定要交卷嗎？';
-        if (!checkedOnceAtleast()) {
-          if (confirm(prompMsg)) {
-            let examResult = checkAns();
-            examResult.wrongTimes = examResult.correctTimes - examResult.wrongQaArray.length;
+      function getGroupNames () {
+        let groups = {};
+        document.querySelectorAll('input[name]').forEach(inputNode => {
+          groups[inputNode.name] = true;
+        });
+        return groups;
+      }
+      let groupNames = getGroupNames();
+      function checkedOnceAtleast(groups) {
+        return Object.getOwnPropertyNames(groupNames).every(groupName => {
+          return document.querySelectorAll('input[name=' + groupName + ']:checked').length >= 1;
+        });
+      }
+      let prompMsg = '尚有未作答的題目，確定要交卷嗎？';
+      if (!checkedOnceAtleast()) {
+        if (confirm(prompMsg)) {
+          let examResult = checkAns();
+          examResult.wrongTimes = examResult.correctTimes - examResult.wrongQaArray.length;
 
-          }
-        } else {
-          console.log(checkAns());
         }
-        function checkAns () {
-          let result = {
-            correctTimes: 0,
-            wrongQaArray: []
-          };
-          Object.getOwnPropertyNames(groupNames).map(groupName => {
-            return document.querySelector('input[name=' + groupName + ']:checked');
-          }).filter(ele => {
-            return ele !== null;
-          }).forEach(ele => {
-            let qNum = ele.id.match(/_(\d{1,3})_/)[1];
-            if (ele.type === 'radio') {
+      } else {
+        console.log(checkAns());
+      }
+      function checkAns () {
+        let result = {
+          correctTimes: 0,
+          wrongQaArray: []
+        };
+        Object.getOwnPropertyNames(groupNames).map(groupName => {
+          return document.querySelector('input[name=' + groupName + ']:checked');
+        }).filter(ele => {
+          return ele !== null;
+        }).forEach(ele => {
+          let qNum = ele.id.match(/_(\d{1,3})_/)[1];
+          if (ele.type === 'radio') {
+            let optText = ele.nextSibling.textContent;
+            let parentNode = ele.parentNode;
+            if (optText === correctArray[qNum][0]) {
+              result.correctTimes++;
+              parentNode.classList.add('correctAns');
+            } else {
+              result.wrongQaArray.push(data[qNum]);
+              parentNode.classList.add('wrongAns');
+            }
+            let radioGroup = document.querySelectorAll(
+              'li input[name = singleChoicesGroup_' + qNum + ']'
+            );
+            disableEles(radioGroup);
+          } else if (ele.type === 'checkbox') {
+            let checkboxGroup = document.querySelectorAll(
+              'li input[name = multipleChoicesGroup_' + qNum + ']'
+            );
+            let cAnsLen = correctArray[qNum].length;
+            let selected = [];
+            let checkedPosition = [];
+            let correctCounts = 0;
+            checkboxGroup.forEach((ele, index) => {
+              if (ele.checked) {
+                checkedPosition.push(index);
+                selected.push(ele.nextSibling.textContent);
+              }
+            });
+            selected.forEach(ele => {
+              correctArray[qNum].some(cAns => {
+                if ( ele === cAns) {
+                  correctCounts++;
+                  return true;
+                }
+              });
+            });
+            checkboxGroup.forEach(ele => {
+              let parentNode = ele.parentNode;
+              let ansText = ele.nextSibling.textContent;
+              correctArray[qNum].some(cAns => {
+                if (ansText === cAns) {
+                  parentNode.classList.remove('wrongAns');
+                  parentNode.classList.add('correctAns');
+                  return true;
+                } else {
+                  parentNode.classList.add('wrongAns');
+                }
+              });
+            });
+            if (correctCounts === cAnsLen && selected.length === cAnsLen) {
+              result.correctTimes++;
+              checkedPosition.forEach(ele => {
+                checkboxGroup[ele].parentNode.classList.add('correctAns');
+              });
+            } else {
+              result.wrongQaArray.push(data[qNum]);
+            }
+            disableEles(checkboxGroup);
+          }
+        });
+        Object.getOwnPropertyNames(groupNames).map(groupName => {
+          return document.querySelector('input[name=' + groupName + ']:not(:checked)');
+        }).filter(ele => {
+          return ele !== null;
+        }).forEach(ele => {
+          let qNum = ele.id.match(/_(\d{1,3})_/)[1];
+          result.wrongQaArray.push(data[qNum]);
+          if (ele.type === 'radio') {
+            let radioGroup = document.querySelectorAll(
+              'li input[name = singleChoicesGroup_' + qNum + ']'
+            );
+            radioGroup.forEach(ele => {
               let optText = ele.nextSibling.textContent;
               let parentNode = ele.parentNode;
               if (optText === correctArray[qNum][0]) {
-                result.correctTimes++;
                 parentNode.classList.add('correctAns');
-              } else {
-                result.wrongQaArray.push(data[qNum]);
-                parentNode.classList.add('wrongAns');
               }
-              let radioGroup = document.querySelectorAll(
-                'li input[name = singleChoicesGroup_' + qNum + ']'
-              );
-              disableEles(radioGroup);
-            } else if (ele.type === 'checkbox') {
-              let checkboxGroup = document.querySelectorAll(
-                'li input[name = multipleChoicesGroup_' + qNum + ']'
-              );
-              let cAnsLen = correctArray[qNum].length;
-              let selected = [];
-              let checkedPosition = [];
-              let correctCounts = 0;
-              checkboxGroup.forEach((ele, index) => {
-                if (ele.checked) {
-                  checkedPosition.push(index);
-                  selected.push(ele.nextSibling.textContent);
-                }
-              });
-              selected.forEach(ele => {
-                correctArray[qNum].some(cAns => {
-                  if ( ele === cAns) {
-                    correctCounts++;
-                    return true;
-                  }
-                });
-              });
-              checkboxGroup.forEach(ele => {
-                let parentNode = ele.parentNode;
-                let ansText = ele.nextSibling.textContent;
-                correctArray[qNum].some(cAns => {
-                  if (ansText === cAns) {
-                    parentNode.classList.remove('wrongAns');
-                    parentNode.classList.add('correctAns');
-                    return true;
-                  } else {
-                    parentNode.classList.add('wrongAns');
-                  }
-                });
-              });
-              if (correctCounts === cAnsLen && selected.length === cAnsLen) {
-                result.correctTimes++;
-                checkedPosition.forEach(ele => {
-                  checkboxGroup[ele].parentNode.classList.add('correctAns');
-                });
-              } else {
-                result.wrongQaArray.push(data[qNum]);
-              }
-              disableEles(checkboxGroup);
-            }
-          });
-          Object.getOwnPropertyNames(groupNames).map(groupName => {
-            return document.querySelector('input[name=' + groupName + ']:not(:checked)');
-          }).filter(ele => {
-            return ele !== null;
-          }).forEach(ele => {
-            let qNum = ele.id.match(/_(\d{1,3})_/)[1];
-            result.wrongQaArray.push(data[qNum]);
-            if (ele.type === 'radio') {
-              let radioGroup = document.querySelectorAll(
-                'li input[name = singleChoicesGroup_' + qNum + ']'
-              );
-              radioGroup.forEach(ele => {
-                let optText = ele.nextSibling.textContent;
-                let parentNode = ele.parentNode;
-                if (optText === correctArray[qNum][0]) {
+            });
+            disableEles(radioGroup);
+          } else if (ele.type === 'checkbox') {
+            let checkboxGroup = document.querySelectorAll(
+              'li input[name = multipleChoicesGroup_' + qNum + ']'
+            );
+            checkboxGroup.forEach(ele => {
+              let parentNode = ele.parentNode;
+              let ansText = ele.nextSibling.textContent;
+              correctArray[qNum].forEach(cAns => {
+                if (ansText === cAns) {
                   parentNode.classList.add('correctAns');
+                  return true;
                 }
               });
-              disableEles(radioGroup);
-            } else if (ele.type === 'checkbox') {
-              let checkboxGroup = document.querySelectorAll(
-                'li input[name = multipleChoicesGroup_' + qNum + ']'
-              );
-                checkboxGroup.forEach(ele => {
-                  let parentNode = ele.parentNode;
-                  let ansText = ele.nextSibling.textContent;
-                correctArray[qNum].forEach(cAns => {
-                      if (ansText === cAns) {
-                        parentNode.classList.add('correctAns');
-                        return true;
-                      }
-                    });
-                });
-              }
-          });
-          return result;
-        }
+            });
+          }
+        });
+        return result;
       }
+    }
   </script>
 </body>
 </html>
