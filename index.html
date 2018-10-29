@@ -74,15 +74,15 @@
       <div class="cloud flex-column">
         <h2 class="centerTitle">雲端</h2>
         <label>第一步：先輸入題庫名稱
-      <input class="oringinQaName" id="oringinQaName_field" type="text" value="" placeholder="為原始題庫取名" required>
+          <input class="oringinQaName" id="oringinQaName_field" type="text" value="" placeholder="為原始題庫取名" required>
         </label>
         <label>第二步：存到雲端
           <button class="button" id="saveOringinQaToFirestoreBtn">原始題庫儲存到雲端</button>
         </label>
         <label>讀取
-      <select class="choose" name="oringinQaNameOnFirestore" id="oringinQaNameOnFirestore">
-        <option>題庫名稱</option>
-      </select>
+          <select class="choose" name="oringinQaNameOnFirestore" id="oringinQaNameOnFirestore">
+            <option>題庫名稱</option>
+          </select>
         </label>
         <button class="button" id="loadOringinQaFromFirestoreBtn" type="button" >從雲端讀取原始題庫</button>
       </div>
@@ -118,15 +118,15 @@
       <div class="cloud flex-column">
         <h2 class="centerTitle">雲端</h2>
         <label>第一步：先輸入題庫名稱
-      <input class="resultName" id="resultName_field" type="text" value="" placeholder="為篩選結果取名" required>
+          <input class="resultName" id="resultName_field" type="text" value="" placeholder="為篩選結果取名" required>
         </label>
         <label>第二步：存到雲端
           <button class="button" id="saveResultToFirestoreBtn">篩選結果儲存到雲端</button>
         </label>
         <label>讀取
-      <select class="choose" name="ResultNameOnFirestore" id="ResultNameOnFirestore">
-        <option>題庫名稱</option>
-      </select>
+          <select class="choose" name="ResultNameOnFirestore" id="ResultNameOnFirestore">
+            <option>題庫名稱</option>
+          </select>
         </label>
         <button class="button" id="loadResultFromFirestoreBtn">從雲端讀取篩選結果</button>
       </div>
@@ -368,7 +368,7 @@
         document.body.replaceChild(examtable, document.getElementById('examTable'));
       }
       let tbody = document.getElementsByTagName('tbody');
-      tbody[1].removeEventListener('click', delegateOfCheck, false);
+      tbody[0].removeEventListener('click', delegateOfCheck, false);
     }
     let createExamBtn = document.getElementById('createExam');
     createExamBtn.addEventListener('click', createExamWithCheckAll, false);
