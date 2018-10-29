@@ -17,23 +17,23 @@
   <title>BDD TEST Document</title>
 </head>
 <body>
+  <h1 class="centerTitle">輸入原始題庫</h1>
   <div class="questionsAndAnswersContainer" id="questionsAndAnswersContainer">
     <textarea class="texebox" name="textarea" id="questionsAndAnswers"></textarea>
   </div>
   <div class="patternContainer" id="patternContainer">
-    <table>
-      <tr>
-        <th><label for="questionsNumbersPattern">題號樣式:</label></th>
-        <td>
+    <h1 class="centerTitle">選擇樣式</h1>
+    <div class="tableContainer">
+      <div class="noWrap">
+        <label for="questionsNumbersPattern" class="flex-row">題號樣式:
           <select class="choose" name="questionsNumbersPattern" id="questionsNumbersPattern">
             <option value="\d{1,3}(?!\.)">題號無小數點</option>
             <option value="\d{1,3}\.">題號有小數點</option>
           </select>
-        </td>
-      </tr>
-      <tr>
-        <th><label for="answersPattern">答案樣式:</label></th>
-        <td>
+        </label>
+      </div>
+      <div class="noWrap">
+        <label for="answersPattern">答案樣式:
           <select class="choose" name="answersPattern" id="answersPattern">
             <option value="[ABCDE]">答案為ABCDE</option>
             <option value="\(\s{0,3}[ABCDE]\s{0,3}\)">答案為(A)(B)(C)(D)(E)</option>
@@ -46,11 +46,10 @@
             <option value="（\s{0,3}[12345]\s{0,3}）">答案為（1）（2）（3）（4）（5）</option>
             <option value="（\s{0,3}[１２３４５]\s{0,3}）">答案為（１）（２）（３）（４）（５）(全形括號與數字)</option>
           </select>
-        </td>
-      </tr>
-      <tr>
-        <th><label for="choicesPattern">選項樣式:</label></th>
-        <td>
+        </label>
+      </div>
+      <div class="noWrap">
+        <label for="choicesPattern">選項樣式:
           <select class="choose" name="choicesPattern" id="choicesPattern">
             <option value="\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?(?:\(D\)\s{0,3}[\s\S]+?)?(?:\(E\)\s{0,3}[\s\S]+?)?">選項為(A)(B)(C)(D)(E)</option>
             <option value="（A）\s{0,3}[\s\S]+?（B）\s{0,3}[\s\S]+?（C）\s{0,3}[\s\S]+?(?:（D）\s{0,3}[\s\S]+?)?(?:（E）\s{0,3}[\s\S]+?)?">選項為（A）（B）（C）（D）（E）</option>
@@ -60,59 +59,78 @@
             <option value="（1）\s{0,3}[\s\S]+?（2）\s{0,3}[\s\S]+?（3）\s{0,3}[\s\S]+?(?:（4）\s{0,3}[\s\S]+?)?(?:（5）\s{0,3}[\s\S]+?)?">選項為（1）（2）（3）（4）（5）</option>
             <option value="①\s{0,3}[\s\S]+?②\s{0,3}[\s\S]+?③\s{0,3}[\s\S]+?(?:④\s{0,3}[\s\S]+?)?(?:⑤\s{0,3}[\s\S]+?)?">選項為①②③④⑤</option>
           </select>
-        </td>
-      </tr>
-    </table>
-    <input class="button" id="applyAllPattern" type="button" value="套用樣式進行篩選">
-    <input class="button" id="btn" type="button" value="產生考卷">
-    <button id="createExam" class="button">產生考卷2</button>
-    <li>本地題庫
-      <input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫">
-      <input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫">
-    </li>
-    <li>雲端
+        </label>
+      </div>
+    </div>
+    <button id="applyAllPattern" class="button">第一步：套用樣式進行篩選</button>
+    <button id="btn" class="button">第二步：產生考卷(即答即評)</button>
+    <button id="createExam" class="button">或第二步：產生考卷(答完才評)</button>
+    <div class="saveLoadContainer">
+      <div class="local flex-column">
+        <h2 class="centerTitle">本地</h2>
+        <button id="saveOringinQaBtn" class="button">儲存原始題庫</button>
+        <button id="loadOringinQaBtn" class="button">讀取原始題庫</button>
+      </div>
+      <div class="cloud flex-column">
+        <h2 class="centerTitle">雲端</h2>
+        <label>第一步：先輸入題庫名稱
       <input class="oringinQaName" id="oringinQaName_field" type="text" value="" placeholder="為原始題庫取名" required>
-      <input class="button" id="saveOringinQaToFirestoreBtn" type="button" value="原始題庫儲存到雲端資料庫">
-    </li>
-    <li>
+        </label>
+        <label>第二步：存到雲端
+          <button class="button" id="saveOringinQaToFirestoreBtn">原始題庫儲存到雲端</button>
+        </label>
+        <label>讀取
       <select class="choose" name="oringinQaNameOnFirestore" id="oringinQaNameOnFirestore">
         <option>題庫名稱</option>
       </select>
-      <input class="button" id="loadOringinQaFromFirestoreBtn" type="button" value="從雲端資料庫讀取原始題庫">
-    </li>
+        </label>
+        <button class="button" id="loadOringinQaFromFirestoreBtn" type="button" >從雲端讀取原始題庫</button>
+      </div>
+    </div>
   </div>
   <div id="containerOfResult">
+    <h1 class="centerTitle">篩選結果</h1>
     <table id="testTable"></table>
     <div hidden>
       <label class="flex-column" id="promptOfResultOfGetQuestionsNumbers">
-        <text class="text">題號篩選結果:</text>
-        <textarea class="texebox item1" id="ResultOfGetQuestionsNumbers"></textarea>
+        <text>題號篩選結果:</text>
+        <textarea class="texebox" id="ResultOfGetQuestionsNumbers"></textarea>
       </label>
         <label class="flex-column" id="promptOfResultOfAnswers">
-        <text class="text">答案篩選結果:</text>
-        <textarea class="texebox item1" id="ResultOfAnswers"></textarea>
+        <text>答案篩選結果:</text>
+        <textarea class="texebox" id="ResultOfAnswers"></textarea>
       </label>
         <label class="flex-column" id="promptOfResultOfGetQuestions">
-        <text class="text">題目篩選結果:</text>
-        <textarea class="texebox item2" id="ResultOfGetQuestions"></textarea>
+        <text>題目篩選結果:</text>
+        <textarea class="texebox" id="ResultOfGetQuestions"></textarea>
       </label>
         <label class="flex-column" id="promptOfResultOfChoices">
-        <text class="text">選項篩選結果:</text>
-        <textarea class="texebox item2" id="ResultOfChoices"></textarea>
+        <text>選項篩選結果:</text>
+        <textarea class="texebox" id="ResultOfChoices"></textarea>
       </label>
     </div>
-    <li>本地題庫
-      <input class="button" id="saveResultBtn" type="button" value="儲存篩選結果">
-      <input class="button" id="loadResultBtn" type="button" value="讀取篩選結果">
-    </li>
-    <li>雲端
+    <div class="saveLoadContainer">
+      <div class="local flex-column">
+        <h2 class="centerTitle">本地</h2>
+        <button class="button" id="saveResultBtn">儲存篩選結果</button>
+        <button class="button" id="loadResultBtn">讀取篩選結果</button>
+      </div>
+      <div class="cloud flex-column">
+        <h2 class="centerTitle">雲端</h2>
+        <label>第一步：先輸入題庫名稱
       <input class="resultName" id="resultName_field" type="text" value="" placeholder="為篩選結果取名" required>
-      <input class="button" id="saveResultToFirestoreBtn" type="button" value="篩選結果儲存到雲端資料庫">
+        </label>
+        <label>第二步：存到雲端
+          <button class="button" id="saveResultToFirestoreBtn">篩選結果儲存到雲端</button>
+        </label>
+        <label>讀取
       <select class="choose" name="ResultNameOnFirestore" id="ResultNameOnFirestore">
         <option>題庫名稱</option>
       </select>
-      <input class="button" id="loadResultFromFirestoreBtn" type="button" value="從雲端資料庫讀取篩選結果">
-    </li>
+        </label>
+        <button class="button" id="loadResultFromFirestoreBtn">從雲端讀取篩選結果</button>
+      </div>
+    </div>
   </div>
   <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>

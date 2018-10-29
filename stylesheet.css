@@ -1,33 +1,36 @@
 body{
 	background-color:#271c11;
-	color:white;
+	color:white;	
 }
 #questionsAndAnswersContainer{
 	text-align:center;
+	width: 100%;
 }
 #questionsAndAnswers{
 	height:150px;
-	width:90%;
+	width:95%;
 	overflow:auto;
 }
 #patternContainer{
 	display:flex;
 	flex-direction:column;
-	height:auto;
-	width:80%;
-	font-size:150%;
-	margin-left: 5%;
+	width:100%;
+	font-size:120%;	
 	align-items:center;
 }
-.choose{
-	width:auto;
+#containerOfResult{
+	font-size: 120%;
+}
+.choose{	
 	font-size:120%;
 	background-color:#ffc300e3;
 	font-weight:bold;
+	width: 65%;
 }
 .button{
 	font-size:120%;
 	font-weight:bold;
+	cursor: pointer;
 }
 .button:hover{
 	background-color:lightgreen;
@@ -35,42 +38,33 @@ body{
 .button:active{
 	background-color:lightblue;
 }
-#containerOfResult{
-	margin-left: 5%;
-}
 .flex-column{
 	display:inline-flex;
 	flex-direction:column;
 }
-.text{
-	font-size:120%;
-	width:auto;
-	height:auto;
-}
 .texebox{
 	background-color:#eaa5a5;
-}
-.item1{
-	width:120PX;
-	height:150PX;
-	overflow:auto;
-}
-.item2{
-	width:450px;
-	height:150px;
-	overflow:auto;
-}
-table{
-	margin-left: 5%;
-	width:90%;
-	height:auto;
-}
-li{
-	overflow:auto;
 }
 .correctAns{
 	color:green;
 }
 .wrongAns{
 	color:red;
+}
+
+.saveLoadContainer {
+	display: flex;
+	justify-content: center;
+	width: inherit;
+	font-size: 120%;
+}
+
+.local, .cloud {
+	flex: 0 0 45%;
+}
+.centerTitle {
+	text-align: center;
+}
+.noWrap {
+	white-space: nowrap;
 }
