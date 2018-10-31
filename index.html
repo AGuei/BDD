@@ -342,18 +342,18 @@
       updateTextarea();
       correctArray = [];
       examObject = getExamObjectArray(textareaContainer());
-      let examtable = makeTable(examObject);
+      let examTable = makeTable(examObject);
       if (!document.getElementById('examTable')) {
-        document.body.appendChild(examtable);
+        document.body.appendChild(examTable);
       } else {
-        document.body.replaceChild(examtable, document.getElementById('examTable'));
+        document.body.replaceChild(examTable, document.getElementById('examTable'));
       }
     }
     btn.addEventListener('click', createExamHtml, false);
     function createExamWithCheckAll () {
       examObject = getExamObjectArray(textareaContainer());
       correctArray = [];
-      let examtable = makeTable(examObject);
+      let examTable = makeTable(examObject);
       let btn = document.createElement('button');
       btn.id = 'calculate';
       btn.class = 'button';
@@ -361,11 +361,11 @@
       btn.addEventListener('click', e => {
         delegateOfCheckAll(examObject);
       }, false);
-      examtable.appendChild(btn);
+      examTable.appendChild(btn);
       if (!document.getElementById('examTable')) {
-        document.body.appendChild(examtable);
+        document.body.appendChild(examTable);
       } else {
-        document.body.replaceChild(examtable, document.getElementById('examTable'));
+        document.body.replaceChild(examTable, document.getElementById('examTable'));
       }
       let tbody = document.getElementsByTagName('tbody');
       tbody[0].removeEventListener('click', delegateOfCheck, false);
