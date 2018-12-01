@@ -3,137 +3,137 @@
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<link href="style.css" rel="stylesheet" type="text/css" />
 <title>自備題庫隨機出題練習系統網頁板</title>
 <style type="text/css">
 </style>
 </head>
 
-<body bgcolor="#CCCCCC">
-<textarea name="TextArea1" class="auto-style1">請輸入或貼上題庫以自動篩選</textarea>
-<table align="center">
-<tr>
-<td style="height: 23px">題號樣式:</td>
-<td style="height: 23px"><select name="題號樣式">
-				<option>題號無小數點</option>
-				<option>題號有小數點</option>
-			</select></td>
-</tr>
-<tr>
-<td>答案樣式:</td>
-<td><select name="答案樣式">
-				<option>答案為ABCDE</option>
-				<option>答案為(A)(B)(C)(D)(E)</option>
-				<option>答案為（A）（B）（C）（D）（E）</option>
-				<option>答案為abcde</option>
-				<option>答案為(a)(b)(c)(d)(e)</option>
-				<option>答案為（a）（b）（c）（d）（e）</option>
-				<option>答案為12345</option>
-				<option>答案為(1)(2)(3)(4)(5)</option>
-				<option>答案為（1）（2）（3）（4）（5）</option>
-				<option>答案為（１）（２）（３）（４）（５）(全形括號與數字)</option>
-			</select></td>
-</tr>
-<tr>
-<td>選項樣式:</td>
-<td><select name="選項樣式">
-				<option>選項為(A)(B)(C)(D)(E)</option>
-				<option>選項為（A）（B）（C）（D）（E）</option>
-				<option>選項為(a)(b)(c)(d)(e)</option>
-				<option>選項為（a）（b）（c）（d）（e）</option>
-				<option>選項為(1)(2)(3)(4)(5)</option>
-				<option>選項為（1）（2）（3）（4）（5）</option>
-				<option>選項為①②③④⑤</option>
-			</select></td>
-</tr>
+<body>
+
+<textarea class="PasteQATextArea">請輸入或貼上題庫以自動篩選</textarea>
+<table align="center" class="ms-prof-1000-main">
+	<!-- fpstyle: 36,010000000 -->
+	<tr>
+		<td class="ms-prof-1000-even">題號樣式:</td>
+		<td class="ms-prof-1000-even">
+		<select class="Filter-condition" name="題號樣式">
+		<option>題號無小數點</option>
+		<option>題號有小數點</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td class="ms-prof-1000-even">答案樣式:</td>
+		<td class="ms-prof-1000-even"><select name="答案樣式">
+		<option>答案為ABCDE</option>
+		<option>答案為(A)(B)(C)(D)(E)</option>
+		<option>答案為（A）（B）（C）（D）（E）</option>
+		<option>答案為abcde</option>
+		<option>答案為(a)(b)(c)(d)(e)</option>
+		<option>答案為（a）（b）（c）（d）（e）</option>
+		<option>答案為12345</option>
+		<option>答案為(1)(2)(3)(4)(5)</option>
+		<option>答案為（1）（2）（3）（4）（5）</option>
+		<option>答案為（１）（２）（３）（４）（５）(全形括號與數字)</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td class="ms-prof-1000-even">選項樣式:</td>
+		<td class="ms-prof-1000-even">
+		<select class="Filter-condition" name="選項樣式">
+		<option>選項為(A)(B)(C)(D)(E)</option>
+		<option>選項為（A）（B）（C）（D）（E）</option>
+		<option>選項為(a)(b)(c)(d)(e)</option>
+		<option>選項為（a）（b）（c）（d）（e）</option>
+		<option>選項為(1)(2)(3)(4)(5)</option>
+		<option>選項為（1）（2）（3）（4）（5）</option>
+		<option>選項為①②③④⑤</option>
+		</select></td>
+	</tr>
 </table>
 <table align="center">
-<tr>
-<td><input name="Button1" type="button" value="套用樣式進行篩選" /></td>
-<td><input name="Button1" type="button" value="產生考卷" /></td>
-<td><input name="Button1" type="button" value="產生考卷2" /></td>
-</tr>
+	<tr>
+		<th><input name="Button1" type="button" value="套用樣式進行篩選" /></th>
+		<th><input name="Button1" type="button" value="產生考卷" /></th>
+	</tr>
 </table>
-<table align="center" class="ms-grid6-1000-main">
-	<!-- fpstyle: 21,110001100 -->
-<tr>
-<th class="ms-grid6-1000-tl">貯存至本地</th>
-<th class="ms-grid6-1000-tl">貯存至雲端</th>
-<th class="ms-grid6-1000-tl">從雲端讀取</th>
-</tr>
-<tr>
-<td class="ms-grid6-1000-left">
-<form method="post">
-	<input name="Button2" type="button" value="儲存原始題庫" /></form>
-</td>
-<td class="ms-grid6-1000-left">
-<form method="post">
-	<input name="Text1" style="text-align: center" type="text" value="請輸入題庫的存檔名稱" class="auto-style3" /></form>
-</td>
-<td class="ms-grid6-1000-left">
-<form method="post">
-	<select name="Select1" class="auto-style2">
-	<option>題庫名稱</option>
-	</select></form>
-&nbsp;</td>
-</tr>
-<tr>
-<td class="ms-grid6-1000-left">
-<form method="post">
-	<input name="Button3" type="button" value="儲存原始題庫" /></form>
-	</td>
-<td class="ms-grid6-1000-left">
-<form method="post">
-	<input name="Button4" type="button" value="將原始題庫儲存到雲端" /></form>
-&nbsp;</td>
-<td class="ms-grid6-1000-left">
-<form method="post">
-	<input name="Button5" type="button" value="從雲端讀取原始題庫" /></form>
-&nbsp;</td>
-</tr>
+<table align="center" class="ms-prof-1000-main" style="width: 100%">
+	<!-- fpstyle: 36,010000000 -->
+	<tr>
+		<th class="ms-prof-1000-even">貯存至本地</th>
+		<th class="ms-prof-1000-even">貯存至雲端</th>
+		<th class="ms-prof-1000-even">從雲端讀取</th>
+	</tr>
+	<tr>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Button2" type="button" value="儲存原始題庫" /></form>
+		</td>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Text1" type="text" value="請輸入題庫的存檔名稱" /></form>
+		</td>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<select class="Name-selection" name="Select1">
+			<option>題庫名稱</option>
+			</select></form>
+		</td>
+	</tr>
+	<tr>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Button3" type="button" value="儲存原始題庫" /></form>
+		</td>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Button4" type="button" value="將原始題庫儲存到雲端" /></form>
+		</td>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Button5" type="button" value="從雲端讀取原始題庫" /></form>
+		</td>
+	</tr>
 </table>
-
-
 <form method="post">
-	<textarea class="auto-style4" name="TextArea2" rows="2"></textarea></form>
-
-<table align="center">
-<tr>
-<th>貯存至本地</th>
-<th>貯存至雲端</th>
-<th>從雲端讀取</th>
-</tr>
-<tr>
-<td>
-<form method="post">
-	<input name="Button6" type="button" value="儲存篩選結果" /></form>
-	</td>
-<td class="auto-style7">
-<form method="post">
-	<input name="Text2" type="text" value="為篩選結果取名" class="auto-style5" /></form>
-	</td>
-<td>
-<form method="post">
-	<select name="Select2" class="auto-style6">
-	<option>題庫名稱</option>
-	</select></form>
-	</td>
-</tr>
-<tr>
-<td>
-<form method="post">
-	<input name="Button7" type="button" value="讀取篩選結果" /></form>
-	</td>
-<td>
-<form method="post">
-	<input name="Button8" type="button" value="篩選結果儲存到雲端" /></form>
-	</td>
-<td>
-<form method="post">
-	<input name="Button9" type="button" value="從雲端資料庫讀取篩選結果" /></form>
-	</td>
-</tr>
-
+	<textarea class="PasteQATextArea " name="TextArea2" rows="2"></textarea></form>
+<table align="center" class="ms-prof-1000-main" style="width: 100%">
+	<!-- fpstyle: 36,010000000 -->
+	<tr>
+		<th class="ms-prof-1000-even">貯存至本地</th>
+		<th class="ms-prof-1000-even">貯存至雲端</th>
+		<th class="ms-prof-1000-even">從雲端讀取</th>
+	</tr>
+	<tr>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Button6" type="button" value="儲存篩選結果" /></form>
+		</td>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Text2" type="text" value="為篩選結果取名" /></form>
+		</td>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<select class="Name-selection" name="Select2">
+			<option>題庫名稱</option>
+			</select></form>
+		</td>
+	</tr>
+	<tr>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Button7" type="button" value="讀取篩選結果" /></form>
+		</td>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Button8" type="button" value="篩選結果儲存到雲端" /></form>
+		</td>
+		<td class="ms-prof-1000-even">
+		<form method="post">
+			<input name="Button9" type="button" value="從雲端資料庫讀取篩選結果" /></form>
+		</td>
+	</tr>
 </table>
 
 </body>
