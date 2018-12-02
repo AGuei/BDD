@@ -4,6 +4,12 @@
 	margin-right: 5%;
 	text-align: center;
 }
+#examTable{
+	text-align:center;
+	margin-left: 5%;
+	margin-right: 5%;
+	width:90%;
+}
 .PasteQATextArea {
 	width: 99%;
 	height: 100px;
