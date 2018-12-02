@@ -1,163 +1,125 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8" content="text/html" http-equiv="Content-Type" />
-<link href="style.css" rel="stylesheet" type="text/css" />
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<meta content="ie=edge" http-equiv="X-UA-Compatible" />
-<script src="stringToRegexp.js"></script>
-<script src="getRegexpResultArray.js"></script>
-<script src="addResultToTextArea.js"></script>
-<script src="splitResultOfTextArea.js"></script>
-<script src="getExamObjectArray.js"></script>
-<script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
-<link href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" rel="stylesheet" type="text/css" />
-<link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator_midnight.min.css" rel="stylesheet" />
-<script src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js" type="text/javascript"></script>
-<title>自備題庫隨機出題練習系統網頁板</title>
+  <link rel=stylesheet type="text/css" href="stylesheet.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="stringToRegexp.js"></script>
+  <script src="getRegexpResultArray.js"></script>
+  <script src="addResultToTextArea.js"></script>
+  <script src="splitResultOfTextArea.js"></script>
+  <script src="getExamObjectArray.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+  <link href="https://unpkg.com/tabulator-tables@4.0.5/dist/css/tabulator_midnight.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.5/dist/js/tabulator.min.js"></script>
+  <title>BDD TEST Document</title>
 </head>
-
 <body>
-
-<div id="questionsAndAnswersContainer" class="questionsAndAnswersContainer">
-	<textarea id="questionsAndAnswers" class="PasteQATextArea" name="textarea" onblur="if (value ==''){value='請輸入或貼上題庫以自動篩選'}" onfocus="if(value=='請輸入或貼上題庫以自動篩選'){value=''}">
-請輸入或貼上題庫以自動篩選</textarea></div>
-<div id="patternContainer" class="patternContainer">
-	<table align="center" class="ms-prof-1000-main">
-		<!-- fpstyle: 36,010000000 -->
-		<tr>
-			<td class="ms-prof-1000-even"><label for="questionsNumbersPattern">題號樣式:</label></td>
-			<td class="ms-prof-1000-even">
-			<select id="questionsNumbersPattern" class="Filter-condition" name="questionsNumbersPattern">
-			<option value="\d{1,3}(?!\.)">題號無小數點</option>
-			<option value="\d{1,3}\.">題號有小數點</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td class="ms-prof-1000-even"><label for="answersPattern">答案樣式:</label></td>
-			<td class="ms-prof-1000-even">
-			<select id="answersPattern" name="answersPattern">
-			<option value="[ABCDE]">答案為ABCDE</option>
-			<option value="\(\s{0,3}[ABCDE]\s{0,3}\)">答案為(A)(B)(C)(D)(E)
-			</option>
-			<option value="（\s{0,3}[ABCDE]\s{0,3}）">答案為（A）（B）（C）（D）（E）</option>
-			<option value="[abcde]">答案為abcde</option>
-			<option value="\(\s{0,3}[abcde]\\s{0,3})">答案為(a)(b)(c)(d)(e)
-			</option>
-			<option value="（\s{0,3}[abcde]\s{0,3}）">答案為（a）（b）（c）（d）（e）</option>
-			<option value="[12345]">答案為12345</option>
-			<option value="\(\s{0,3}[12345]\s{0,3}\)">答案為(1)(2)(3)(4)(5)
-			</option>
-			<option value="（\s{0,3}[12345]\s{0,3}）">答案為（1）（2）（3）（4）（5）</option>
-			<option value="（\s{0,3}[１２３４５]\s{0,3}）">答案為（１）（２）（３）（４）（５）(全形括號與數字)
-			</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td class="ms-prof-1000-even"><label for="choicesPattern">選項樣式:</label></td>
-			<td class="ms-prof-1000-even">
-			<select id="choicesPattern" class="Filter-condition" name="choicesPattern">
-			<option value="\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?(?:\(D\)\s{0,3}[\s\S]+?)?(?:\(E\)\s{0,3}[\s\S]+?)?">
-			選項為(A)(B)(C)(D)(E)</option>
-			<option value="（A）\s{0,3}[\s\S]+?（B）\s{0,3}[\s\S]+?（C）\s{0,3}[\s\S]+?(?:（D）\s{0,3}[\s\S]+?)?(?:（E）\s{0,3}[\s\S]+?)?">
-			選項為（A）（B）（C）（D）（E）</option>
-			<option value="\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?(?:\(d\)\s{0,3}[\s\S]+?)?(?:\(e\)\s{0,3}[\s\S]+?)?">
-			選項為(a)(b)(c)(d)(e)</option>
-			<option value="（a）\s{0,3}[\s\S]+?（b）\s{0,3}[\s\S]+?（c）\s{0,3}[\s\S]+?(?:（d）\s{0,3}[\s\S]+?)?(?:（e）\s{0,3}[\s\S]+?)?">
-			選項為（a）（b）（c）（d）（e）</option>
-			<option value="\(1\)\s{0,3}[\s\S]+?\(2\)\s{0,3}[\s\S]+?\(3\)\s{0,3}[\s\S]+?(?:\(4\)\s{0,3}[\s\S]+?)?(?:\(5\)\s{0,3}[\s\S]+?)?">
-			選項為(1)(2)(3)(4)(5)</option>
-			<option value="（1）\s{0,3}[\s\S]+?（2）\s{0,3}[\s\S]+?（3）\s{0,3}[\s\S]+?(?:（4）\s{0,3}[\s\S]+?)?(?:（5）\s{0,3}[\s\S]+?)?">
-			選項為（1）（2）（3）（4）（5）</option>
-			<option value="①\s{0,3}[\s\S]+?②\s{0,3}[\s\S]+?③\s{0,3}[\s\S]+?(?:④\s{0,3}[\s\S]+?)?(?:⑤\s{0,3}[\s\S]+?)?">
-			選項為①②③④⑤</option>
-			</select></td>
-		</tr>
-	</table>
-	<input id="applyAllPattern" name="button" type="button" value="套用樣式進行篩選" />
-	<input id="btn" name="button" type="button" value="產生考卷" />
-	<button id="createExam" class="button">產生考卷2</button>
-	<table align="center" class="ms-prof-1000-main" style="width: 100%">
-		<!-- fpstyle: 36,010000000 -->
-		<tr>
-			<th class="ms-prof-1000-even">儲存至本地</th>
-			<th class="ms-prof-1000-even">儲存至雲端</th>
-			<th class="ms-prof-1000-even">從雲端讀取</th>
-		</tr>
-		<tr>
-			<td class="ms-prof-1000-even">
-			<input id="saveOringinQaBtn" name="button" type="button" value="儲存原始題庫" />
-			</td>
-			<td class="ms-prof-1000-even">
-			<input id="oringinQaName_field" name="text" placeholder="請輸入題庫的存檔名稱" required="" type="text" />
-			</td>
-			<td class="ms-prof-1000-even">
-			<select id="oringinQaNameOnFirestore" class="Name-selection" name="oringinQaNameOnFirestore">
-			<option>題庫名稱</option>
-			</select> </td>
-		</tr>
-		<tr>
-			<td class="ms-prof-1000-even">
-			<input id="loadOringinQaBtn" name="button" type="button" value="儲存原始題庫" />
-			</td>
-			<td class="ms-prof-1000-even">
-			<input id="saveOringinQaToFirestoreBtn" name="button" type="button" value="將原始題庫儲存到雲端" />
-			</td>
-			<td class="ms-prof-1000-even">
-			<input id="loadOringinQaFromFirestoreBtn" name="button" type="button" value="從雲端讀取原始題庫" />
-			</td>
-		</tr>
-	</table>
-</div>
-<div id="containerOfResult">
-	<table id="testTable">
-	</table>
-	<div hidden="">
-		<label id="promptOfResultOfGetQuestionsNumbers" class="flex-column">
-        <text>題號篩選結果:</text>
-        <textarea id="ResultOfGetQuestionsNumbers"></textarea> </label>
-		<label id="promptOfResultOfAnswers" class="flex-column">
-        <text>答案篩選結果:</text>
-        <textarea id="ResultOfAnswers"></textarea> </label>
-		<label id="promptOfResultOfGetQuestions" class="flex-column">
-        <text>題目篩選結果:</text>
-        <textarea id="ResultOfGetQuestions"></textarea> </label>
-		<label id="promptOfResultOfChoices" class="flex-column">
-        <text>選項篩選結果:</text>
-        <textarea id="ResultOfChoices"></textarea> </label></div>
-	<table align="center" class="ms-prof-1000-main" style="width: 100%">
-		<!-- fpstyle: 36,010000000 -->
-		<tr>
-			<th class="ms-prof-1000-even">儲存至本地</th>
-			<th class="ms-prof-1000-even">儲存至雲端</th>
-			<th class="ms-prof-1000-even">從雲端讀取</th>
-		</tr>
-		<tr>
-			<td class="ms-prof-1000-even">
-			<input id="saveResultBtn" name="button" type="button" value="儲存篩選結果" /></td>
-			<td class="ms-prof-1000-even">
-			<input id="resultName_field" name="text" placeholder="為篩選結果取名" required="" type="text" /></td>
-			<td class="ms-prof-1000-even">
-			<select id="ResultNameOnFirestore" class="Name-selection" name="ResultNameOnFirestore">
-			<option>題庫名稱</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td class="ms-prof-1000-even">
-			<input id="loadResultBtn" name="button" type="button" value="讀取篩選結果" /></td>
-			<td class="ms-prof-1000-even">
-			<input id="saveResultToFirestoreBtn" name="button" type="button" value="篩選結果儲存到雲端" /></td>
-			<td class="ms-prof-1000-even">
-			<input id="loadResultFromFirestoreBtn" name="button" type="button" value="從雲端讀取篩選結果" /></td>
-		</tr>
-	</table>
-</div>
-<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
-<script>
+  <div class="questionsAndAnswersContainer" id="questionsAndAnswersContainer">
+    <textarea class="texebox" name="textarea" id="questionsAndAnswers"></textarea>
+  </div>
+  <div class="patternContainer" id="patternContainer">
+    <table>
+      <tr>
+        <th><label for="questionsNumbersPattern">題號樣式:</label></th>
+        <td>
+          <select class="choose" name="questionsNumbersPattern" id="questionsNumbersPattern">
+            <option value="\d{1,3}(?!\.)">題號無小數點</option>
+            <option value="\d{1,3}\.">題號有小數點</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th><label for="answersPattern">答案樣式:</label></th>
+        <td>
+          <select class="choose" name="answersPattern" id="answersPattern">
+            <option value="[ABCDE]">答案為ABCDE</option>
+            <option value="\(\s{0,3}[ABCDE]\s{0,3}\)">答案為(A)(B)(C)(D)(E)</option>
+            <option value="（\s{0,3}[ABCDE]\s{0,3}）">答案為（A）（B）（C）（D）（E）</option>
+            <option value="[abcde]">答案為abcde</option>
+            <option value="\(\s{0,3}[abcde]\\s{0,3})">答案為(a)(b)(c)(d)(e)</option>
+            <option value="（\s{0,3}[abcde]\s{0,3}）">答案為（a）（b）（c）（d）（e）</option>
+            <option value="[12345]">答案為12345</option>
+            <option value="\(\s{0,3}[12345]\s{0,3}\)">答案為(1)(2)(3)(4)(5)</option>
+            <option value="（\s{0,3}[12345]\s{0,3}）">答案為（1）（2）（3）（4）（5）</option>
+            <option value="（\s{0,3}[１２３４５]\s{0,3}）">答案為（１）（２）（３）（４）（５）(全形括號與數字)</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th><label for="choicesPattern">選項樣式:</label></th>
+        <td>
+          <select class="choose" name="choicesPattern" id="choicesPattern">
+            <option value="\(A\)\s{0,3}[\s\S]+?\(B\)\s{0,3}[\s\S]+?\(C\)\s{0,3}[\s\S]+?(?:\(D\)\s{0,3}[\s\S]+?)?(?:\(E\)\s{0,3}[\s\S]+?)?">選項為(A)(B)(C)(D)(E)</option>
+            <option value="（A）\s{0,3}[\s\S]+?（B）\s{0,3}[\s\S]+?（C）\s{0,3}[\s\S]+?(?:（D）\s{0,3}[\s\S]+?)?(?:（E）\s{0,3}[\s\S]+?)?">選項為（A）（B）（C）（D）（E）</option>
+            <option value="\(a\)\s{0,3}[\s\S]+?\(b\)\s{0,3}[\s\S]+?\(c\)\s{0,3}[\s\S]+?(?:\(d\)\s{0,3}[\s\S]+?)?(?:\(e\)\s{0,3}[\s\S]+?)?">選項為(a)(b)(c)(d)(e)</option>
+            <option value="（a）\s{0,3}[\s\S]+?（b）\s{0,3}[\s\S]+?（c）\s{0,3}[\s\S]+?(?:（d）\s{0,3}[\s\S]+?)?(?:（e）\s{0,3}[\s\S]+?)?">選項為（a）（b）（c）（d）（e）</option>
+            <option value="\(1\)\s{0,3}[\s\S]+?\(2\)\s{0,3}[\s\S]+?\(3\)\s{0,3}[\s\S]+?(?:\(4\)\s{0,3}[\s\S]+?)?(?:\(5\)\s{0,3}[\s\S]+?)?">選項為(1)(2)(3)(4)(5)</option>
+            <option value="（1）\s{0,3}[\s\S]+?（2）\s{0,3}[\s\S]+?（3）\s{0,3}[\s\S]+?(?:（4）\s{0,3}[\s\S]+?)?(?:（5）\s{0,3}[\s\S]+?)?">選項為（1）（2）（3）（4）（5）</option>
+            <option value="①\s{0,3}[\s\S]+?②\s{0,3}[\s\S]+?③\s{0,3}[\s\S]+?(?:④\s{0,3}[\s\S]+?)?(?:⑤\s{0,3}[\s\S]+?)?">選項為①②③④⑤</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <input class="button" id="applyAllPattern" type="button" value="套用樣式進行篩選">
+    <input class="button" id="btn" type="button" value="產生考卷">
+    <button id="createExam" class="button">產生考卷2</button>
+    <li>本地題庫
+      <input class="button" id="saveOringinQaBtn" type="button" value="儲存原始題庫">
+      <input class="button" id="loadOringinQaBtn" type="button" value="讀取原始題庫">
+    </li>
+    <li>雲端
+      <input class="oringinQaName" id="oringinQaName_field" type="text" value="" placeholder="為原始題庫取名" required>
+      <input class="button" id="saveOringinQaToFirestoreBtn" type="button" value="原始題庫儲存到雲端資料庫">
+    </li>
+    <li>
+      <select class="choose" name="oringinQaNameOnFirestore" id="oringinQaNameOnFirestore">
+        <option>題庫名稱</option>
+      </select>
+      <input class="button" id="loadOringinQaFromFirestoreBtn" type="button" value="從雲端資料庫讀取原始題庫">
+    </li>
+  </div>
+  
+  <div id="containerOfResult">
+    <table id="testTable"></table>
+	<div hidden>
+      <label class="flex-column" id="promptOfResultOfGetQuestionsNumbers">
+        <text class="text">題號篩選結果:</text>
+        <textarea class="texebox item1" id="ResultOfGetQuestionsNumbers"></textarea>
+      </label>
+        <label class="flex-column" id="promptOfResultOfAnswers">
+        <text class="text">答案篩選結果:</text>
+        <textarea class="texebox item1" id="ResultOfAnswers"></textarea>
+      </label>
+        <label class="flex-column" id="promptOfResultOfGetQuestions">
+        <text class="text">題目篩選結果:</text>
+        <textarea class="texebox item2" id="ResultOfGetQuestions"></textarea>
+      </label>
+        <label class="flex-column" id="promptOfResultOfChoices">
+        <text class="text">選項篩選結果:</text>
+        <textarea class="texebox item2" id="ResultOfChoices"></textarea>
+      </label>
+    </div>
+    <li>本地題庫
+      <input class="button" id="saveResultBtn" type="button" value="儲存篩選結果">
+      <input class="button" id="loadResultBtn" type="button" value="讀取篩選結果">
+    </li>
+    <li>雲端
+      <input class="resultName" id="resultName_field" type="text" value="" placeholder="為篩選結果取名" required>
+      <input class="button" id="saveResultToFirestoreBtn" type="button" value="篩選結果儲存到雲端資料庫">
+      <select class="choose" name="ResultNameOnFirestore" id="ResultNameOnFirestore">
+        <option>題庫名稱</option>
+      </select>
+      <input class="button" id="loadResultFromFirestoreBtn" type="button" value="從雲端資料庫讀取篩選結果">
+    </li>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+  <script>
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyAg9Jg4jQFhfbnTHp_m9DqD0P69qtoqbFU",
@@ -169,7 +131,7 @@
     };
     firebase.initializeApp(config);
   </script>
-<script>
+  <script>
     let columnsObj = {};
     let columnsSetting = [
       {
@@ -200,7 +162,7 @@
       height: 200,
       layout:"fitColumns",
       pagination: 'local',
-      paginationbuttonCount: 15,
+      paginationButtonCount: 15,
       placeholder: '無篩選結果資料',
       columns: columnsSetting
     };
@@ -866,7 +828,5 @@
       }
     }
   </script>
-
 </body>
-
 </html>

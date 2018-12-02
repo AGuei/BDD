@@ -1,0 +1,39 @@
+﻿body {
+	background-color: #8FBC8F;
+	margin-left: 5%;
+	margin-right: 5%;
+	text-align: center;
+}
+.PasteQATextArea {
+	width: 99%;
+	height: 100px;
+	text-align: center;
+	background-color: #847c59;
+}
+.Filter-condition {
+	width: 100%;
+}
+td [type=button] {
+	width: 99%;
+}
+[type=text] {
+	width: 98%;
+	text-align: center;
+}
+.Name-selection {
+	text-align: center;
+	width: 99%;
+	text-indent:38%;	
+	}
+.ms-prof-1000-main {
+	border-left: .75pt solid black;
+	border-right-style: none;
+	border-top: .75pt solid black;
+	border-bottom-style: none;
+}
+.ms-prof-1000-even {
+	border-left-style: none;
+	border-right: .75pt solid black;
+	border-top-style: none;
+	border-bottom: .75pt solid black;
+}

@@ -1,6 +1,7 @@
-body{
-	background-color:#271c11;
-	color:white;
+body {
+	background-color: #8FBC8F;
+	margin-left: 5%;
+	margin-right: 5%;
 }
 #questionsAndAnswersContainer{
 	text-align:center;
