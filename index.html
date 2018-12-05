@@ -357,9 +357,11 @@
     }
     function createExamHtml () {
       updateTextarea();
-      correctArray = [];
       examObject = getExamObjectArray(textareaContainer());
       let examTable = makeTable(examObject);
+      localStorage.setItem('correctArray', JSON.stringify(correctArray));
+      localStorage.setItem('examTable', JSON.stringify(examTable.innerHTML));
+      let examWindow = window.open('exam.html', 'exam').document.body.appendChild(examTable.cloneNode(true));      
       if (!document.getElementById('examTable')) {
         document.body.appendChild(examTable);
       } else {
@@ -379,6 +381,10 @@
         delegateOfCheckAll(examObject);
       }, false);
       examTable.appendChild(btn);
+      localStorage.setItem('correctArray', JSON.stringify(correctArray));
+      localStorage.setItem('examTable', JSON.stringify(examTable.innerHTML));
+      localStorage.setItem('examObject', JSON.stringify(examObject));
+      let examWindow = window.open('exam.html', 'exam').document.body.appendChild(examTable.cloneNode(true));
       if (!document.getElementById('examTable')) {
         document.body.appendChild(examTable);
       } else {
@@ -648,6 +654,7 @@
           tbody.appendChild(tr);
         }
       }
+      localStorage.setItem('correctArray', JSON.stringify(correctArray));
       tbody.addEventListener('click',delegateOfCheck, false);
       table.appendChild(tbody);
       return table;
