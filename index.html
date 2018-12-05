@@ -20,6 +20,8 @@
   <h1 class="centerTitle">輸入原始題庫</h1>
   <div class="questionsAndAnswersContainer" id="questionsAndAnswersContainer">
     <textarea class="texebox" name="textarea" id="questionsAndAnswers"></textarea>
+    <button id="removeNewLine" class="button">移除換行(題號在答案之前)</button>
+    <button id="removeNewLine2" class="button">移除換行(答案在題號之前)</button>
   </div>
   <div class="patternContainer" id="patternContainer">
     <h1 class="centerTitle">選擇樣式</h1>
@@ -191,6 +193,20 @@
     let optionsOfQuestionsNumbersPattern = selectOfQuestionsNumbersPattern.options;
     let selectOfChoicesPattern = document.getElementById('choicesPattern');
     let optionsOfChoicesPattern = selectOfChoicesPattern.options;
+    document.getElementById('removeNewLine').addEventListener('click', removeNewLine, false);
+    function removeNewLine () {
+      let qNumPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
+      let ansPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
+      let removePattern = '\\n(?! {0,3}' + qNumPattern + ')/gmu';      
+      questionsAndAnswers.value =  questionsAndAnswers.value.replace(stringToRegexp(removePattern), '');
+    }
+    document.getElementById('removeNewLine2').addEventListener('click', removeNewLine2, false);
+    function removeNewLine2 () {      
+      let ansPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
+      ansPattern = ansPattern.replace(/(\[.+\])/, '\\n$1\\n');
+      let newLinePattern = '\\n(?!' + ansPattern + ')/gmu';
+      questionsAndAnswers.value =  questionsAndAnswers.value.replace(stringToRegexp(newLinePattern), '');
+    }
     function applyQuestionsNumbersPattern () {
       let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
       let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
