@@ -68,3 +68,7 @@ body{
 .noWrap {
 	white-space: nowrap;
 }
+table {
+	display: flex;
+	flex-direction: column;
+}
