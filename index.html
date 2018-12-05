@@ -75,20 +75,28 @@
       </div>
       <div class="cloud flex-column">
         <h2 class="centerTitle">雲端</h2>
+        <div class="logOut hide">
+          <button class="logInButton button">登入使用雲端資料庫</button>
+        </div>
+        <div class="logIn">
         <label>第一步：先輸入題庫名稱
           <input class="oringinQaName" id="oringinQaName_field" type="text" value="" placeholder="為原始題庫取名" required>
         </label>
+          <br />
         <label>第二步：存到雲端
           <button class="button" id="saveOringinQaToFirestoreBtn">原始題庫儲存到雲端</button>
         </label>
+          <br />
         <label>讀取
           <select class="choose" name="oringinQaNameOnFirestore" id="oringinQaNameOnFirestore">
             <option>題庫名稱</option>
           </select>
         </label>
         <button class="button" id="loadOringinQaFromFirestoreBtn" type="button" >從雲端讀取原始題庫</button>
+          <button class="logOutButton button">登出</button>
       </div>
     </div>
+  </div>
   </div>
   <div id="containerOfResult">
     <h1 class="centerTitle">篩選結果</h1>
@@ -119,20 +127,28 @@
       </div>
       <div class="cloud flex-column">
         <h2 class="centerTitle">雲端</h2>
+        <div class="logOut">
+          <button class="logInButton button">登入使用雲端資料庫</button>
+        </div>
+        <div class="logIn hide">
         <label>第一步：先輸入題庫名稱
           <input class="resultName" id="resultName_field" type="text" value="" placeholder="為篩選結果取名" required>
         </label>
+          <br />
         <label>第二步：存到雲端
           <button class="button" id="saveResultToFirestoreBtn">篩選結果儲存到雲端</button>
         </label>
+          <br />
         <label>讀取
           <select class="choose" name="ResultNameOnFirestore" id="ResultNameOnFirestore">
             <option>題庫名稱</option>
           </select>
         </label>
         <button class="button" id="loadResultFromFirestoreBtn">從雲端讀取篩選結果</button>
+          <button class="logOutButton button">登出</button>
       </div>
     </div>
+  </div>
   </div>
   <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
@@ -362,12 +378,7 @@
       localStorage.setItem('correctArray', JSON.stringify(correctArray));
       localStorage.setItem('examTable', JSON.stringify(examTable.innerHTML));
       let examWindow = window.open('exam.html', 'exam').document.body.appendChild(examTable.cloneNode(true));      
-      if (!document.getElementById('examTable')) {
-        document.body.appendChild(examTable);
-      } else {
-        document.body.replaceChild(examTable, document.getElementById('examTable'));
       }
-    }
     btn.addEventListener('click', createExamHtml, false);
     function createExamWithCheckAll () {
       if (document.getElementById('displayResult')) {
@@ -387,14 +398,7 @@
       localStorage.setItem('examTable', JSON.stringify(examTable.innerHTML));
       localStorage.setItem('examObject', JSON.stringify(examObject));
       let examWindow = window.open('exam.html', 'exam').document.body.appendChild(examTable.cloneNode(true));
-      if (!document.getElementById('examTable')) {
-        document.body.appendChild(examTable);
-      } else {
-        document.body.replaceChild(examTable, document.getElementById('examTable'));
       }
-      let tbody = document.getElementsByTagName('tbody');
-      tbody[0].removeEventListener('click', delegateOfCheck, false);
-    }
     let createExamBtn = document.getElementById('createExam');
     createExamBtn.addEventListener('click', createExamWithCheckAll, false);
     function changeTextareaDataToTabulator () {
@@ -581,6 +585,37 @@
       const name = document.querySelector('#ResultNameOnFirestore > option:checked').textContent;
       loadFromFirestore( 'result_' + name, 'containerOfResult');
     });
+    for ( let i = 0; i < 2; i++) {
+      document.getElementsByClassName('logInButton')[i]
+        .addEventListener('click', function () {
+          firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        })
+    }
+    for(let i = 0; i < 2; i++) {
+      document.getElementsByClassName('logOutButton')[i]
+        .addEventListener('click', function () {
+          firebase.auth().signOut()
+            .then(() => console.log('已登出'));
+        })
+    }
+    firebase.auth().onAuthStateChanged(firebaseUser => {
+      let i;
+      if(firebaseUser) {
+        for( i = 0; i < 2; i++) {
+          document.getElementsByClassName('logIn')[i]
+            .classList.remove('hide');
+          document.getElementsByClassName('logOut')[i]
+            .classList.add('hide');
+        }
+      } else {
+        for( i = 0; i< 2; i++) {
+          document.getElementsByClassName('logOut')[i]
+            .classList.remove('hide');
+          document.getElementsByClassName('logIn')[i]
+            .classList.add('hide');
+        }
+      }
+    })
     var correctArray = [];
     function makeTable (data) {
       correctArray = [];
