@@ -214,8 +214,8 @@
       let labelId = 'promptOfResultOfGetQuestionsNumbers';
       let textAreaId = 'ResultOfGetQuestionsNumbers';
       let captureQN = '(' + questionsNumbersPattern + ')';
-      let orderOne = '^' + captureQN + '\\s{0,3}' + answersPattern + '/gmu';
-      let orderTwo = '^' + answersPattern + '\\s{0,3}' + captureQN + '/gmu';
+      let orderOne = '^ {0,3}' + captureQN + '\\s{0,3}' + answersPattern + '/gmu';
+      let orderTwo = '^ {0,3}' + answersPattern + '\\s{0,3}' + captureQN + '/gmu';
       let questionsNumbersArray = [];
       if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
         questionsNumbersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
@@ -243,10 +243,10 @@
       let startPatternOrderTwo = answersPattern + '\\s{0,3}' +
                       questionsNumbersPattern;
       let orderOne = '(?:' + startPatternOrderOne + questionsPattern + ')' +
-                      captureChoices + '(?=^' + startPatternOrderOne + '|(?!\\n)$)' +
+                      captureChoices + '(?=^ {0,3}' + startPatternOrderOne + '|(?!\\n)$)' +
                       '/gmu';
       let orderTwo = '(?:' + startPatternOrderTwo + questionsPattern + ')' +
-                      captureChoices + '(?=^' + startPatternOrderTwo + '|(?!\\n)$)' +
+                      captureChoices + '(?=^ {0,3}' + startPatternOrderTwo + '|(?!\\n)$)' +
                       '/gmu';
       let choicesArray = [];
       if (getRegexpResultArray(questionsAndAnswers.value, orderOne, choicesObject).length !== 0) {
@@ -273,8 +273,8 @@
       let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
       let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
       let captureAns = answersPattern.replace(/\[/gmu,'(\[').replace(/\]/gmu,'\])');
-      let orderOne = '^' + captureAns + '\\s{0,3}' + questionsNumbersPattern + '/gmu';
-      let orderTwo = '^' + questionsNumbersPattern + '\\s{0,3}' + captureAns + '/gmu';
+      let orderOne = '^ {0,3}' + captureAns + '\\s{0,3}' + questionsNumbersPattern + '/gmu';
+      let orderTwo = '^ {0,3}' + questionsNumbersPattern + '\\s{0,3}' + captureAns + '/gmu';
       let answersArray = [];
       if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
         answersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
@@ -298,13 +298,13 @@
       let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
       let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
       let captureQuestions = '([\\s\\S]+?)';
-      let orderOne = '^' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
+      let orderOne = '^ {0,3}' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
                       '\\s{0,3}' + captureQuestions + '\\s{0,3}' + choicesPattern +
-                      '(?=^' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
+                      '(?=^ {0,3}' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
                       '|$)' + '/gmu';
-      let orderTwo = '^' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
+      let orderTwo = '^ {0,3}' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
                       '\\s{0,3}' + captureQuestions + '\\s{0,3}' + choicesPattern +
-                      '(?=^' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
+                      '(?=^ {0,3}' + answersPattern + '\\s{0,3}' + questionsNumbersPattern +
                       '|$)' + '/gmu';
       let questionsArray = [];
       if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
