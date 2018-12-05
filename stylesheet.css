@@ -52,7 +52,7 @@ body{
 	color:red;
 }
 
-.saveLoadContainer {
+.saveLoadContainer, .logOut {
 	display: flex;
 	justify-content: center;
 	width: inherit;
@@ -71,4 +71,8 @@ body{
 table {
 	display: flex;
 	flex-direction: column;
+}
+
+.hide {
+	display: none;
 }
