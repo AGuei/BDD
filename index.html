@@ -370,8 +370,10 @@
     }
     btn.addEventListener('click', createExamHtml, false);
     function createExamWithCheckAll () {
+      if (document.getElementById('displayResult')) {
+        document.getElementById('displayResult').remove();
+      }
       examObject = getExamObjectArray(textareaContainer());
-      correctArray = [];
       let examTable = makeTable(examObject);
       let btn = document.createElement('button');
       btn.id = 'calculate';
@@ -751,14 +753,56 @@
         });
       }
       let prompMsg = '尚有未作答的題目，確定要交卷嗎？';
+      function displayExamResult(result) {
+        let msg = '總共答對' + result.correctTimes + '題';
+        let msg2 = '總共答錯' + result.wrongQaArray.length + '題';
+        let section = document.createElement('section');
+        section.id = 'displayResult';
+        let p = document.createElement('p');
+        let p2 = document.createElement('p');        
+        p.textContent = msg;
+        p2.textContent = msg2;
+        section.appendChild(p);
+        section.appendChild(p2);
+        if (result.wrongQaArray.length > 0) {
+          let btn = document.createElement('button');
+          btn.textContent = '針對答錯題目繼續練習';
+          btn.addEventListener('click', function () {
+            if (document.getElementById('displayResult')) {
+              document.getElementById('displayResult').remove();
+            }
+            correctArray = [];
+            let examTable = makeTable(result.wrongQaArray);            
+            let btn = document.createElement('button');
+            btn.id = 'calculate';
+            btn.class = 'button';
+            btn.textContent = '計算成績';
+            btn.addEventListener('click', e => {
+              delegateOfCheckAll(result.wrongQaArray);
+            }, false);
+            examTable.appendChild(btn);
+            if (!document.getElementById('examTable')) {
+              document.body.appendChild(examTable);
+            } else {
+              document.body.replaceChild(examTable, document.getElementById('examTable'));
+            }
+            let tbody = document.getElementsByTagName('tbody');
+            tbody[0].removeEventListener('click', delegateOfCheck, false);
+          }, false);
+          section.appendChild(btn);
+        }
+        return section;
+      }
       if (!checkedOnceAtleast()) {
         if (confirm(prompMsg)) {
-          let examResult = checkAns();
-          examResult.wrongTimes = examResult.correctTimes - examResult.wrongQaArray.length;
-
+          if (!document.getElementById('displayResult')){
+            document.body.appendChild(displayExamResult(checkAns()));
+          } else {
+            document.body.replaceChild(displayExamResult(checkAns()), document.getElementById('displayResult'));
+          }
         }
       } else {
-        console.log(checkAns());
+        document.body.appendChild(displayExamResult(checkAns()));
       }
       function checkAns () {
         let result = {
@@ -832,7 +876,11 @@
           }
         });
         Object.getOwnPropertyNames(groupNames).map(groupName => {
+          if (document.querySelector('input[name=' + groupName + ']:checked')) {
+            return null;
+          } else {
           return document.querySelector('input[name=' + groupName + ']:not(:checked)');
+          }
         }).filter(ele => {
           return ele !== null;
         }).forEach(ele => {
