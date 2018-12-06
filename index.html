@@ -467,18 +467,19 @@
           if (docSnapshot.exists) {
             let obj = {};
             let selectEle = document.getElementById(id);
-            let options = selectEle.children;
-            for(let i = 1; i < options.length; i++) {
-              obj[options[i].textContent] = options[i].textContent;
-            }
+            let selectEle2 = document.createElement('select');
+            selectEle2.className = selectEle.className;
+            selectEle2.name = selectEle.name;
+            selectEle2.id = id;            
+            let optionFirst = document.createElement('option');            
+            selectEle2.appendChild(optionFirst);
             Object.keys(docSnapshot.data()[str]).map(name => {
               let option = document.createElement('option');
               option.textContent = name;
-              if (!obj.hasOwnProperty(name)) {
-                selectEle.appendChild(option);
-              }
-              options[0].textContent = '題庫名稱共 ' + (options.length - 1) + ' 筆';
+              selectEle2.appendChild(option);
             });
+            selectEle2.children[0].textContent = '雲端題庫名稱共 ' + Object.keys(docSnapshot.data()[str]).length + ' 筆';
+            selectEle.replaceWith(selectEle2);
           }
         }) 
       }
