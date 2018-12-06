@@ -87,12 +87,15 @@
           <button class="button" id="saveOringinQaToFirestoreBtn">原始題庫儲存到雲端</button>
         </label>
           <br />
-        <label>讀取
+          <label>第三步：選取名稱
           <select class="choose" name="oringinQaNameOnFirestore" id="oringinQaNameOnFirestore">
-            <option>題庫名稱</option>
+              <option>雲端題庫名稱</option>
           </select>
         </label>
-        <button class="button" id="loadOringinQaFromFirestoreBtn" type="button" >從雲端讀取原始題庫</button>
+          <br />
+          <button class="button" id="loadOringinQaFromFirestoreBtn" type="button" >讀取原始題庫</button>
+          <button class="button" id="removeOringingQaFromFirestoreBtn">移除原始題庫</button>
+          <br />
           <button class="logOutButton button">登出</button>
       </div>
     </div>
@@ -139,12 +142,15 @@
           <button class="button" id="saveResultToFirestoreBtn">篩選結果儲存到雲端</button>
         </label>
           <br />
-        <label>讀取
+          <label>第三步：選取名稱
           <select class="choose" name="ResultNameOnFirestore" id="ResultNameOnFirestore">
-            <option>題庫名稱</option>
+              <option>雲端題庫名稱</option>
           </select>
         </label>
-        <button class="button" id="loadResultFromFirestoreBtn">從雲端讀取篩選結果</button>
+          <br />
+          <button class="button" id="loadResultFromFirestoreBtn">讀取篩選結果</button>
+          <button class="button" id="removeResultFromFirestoreBtn">移除篩選結果</button>
+          <br />
           <button class="logOutButton button">登出</button>
       </div>
     </div>
@@ -586,6 +592,29 @@
       const name = document.querySelector('#ResultNameOnFirestore > option:checked').textContent;
       loadFromFirestore( 'result_' + name, 'containerOfResult');
     });
+    document.getElementById('removeOringingQaFromFirestoreBtn')
+      .addEventListener('click', function () {
+        let itemName = document.getElementById('oringinQaNameOnFirestore').selectedOptions[0].textContent;
+        removeItem('allQaName', itemName);
+        removeItem('oringinQa_', itemName);
+        loadNameFromFirestore('allQaName', 'oringinQaNameOnFirestore');
+      });
+    document.getElementById('removeResultFromFirestoreBtn')
+      .addEventListener('click', function () {
+        let itemName = document.getElementById('ResultNameOnFirestore').selectedOptions[0].textContent;
+        removeItem('allResultName', itemName);
+        removeItem('result_', itemName);
+        loadNameFromFirestore('allResultName', 'ResultNameOnFirestore');
+      });
+    function removeItem(fieldName, itemName) {
+      let user = firebase.auth().currentUser;
+      let userRef = db.collection('users').doc(user.uid);
+      let str = fieldName + '.' + itemName;
+      userRef.update({
+        [str]: firebase.firestore.FieldValue.delete(),
+        [fieldName + itemName]: firebase.firestore.FieldValue.delete()
+      })
+    }
     for ( let i = 0; i < 2; i++) {
       document.getElementsByClassName('logInButton')[i]
         .addEventListener('click', function () {
