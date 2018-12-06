@@ -487,7 +487,7 @@
     let saveOringinQaToFirestoreBtn = document.getElementById('saveOringinQaToFirestoreBtn');
     let loadOringinQaFromFirestoreBtn = document.getElementById('loadOringinQaFromFirestoreBtn');
     saveOringinQaToFirestoreBtn.addEventListener('click', function () {
-      let qaName = document.getElementById('oringinQaName_field').value;
+      let qaName = document.getElementById('oringinQaName_field').value.trim();
       let qaTextContent = questionsAndAnswers.value;
       saveToFirestore( 'oringinQa_'+ qaName, qaTextContent);
     });
@@ -571,7 +571,7 @@
     let saveResultToFirestoreBtn = document.getElementById('saveResultToFirestoreBtn');
     let loadResultFromFirestoreBtn = document.getElementById('loadResultFromFirestoreBtn');
     saveResultToFirestoreBtn.addEventListener('click', function () {
-      let resultName = document.getElementById('resultName_field').value;
+      let resultName = document.getElementById('resultName_field').value.trim();
       updateTextarea();
       let htmlObjects = textareaContainer();
       let textareaObject = {
