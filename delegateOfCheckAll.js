@@ -94,6 +94,13 @@ function delegateOfCheckAll (data) {
         let radioGroup = document.querySelectorAll(
           'li input[name = singleChoicesGroup_' + qNum + ']'
         );
+        radioGroup.forEach(ele => {
+          let parentNode = ele.parentNode;
+          let ansText = ele.nextSibling.textContent;
+          if (ansText === correctArray[qNum][0]) {
+            parentNode.classList.add('correctAns');
+          }
+        });
         disableEles(radioGroup);
       } else if (ele.type === 'checkbox') {
         let checkboxGroup = document.querySelectorAll(
