@@ -295,8 +295,19 @@
       let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
       let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
       let captureAns = answersPattern.replace(/\[/gmu,'(\[').replace(/\]/gmu,'\])');
-      let orderOne = '^ {0,3}' + captureAns + '\\s{0,3}' + questionsNumbersPattern + '/gmu';
-      let orderTwo = '^ {0,3}' + questionsNumbersPattern + '\\s{0,3}' + captureAns + '/gmu';
+      let orderOne = '^ {0,3}' + captureAns
+                    + '(?:' + captureAns + ')?'
+                    + '(?:' + captureAns + ')?'
+                    + '(?:' + captureAns + ')?'
+                    + '(?:' + captureAns + ')?'
+                    +'\\s{0,3}' + questionsNumbersPattern + '/gmu';
+      let orderTwo = '^ {0,3}' + questionsNumbersPattern + '\\s{0,3}' 
+                    + captureAns
+                    + '(?:' + captureAns + ')?'
+                    + '(?:' + captureAns + ')?'
+                    + '(?:' + captureAns + ')?'
+                    + '(?:' + captureAns + ')?'
+                    + '/gmu';
       let answersArray = [];
       if (getRegexpResultArray(questionsAndAnswers.value, orderOne).length !== 0) {
         answersArray = getRegexpResultArray(questionsAndAnswers.value, orderOne);
@@ -319,6 +330,11 @@
       let choicesPattern = optionsOfChoicesPattern[optionsOfChoicesPattern.selectedIndex].value;
       let questionsNumbersPattern = optionsOfQuestionsNumbersPattern[optionsOfQuestionsNumbersPattern.selectedIndex].value;
       let answersPattern = optionsOfAnswersPattern[optionsOfAnswersPattern.selectedIndex].value;
+      answersPattern = answersPattern
+                      + '(?:' + answersPattern + ')?'
+                      + '(?:' + answersPattern + ')?'
+                      + '(?:' + answersPattern + ')?'
+                      + '(?:' + answersPattern + ')?';
       let captureQuestions = '([\\s\\S]+?)';
       let orderOne = '^ {0,3}' + questionsNumbersPattern + '\\s{0,3}' + answersPattern +
                       '\\s{0,3}' + captureQuestions + '\\s{0,3}' + choicesPattern +

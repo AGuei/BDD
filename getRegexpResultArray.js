@@ -21,19 +21,22 @@
     let resultArray = [];
     while ((matchResult = regexp.exec(questions)) !== null) {
       if (matchResult.length > 1) {
+        let tempArray = [];
         for (let i = 1; i < matchResult.length; i++) {
           if (matchResult[i]) {
             matchResult[i] = matchResult[i].trim().replace(/\n*/gm, '');
             if (!choicesObject) {
-              resultArray.push(matchResult[i]);
+              tempArray.push(matchResult[i]);
             } else {
               choicesObject.choices.push(matchResult[i]);
             }
           }
-        }
+        }        
         if (choicesObject) {
           resultArray.push(choicesObject);
           choicesObject = { choices: [] };
+        } else {
+          resultArray.push(tempArray);
         }
       } else {
         resultArray.push(matchResult[0]);
