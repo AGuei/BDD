@@ -19,12 +19,12 @@
     let examObject = JSON.parse(localStorage.getItem('examObject'));
     table.innerHTML = JSON.parse(localStorage.getItem('examTable'));
     document.body.appendChild(table);
-    document.querySelector('tbody').addEventListener('click', delegateOfCheck, false);
     if (document.getElementById('calculate')) {      
       document.getElementById('calculate').addEventListener('click', e => {
         delegateOfCheckAll(examObject);
       }, false);
-      document.querySelector('tbody').removeEventListener('click', delegateOfCheck);
+    } else {
+      document.querySelector('tbody').addEventListener('click', delegateOfCheck, false);
     }
   </script>
 </body>

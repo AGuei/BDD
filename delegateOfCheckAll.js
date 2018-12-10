@@ -1,9 +1,4 @@
 function delegateOfCheckAll (data) {
-  function disableEles (eles) {
-    for (let i = 0; i < eles.length; i++) {
-      eles[i].disabled = true;
-    }
-  }
   function getGroupNames () {
     let groups = {};
     document.querySelectorAll('input[name]').forEach(inputNode => {
@@ -36,7 +31,7 @@ function delegateOfCheckAll (data) {
         if (document.getElementById('displayResult')) {
           document.getElementById('displayResult').remove();
         }
-        correctArray = [];
+        var correctArray = [];
         let examTable = makeTable(result.wrongQaArray);
         correctArray = JSON.parse(localStorage.getItem('correctArray'));
         let btn = document.createElement('button');
@@ -47,13 +42,7 @@ function delegateOfCheckAll (data) {
           delegateOfCheckAll(result.wrongQaArray);
         }, false);
         examTable.appendChild(btn);
-        if (!document.getElementById('examTable')) {
-          document.body.appendChild(examTable);
-        } else {
           document.body.replaceChild(examTable, document.getElementById('examTable'));
-        }
-        let tbody = document.getElementsByTagName('tbody');
-        tbody[0].removeEventListener('click', delegateOfCheck, false);
       }, false);
       section.appendChild(btn);
     }
