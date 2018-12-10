@@ -355,7 +355,7 @@
           addResultToTextArea(questionsArray, textAreaId, labelId);
       }
     }
-    let btn = document.getElementById('btn');
+    
     let applyPatternBtn = document.getElementById('applyAllPattern');
     applyPatternBtn.addEventListener('click', () => {
       applyQuestionsNumbersPattern();
@@ -402,7 +402,8 @@
       localStorage.setItem('examTable', JSON.stringify(examTable.innerHTML));
       let examWindow = window.open('exam.html', 'exam').document.body.appendChild(examTable.cloneNode(true));      
       }
-    btn.addEventListener('click', createExamHtml, false);
+    document.getElementById('btn')
+      .addEventListener('click', createExamHtml, false);
     function createExamWithCheckAll () {
       if (document.getElementById('displayResult')) {
         document.getElementById('displayResult').remove();
@@ -422,8 +423,8 @@
       localStorage.setItem('examObject', JSON.stringify(examObject));
       let examWindow = window.open('exam.html', 'exam').document.body.appendChild(examTable.cloneNode(true));
       }
-    let createExamBtn = document.getElementById('createExam');
-    createExamBtn.addEventListener('click', createExamWithCheckAll, false);
+    document.getElementById('createExam')
+      .addEventListener('click', createExamWithCheckAll, false);
     function changeTextareaDataToTabulator () {
       let data = textareaContainer();
       function notEmptyStr (str) {
