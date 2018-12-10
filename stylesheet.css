@@ -31,6 +31,7 @@ body{
 	font-size:120%;
 	font-weight:bold;
 	cursor: pointer;
+	margin: 4px;
 }
 .button:hover{
 	background-color:lightgreen;
