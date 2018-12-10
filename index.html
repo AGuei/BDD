@@ -399,7 +399,7 @@
       examObject = getExamObjectArray(textareaContainer());
       let examTable = makeTable(examObject);
       localStorage.setItem('examTable', JSON.stringify(examTable.innerHTML));
-      let examWindow = window.open('exam.html', 'exam').document.body.appendChild(examTable.cloneNode(true));      
+      window.open('exam.html', 'exam');
       }
     document.getElementById('btn')
       .addEventListener('click', createExamHtml, false);
