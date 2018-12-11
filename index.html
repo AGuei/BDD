@@ -487,19 +487,17 @@
         .then(function (docSnapshot) {
           if (docSnapshot.exists) {
             let selectEle = document.getElementById(id);
-            let selectEle2 = document.createElement('select');
-            selectEle2.className = selectEle.className;
-            selectEle2.name = selectEle.name;
-            selectEle2.id = id;            
-            let optionFirst = document.createElement('option');            
-            selectEle2.appendChild(optionFirst);
+            selectEle.options.length = 0;
+            let optionFirst = document.createElement('option');
+            let fragment = document.createDocumentFragment();
+            fragment.appendChild(optionFirst);
             Object.keys(docSnapshot.data()[str]).map(name => {
               let option = document.createElement('option');
               option.textContent = name;
-              selectEle2.appendChild(option);
+              fragment.appendChild(option);
             });
-            selectEle2.children[0].textContent = '雲端題庫名稱共 ' + Object.keys(docSnapshot.data()[str]).length + ' 筆';
-            selectEle.replaceWith(selectEle2);
+            fragment.children[0].textContent = '雲端題庫名稱共 ' + Object.keys(docSnapshot.data()[str]).length + ' 筆';
+            selectEle.appendChild(fragment);
           }
         }) 
       }
