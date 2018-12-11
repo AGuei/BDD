@@ -202,7 +202,7 @@
       }
     ];
     columnsObj = {
-      height: 200,
+      height: 900,
       layout:"fitColumns",
       pagination: 'local',
       paginationButtonCount: 15,
@@ -537,6 +537,8 @@
               userRef.set(saveObject, {merge: true})
               .then(function() {
                 console.log("Document successfully updated!");
+                loadNameFromFirestore('allQaName', 'oringinQaNameOnFirestore');
+                loadNameFromFirestore('allResultName', 'ResultNameOnFirestore');
               })
               .catch(function(error) {
                 // The document probably doesn't exist.
