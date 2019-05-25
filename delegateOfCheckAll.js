@@ -7,7 +7,7 @@ function delegateOfCheckAll (data) {
     return groups;
   }
   let groupNames = getGroupNames();
-  function checkedOnceAtleast (groups) {
+  function checkedOnceAtleast () {
     return Object.getOwnPropertyNames(groupNames).every(groupName => {
       return document.querySelectorAll('input[name=' + groupName + ']:checked').length >= 1;
     });
@@ -30,10 +30,8 @@ function delegateOfCheckAll (data) {
       btn.addEventListener('click', function () {
         if (document.getElementById('displayResult')) {
           document.getElementById('displayResult').remove();
-        }
-        var correctArray = [];
-        let examTable = makeTable(result.wrongQaArray);
-        correctArray = JSON.parse(localStorage.getItem('correctArray'));
+        }        
+        let examTable = makeTable(result.wrongQaArray);        
         let btn = document.createElement('button');
         btn.id = 'calculate';
         btn.class = 'button';
@@ -64,6 +62,7 @@ function delegateOfCheckAll (data) {
       correctTimes: 0,
       wrongQaArray: []
     };
+    var correctArray = JSON.parse(localStorage.getItem('correctArray'));
     Object.getOwnPropertyNames(groupNames).map(groupName => {
       return document.querySelector('input[name=' + groupName + ']:checked');
     }).filter(ele => {
