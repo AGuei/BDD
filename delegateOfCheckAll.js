@@ -40,7 +40,7 @@ function delegateOfCheckAll (data) {
           delegateOfCheckAll(result.wrongQaArray);
         }, false);
         examTable.appendChild(btn);
-          document.body.replaceChild(examTable, document.getElementById('examTable'));
+        document.body.replaceChild(examTable, document.getElementById('examTable'));
       }, false);
       section.appendChild(btn);
     }
