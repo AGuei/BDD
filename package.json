@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/AGuei/BDD#readme",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-livereload": "^3.8.1",
     "jasmine": "^3.2.0",
     "jsdom": "^11.12.0",
